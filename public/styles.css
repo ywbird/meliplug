@@ -1,8 +1,38 @@
-.katex > * {
+.katex {
     font-size: 1.2em;
-    font-family: "Computer Modern Serif", serif !important;
 }
 
 pre {
     font-size: 0.8em;
+}
+
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+main {
+    position: relative;
+}
+
+main > p {
+    line-height: 2em;
+}
+
+body {
+    font-family: 'SUIT', sans-serif !important;
+}
+
+body>footer, body>header, body>main {
+    max-width: 800px;
+}
+
+main > [data-name="sidenote"] {
+    position: absolte;
+    translate: -100% -50px;
+    height: 0;
+    width: 60%;
 }

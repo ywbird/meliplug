@@ -10,7 +10,7 @@ axum = "0.8.1"
 chrono = "0.4.40"
 chrono-tz = "0.10.1"
 hotwatch = "0.5.0"
-katex = "0.4.6"
+katex = { version = "0.4.6", features = ["wasm-js"] }
 pulldown-cmark = "0.13.0"
 regex = "1.11.1"
 syntect = "5.2.0"

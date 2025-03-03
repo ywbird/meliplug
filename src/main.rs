@@ -20,7 +20,9 @@ use plugins::{
 #[template(path="layout.html")]
 struct Layout<'a> {
     title: &'a String,
+    date: &'a String,
     content: &'a String,
+    description: &'a String,
 }
 
 #[derive(PartialEq, Debug)]
@@ -28,6 +30,12 @@ struct Frontmatter {
     title: String,
     date: String,
     description: String,
+}
+
+#[derive(Debug)]
+struct Post {
+    frontmatter: Frontmatter,
+    slug: String,
 }
 
 const CONTENT_DIR: &str = "content";
@@ -51,7 +59,7 @@ fn build_post(content_dir: &str, output_dir: &str, public_dir: &str) -> Result<(
 	.filter(|p| p.ends_with(".md"))
 	.collect();
 
-    let mut html_files: Vec<String> = Vec::with_capacity(markdown_files.len());
+    let mut posts: Vec<Post> = Vec::with_capacity(markdown_files.len());
 
     for file in &markdown_files {
 	let raw_markdown = fs::read_to_string(&file)?;
@@ -113,21 +121,27 @@ fn build_post(content_dir: &str, output_dir: &str, public_dir: &str) -> Result<(
             .replace(content_dir, output_dir)
             .replace(".md", ".html");
 
-	let html = Layout { title: &frontmatter.title, content: &parsed };
+	let html = Layout { title: &frontmatter.title, date: &format_date(&frontmatter.date), description: &frontmatter.description, content: &parsed };
 
 	let folder = Path::new(&html_file).parent().unwrap();
         let _ = fs::create_dir_all(folder);
         fs::write(&html_file, html.render().unwrap())?;
 
-        html_files.push(html_file);
+	let post = Post {
+	    frontmatter,
+	    slug: html_file.replace(output_dir, ""),
+	};
+
+        posts.push(post);
     }
 
     println!("{:?}", markdown_files);
+    println!("{:?}", posts);
 
     Ok(())
 }
 
-fn _format_date(date: &String) -> String {
+fn format_date(date: &String) -> String {
     format!("{}", DateTime::parse_from_rfc3339(date.as_str()).expect("Error while parsing date").format("%d %b %Y"))
 }
 

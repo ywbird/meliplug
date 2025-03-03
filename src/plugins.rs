@@ -25,7 +25,7 @@ impl MathPlugin {
 		    let opts = katex::Opts::builder()
 			.display_mode(false)
 			.trust(true)
-			.output_type(OutputType::Mathml)
+			.output_type(OutputType::Html)
 			.build().unwrap();
 		    let html = katex::render_with_opts(&text, &opts).unwrap();
 		    Event::Html(html.into())
@@ -34,7 +34,7 @@ impl MathPlugin {
 		    let opts = katex::Opts::builder()
 			.display_mode(true)
 			.trust(true)
-			.output_type(OutputType::Mathml)
+			.output_type(OutputType::Html)
 			.build().unwrap();
 		    let html = katex::render_with_opts(&text, &opts).unwrap();
 		    Event::Html(html.into())
@@ -178,7 +178,6 @@ fn resolve_directive(start: &String) -> Directive {
     let mut attributes: HashMap<String, String> = HashMap::new();
     attributes.insert("class".to_string(), "".to_string());
     for term in raw_attrs.split_whitespace() {
-	println!("{}", &term);
 	let re_class_id = Regex::new(r#"(\.[a-z0-9\-]+)+"#).unwrap();
 	let re_val = Regex::new(r#"(?<name>[a-z\-]*)\=\"(?<val>.*)\""#).unwrap();
 
@@ -192,7 +191,7 @@ fn resolve_directive(start: &String) -> Directive {
 	    }
 	} else if re_val.is_match(&term) {
 	    let (_, [key, value]) = re_val.captures(&term).unwrap().extract();
-	    if (key == "tag") {
+	    if key == "tag" {
 		tag_name = value.to_string();
 	    } else {	
 		attributes.insert(key.to_string(), value.to_string());

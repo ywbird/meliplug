@@ -726,8 +726,10 @@ dependencies = [
  "cfg-if",
  "derive_builder",
  "itertools",
+ "js-sys",
  "quick-js",
  "thiserror",
+ "wasm-bindgen",
 ]
 
 [[package]]
