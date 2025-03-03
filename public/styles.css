@@ -1,0 +1,8 @@
+.katex > * {
+    font-size: 1.2em;
+    font-family: "Computer Modern Serif", serif !important;
+}
+
+pre {
+    font-size: 0.8em;
+}
