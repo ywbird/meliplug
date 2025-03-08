@@ -1,14 +1,31 @@
-use std::{fs, path::Path};
+use std::{
+    path::Path,
+    time::Duration,
+    collections::HashMap,
+    net::SocketAddr,
+    convert::Infallible,
+    env,
+    thread,
+    fs,
+};
 use pulldown_cmark::{
     Parser,
     Options,
     Event,
     Tag, TagEnd,
-    TextMergeStream
 };
 use yaml_rust2::{YamlLoader};
 use askama::Template;
 use chrono::{ DateTime };
+use toml::Table;
+use axum::{http::StatusCode, Router, routing::{get,get_service}};
+use tower_http::services::{ServeDir,ServeFile};
+use serde_json::Value;
+use socketioxide::{
+    extract::{AckSender, Data, SocketRef},
+    SocketIo
+};
+
 mod plugins;
 use plugins::{
     MathPlugin,
@@ -16,9 +33,16 @@ use plugins::{
     DirectivePlugin
 };
 
+mod utils;
+use utils::{
+    copy_recursively,
+    is_dev
+};
+
 #[derive(Template)]
 #[template(path="layout.html")]
 struct Layout<'a> {
+    dev: &'a bool,
     title: &'a String,
     date: &'a String,
     content: &'a String,
@@ -35,6 +59,7 @@ struct Frontmatter {
 #[derive(Debug)]
 struct Post {
     frontmatter: Frontmatter,
+    content: String,
     slug: String,
 }
 
@@ -44,99 +69,120 @@ const PUBLIC_DIR: &str = "public";
 
 #[tokio::main]
 async fn main() {
-    build_post(CONTENT_DIR, OUTPUT_DIR, PUBLIC_DIR).expect("Build site");
-}
+    println!("Running environment is {}.", { if is_dev() { "development" } else { "production" } });
 
-fn build_post(content_dir: &str, output_dir: &str, public_dir: &str) -> Result<(), anyhow::Error> {
-    let _ = fs::remove_dir_all(output_dir);
+    let config_file: String = fs::read_to_string("config.toml")
+	.expect("Failed to load config file. Does file exists?");
+    
+    println!("{:?}", config_file.parse::<Table>().expect("Failed to parse config file."));
 
-    let _ = copy_recursively(public_dir, output_dir);
+    let options = {
+	let mut opt = Options::empty();
 
-    let markdown_files:Vec<String> = walkdir::WalkDir::new(content_dir)
+	opt.insert(Options::ENABLE_STRIKETHROUGH);
+	opt.insert(Options::ENABLE_TABLES);
+	opt.insert(Options::ENABLE_TASKLISTS);
+	opt.insert(Options::ENABLE_YAML_STYLE_METADATA_BLOCKS);
+	opt.insert(Options::ENABLE_GFM);
+	opt.insert(Options::ENABLE_HEADING_ATTRIBUTES);
+	opt.insert(Options::ENABLE_MATH);
+
+	opt
+    };
+
+    let _ = fs::remove_dir_all(output_dir());
+
+    let _ = copy_recursively(PUBLIC_DIR, output_dir());
+
+    let markdown_files:Vec<String> = walkdir::WalkDir::new(CONTENT_DIR)
 	.into_iter()
 	.filter_map(|f| f.ok())
 	.map(|f| f.path().display().to_string())
 	.filter(|p| p.ends_with(".md"))
 	.collect();
 
-    let mut posts: Vec<Post> = Vec::with_capacity(markdown_files.len());
+    println!("Building Posts: {:?}", &markdown_files);
+    
+    rebuild_posts(CONTENT_DIR, output_dir().as_str(), markdown_files).expect("Build site");
+
+    let (layer, io) = SocketIo::new_layer();
+    
+    io.ns("/api", |socket: SocketRef, Data(data): Data<Value>| {
+        println!("Socket.IO connected. {} {}", socket.ns(), socket.id );
+        tokio::task::spawn_blocking(move || {  
+            println!("listenning for changes: {}", CONTENT_DIR);
+            let mut hotwatch = hotwatch::Hotwatch::new().expect("hotwatch failed to initialize!");
+            hotwatch
+                .watch(CONTENT_DIR, move |ev| {
+                    match ev.kind {
+                        hotwatch::EventKind::Modify(_) => {
+                            let paths: Vec<String> = ev.paths.into_iter().map(|p| {
+                                p.strip_prefix(env::current_dir().unwrap())
+                                    .unwrap().display().to_string()
+                            }).collect();
+
+                            println!("Updated posts: {:?}", paths);
+
+                            rebuild_posts(CONTENT_DIR, output_dir().as_str(), paths).expect("Rebuilding site");
+
+                            socket.emit("refresh", &());
+                        },
+                        _ => ()
+                    }
+                })
+                .expect("failed to watch content folder!");
+            loop {
+                thread::sleep(Duration::from_secs(1));
+            }
+        });
+    });
+
+    let app = Router::new()
+        // `GET /` goes to `root`
+        .fallback_service(
+            ServeDir::new(output_dir())
+                .not_found_service(ServeFile::new(format!("{}/404.html", output_dir()).as_str())))
+        .layer(layer);
+        
+    // run our app with hyper, listening globally on port 3000
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
+
+
+fn rebuild_posts(content_dir: &str, output_dir: &str, markdown_files: Vec<String>) -> Result<(), anyhow::Error> {
+    let mut posts: HashMap<String, Post> = HashMap::new();
+
+    let options = {
+	let mut opt = Options::empty();
+
+	opt.insert(Options::ENABLE_STRIKETHROUGH);
+	opt.insert(Options::ENABLE_TABLES);
+	opt.insert(Options::ENABLE_TASKLISTS);
+	opt.insert(Options::ENABLE_YAML_STYLE_METADATA_BLOCKS);
+	opt.insert(Options::ENABLE_GFM);
+	opt.insert(Options::ENABLE_HEADING_ATTRIBUTES);
+	opt.insert(Options::ENABLE_MATH);
+
+	opt
+    };
 
     for file in &markdown_files {
-	let raw_markdown = fs::read_to_string(&file)?;
-
-	let options = {
-	    let mut opt = Options::empty();
-
-	    opt.insert(Options::ENABLE_STRIKETHROUGH);
-	    opt.insert(Options::ENABLE_TABLES);
-	    opt.insert(Options::ENABLE_TASKLISTS);
-	    opt.insert(Options::ENABLE_YAML_STYLE_METADATA_BLOCKS);
-	    opt.insert(Options::ENABLE_GFM);
-	    opt.insert(Options::ENABLE_HEADING_ATTRIBUTES);
-	    opt.insert(Options::ENABLE_MATH);
-
-	    opt
-	};
-	
-	let mut raw_frontmatter = String::new();
-	let mut frontmatter_started = false;
-
-	let mut code_plugin = CodeHighlightPlugin::new();
-	let math_plugin = MathPlugin::new();
-	let mut directive_plugin = DirectivePlugin::new();
-	
-	let parser = Parser::new_ext(&raw_markdown, options)
-	    .map(|event| { // frontmatter 
-		match event {
-		    Event::Start(Tag::MetadataBlock(text)) => {
-			frontmatter_started = true;
-			Event::Start(Tag::MetadataBlock(text))
-		    },
-		    Event::End(TagEnd::MetadataBlock(text)) => {
-			frontmatter_started = false;
-			Event::End(TagEnd::MetadataBlock(text))
-		    },
-		    Event::Text(text) => {
-			if frontmatter_started {
-			    let _ = &raw_frontmatter.push_str(&text);
-			}
-			Event::Text(text)
-		    },
-		    _ => event
-		}
-	    })
-	    .map(math_plugin.apply())
-	    .map(code_plugin.apply())
-	    .map(directive_plugin.apply());
-
-	let mut parsed  = String::new();
-
-	pulldown_cmark::html::push_html(&mut parsed, parser);
-	
-	let frontmatter = extract_frontmatter(
-		&raw_frontmatter, &file)
-		.expect(format!("Error while exracting frontmatter from '{}'", &file).as_str());
-
 	let html_file = file
             .replace(content_dir, output_dir)
             .replace(".md", ".html");
 
-	let html = Layout { title: &frontmatter.title, date: &format_date(&frontmatter.date), description: &frontmatter.description, content: &parsed };
+	let post = parse_post(&file, &options, content_dir, output_dir).unwrap();
 
 	let folder = Path::new(&html_file).parent().unwrap();
         let _ = fs::create_dir_all(folder);
-        fs::write(&html_file, html.render().unwrap())?;
+        fs::write(&html_file, &post.content)?;
 
-	let post = Post {
-	    frontmatter,
-	    slug: html_file.replace(output_dir, ""),
-	};
-
-        posts.push(post);
+        posts.insert(
+	    file.to_string(),
+	    post
+	);
     }
-
-    println!("{:?}", markdown_files);
-    println!("{:?}", posts);
 
     Ok(())
 }
@@ -144,8 +190,6 @@ fn build_post(content_dir: &str, output_dir: &str, public_dir: &str) -> Result<(
 fn format_date(date: &String) -> String {
     format!("{}", DateTime::parse_from_rfc3339(date.as_str()).expect("Error while parsing date").format("%d %b %Y"))
 }
-
-
 
 fn extract_frontmatter(yaml: &String, file: &String) -> Result<Frontmatter, ()> {
     let values = &(YamlLoader::load_from_str(yaml).unwrap())[0];
@@ -169,18 +213,71 @@ fn extract_frontmatter(yaml: &String, file: &String) -> Result<Frontmatter, ()> 
     })
 }
 
-/// Copy files from source to destination recursively.
-pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>) -> std::io::Result<()> {
-    fs::create_dir_all(&destination)?;
-    for entry in fs::read_dir(source)? {
-        let entry = entry?;
-        let filetype = entry.file_type()?;
-        if filetype.is_dir() {
-            copy_recursively(entry.path(), destination.as_ref().join(entry.file_name()))?;
-        } else {
-            fs::copy(entry.path(), destination.as_ref().join(entry.file_name()))?;
-        }
-    }
-    Ok(())
+fn parse_post(file: &str, opts: &Options, content_dir: &str, output_dir: &str) -> Result<Post, anyhow::Error> {
+    let raw_markdown = fs::read_to_string(file)?;
+    
+    let mut raw_frontmatter = String::new();
+    let mut frontmatter_started = false;
+
+    let mut code_plugin = CodeHighlightPlugin::new();
+    let math_plugin = MathPlugin::new();
+    let mut directive_plugin = DirectivePlugin::new();
+    
+    let parser = Parser::new_ext(&raw_markdown, *opts)
+	.map(|event| { // frontmatter 
+	    match event {
+		Event::Start(Tag::MetadataBlock(text)) => {
+		    frontmatter_started = true;
+		    Event::Start(Tag::MetadataBlock(text))
+		},
+		Event::End(TagEnd::MetadataBlock(text)) => {
+		    frontmatter_started = false;
+		    Event::End(TagEnd::MetadataBlock(text))
+		},
+		Event::Text(text) => {
+		    if frontmatter_started {
+			let _ = &raw_frontmatter.push_str(&text);
+		    }
+		    Event::Text(text)
+		},
+		_ => event
+	    }
+	})
+	.map(math_plugin.apply())
+	.map(code_plugin.apply())
+	.map(directive_plugin.apply());
+
+    let mut parsed  = String::new();
+
+    pulldown_cmark::html::push_html(&mut parsed, parser);
+    
+    let frontmatter = extract_frontmatter(
+	&raw_frontmatter, &file.to_string())
+	.expect(format!("Error while exracting frontmatter from '{}'", file).as_str());
+
+    let html_file = file
+        .replace(content_dir, output_dir)
+        .replace(".md", ".html");
+
+    let html = Layout {
+	dev: &is_dev(),
+	title: &frontmatter.title.clone(),
+	date: &format_date(&frontmatter.date),
+	description: &frontmatter.description.clone(),
+	content: &parsed
+    };
+
+    Ok(Post {
+	frontmatter,
+	content: html.render().unwrap(),
+	slug: html_file.replace(output_dir, ""),
+    })
 }
 
+fn output_dir() -> String {
+    if is_dev() {
+        format!("{}/dev", OUTPUT_DIR)
+    } else {
+        format!("{}/production", OUTPUT_DIR)
+    }
+}

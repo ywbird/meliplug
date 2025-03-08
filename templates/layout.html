@@ -10,8 +10,39 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
   <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css" />
+  {% if dev %}
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
+
+  <script>
+    const socket = io("/api");
+
+    socket.on("connect", () => {
+	console.log(socket.connected); // true
+    });
+
+    socket.on("refresh", () => {
+	location.reload(true);
+    })
+  </script>
+
+  <style>
+    .dev-indicator {
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0.5rem;
+	font-weight: bold;
+	border: 1px solid white;
+	filter: drop-shadow(0 0 6px white);
+    }
+  </style>
+  {% endif %}
 </head>
 <body>
+  {% if dev %}
+  <div class="dev-indicator">DEV</div>
+  {% endif %}
+  
   {% include "header.html" %}
   <main>
     {{ description }}

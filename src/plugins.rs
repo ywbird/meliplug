@@ -1,10 +1,9 @@
 use regex::Regex;
 use katex::opts::OutputType;
 use syntect::{
-    easy::HighlightLines,
     parsing::SyntaxSet,
-    highlighting::{ThemeSet, Style},
-    html::{highlighted_html_for_string}
+    highlighting::ThemeSet,
+    html::highlighted_html_for_string
 };
 use pulldown_cmark::{
     Event,
