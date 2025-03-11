@@ -20,8 +20,11 @@
 	console.log(socket.connected); // true
     });
 
-    socket.on("refresh", () => {
-	location.reload(true);
+    socket.on("refresh", (ev) => {
+	console.log(ev);
+	if (ev.paths.includes(location.pathname)) {
+	    location.reload(true);
+	}
     })
   </script>
 

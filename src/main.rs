@@ -7,6 +7,7 @@ use std::{
     env,
     thread,
     fs,
+    sync::Arc
 };
 use pulldown_cmark::{
     Parser,
@@ -15,6 +16,7 @@ use pulldown_cmark::{
     Tag, TagEnd,
 };
 use yaml_rust2::{YamlLoader};
+use serde_json::json;
 use askama::Template;
 use chrono::{ DateTime };
 use toml::Table;
@@ -24,6 +26,10 @@ use serde_json::Value;
 use socketioxide::{
     extract::{AckSender, Data, SocketRef},
     SocketIo
+};
+use tokio::sync::{
+    Mutex,
+    mpsc
 };
 
 mod plugins;
@@ -103,54 +109,83 @@ async fn main() {
 
     println!("Building Posts: {:?}", &markdown_files);
     
-    rebuild_posts(CONTENT_DIR, output_dir().as_str(), markdown_files).expect("Build site");
+    rebuild_posts(CONTENT_DIR, output_dir().as_str(), &markdown_files).expect("Build site");
 
     let (layer, io) = SocketIo::new_layer();
+    let io = Arc::new(Mutex::new(io));
+
+    {
+        let io_clone = Arc::clone(&io);
+        io_clone.lock().await.ns("/api", on_connect);
+    }
+
+    let (tx, mut rx) = mpsc::channel(100);
     
-    io.ns("/api", |socket: SocketRef, Data(data): Data<Value>| {
-        println!("Socket.IO connected. {} {}", socket.ns(), socket.id );
-        tokio::task::spawn_blocking(move || {  
-            println!("listenning for changes: {}", CONTENT_DIR);
-            let mut hotwatch = hotwatch::Hotwatch::new().expect("hotwatch failed to initialize!");
-            hotwatch
-                .watch(CONTENT_DIR, move |ev| {
-                    match ev.kind {
-                        hotwatch::EventKind::Modify(_) => {
-                            let paths: Vec<String> = ev.paths.into_iter().map(|p| {
-                                p.strip_prefix(env::current_dir().unwrap())
-                                    .unwrap().display().to_string()
-                            }).collect();
+    let msg_handle_task = tokio::spawn(async move {
+        let io_clone = Arc::clone(&io);
 
-                            println!("Updated posts: {:?}", paths);
-
-                            rebuild_posts(CONTENT_DIR, output_dir().as_str(), paths).expect("Rebuilding site");
-
-                            socket.emit("refresh", &());
-                        },
-                        _ => ()
-                    }
-                })
-                .expect("failed to watch content folder!");
-            loop {
-                thread::sleep(Duration::from_secs(1));
-            }
-        });
+        while let Some(paths) = rx.recv().await {
+            io_clone.lock().await.of("/api").unwrap().emit("refresh", &json!({"paths": paths})).await;
+        }
     });
 
-    let app = Router::new()
-        // `GET /` goes to `root`
-        .fallback_service(
-            ServeDir::new(output_dir())
-                .not_found_service(ServeFile::new(format!("{}/404.html", output_dir()).as_str())))
-        .layer(layer);
+
+    let server_task = tokio::task::spawn(async move {
+        let app = Router::new()
+            // `GET /` goes to `root`
+            .fallback_service(
+                ServeDir::new(output_dir())
+                    .not_found_service(ServeFile::new(format!("{}/404.html", output_dir()).as_str())))
+            .layer(layer);
+
         
-    // run our app with hyper, listening globally on port 3000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    axum::serve(listener, app).await.unwrap();
+        // run our app with hyper, listening globally on port 3000
+        let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+        axum::serve(listener, app.into_make_service()).await.unwrap()
+    });
+
+    let hotwatch_task = tokio::task::spawn(async move {
+        println!("listenning for changes: {}", CONTENT_DIR);
+        let mut hotwatch = hotwatch::Hotwatch::new().expect("hotwatch failed to initialize!");
+        hotwatch
+            .watch(CONTENT_DIR, move |ev| {
+                match ev.kind {
+                    hotwatch::EventKind::Modify(_) => {
+                        let paths: Vec<String> = ev.paths.into_iter().map(|p| {
+                            p.strip_prefix(env::current_dir().unwrap())
+                                .unwrap()
+                                .display()
+                                .to_string()
+                        }).collect();
+
+                        println!("Updated posts: {:?}", paths);
+
+                        let web_paths: Vec<String> = paths.clone().into_iter().map(|p| {
+                            p.replace(CONTENT_DIR, "").replace(".md", ".html")
+                        }).collect();
+
+                        rebuild_posts(CONTENT_DIR, output_dir().as_str(), &paths).expect("Rebuilding site");
+
+                        tx.blocking_send(web_paths.clone()).unwrap();
+                    },
+                    _ => ()
+                }
+            })
+            .expect("failed to watch content folder!");
+        loop {
+            tokio::time::sleep(Duration::from_secs(1)).await;
+        }
+    });
+
+    tokio::try_join!(server_task, hotwatch_task, msg_handle_task).unwrap();
+}
+
+fn on_connect(socket: SocketRef, Data(data): Data<Value>) {
+    println!("Socket.IO connected. {} {}", socket.ns(), socket.id );
 }
 
 
-fn rebuild_posts(content_dir: &str, output_dir: &str, markdown_files: Vec<String>) -> Result<(), anyhow::Error> {
+fn rebuild_posts(content_dir: &str, output_dir: &str, markdown_files: &Vec<String>) -> Result<(), anyhow::Error> {
     let mut posts: HashMap<String, Post> = HashMap::new();
 
     let options = {
@@ -167,7 +202,7 @@ fn rebuild_posts(content_dir: &str, output_dir: &str, markdown_files: Vec<String
 	opt
     };
 
-    for file in &markdown_files {
+    for file in markdown_files {
 	let html_file = file
             .replace(content_dir, output_dir)
             .replace(".md", ".html");
