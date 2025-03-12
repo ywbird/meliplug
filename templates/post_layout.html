@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+<style>
+  .tags {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      list-style: none;
+      padding-left: 0;
+  }
+</style>
+{% endblock %}
+
+{% block header %}
+<h1>{% block title%}{{ title }}{% endblock %}</h1>
+<p>{{ date }}</p>
+<ul class="tags">
+  {% for tag in tags %}
+  <li>
+    #{{ tag }}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+{% block content %}
+{{ content|safe }}
+{% endblock %}
+

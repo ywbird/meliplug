@@ -31,6 +31,7 @@ use tokio::sync::{
     Mutex,
     mpsc
 };
+use rusqlite::Connection;
 
 mod plugins;
 use plugins::{
@@ -46,13 +47,14 @@ use utils::{
 };
 
 #[derive(Template)]
-#[template(path="layout.html")]
-struct Layout<'a> {
+#[template(path="post_layout.html")]
+struct PostLayout<'a> {
     dev: &'a bool,
     title: &'a String,
     date: &'a String,
     content: &'a String,
     description: &'a String,
+    tags: &'a Vec<String>
 }
 
 #[derive(PartialEq, Debug)]
@@ -60,6 +62,7 @@ struct Frontmatter {
     title: String,
     date: String,
     description: String,
+    tags: Vec<String>
 }
 
 #[derive(Debug)]
@@ -74,27 +77,13 @@ const OUTPUT_DIR: &str = "dist";
 const PUBLIC_DIR: &str = "public";
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), anyhow::Error> {
     println!("Running environment is {}.", { if is_dev() { "development" } else { "production" } });
 
     let config_file: String = fs::read_to_string("config.toml")
 	.expect("Failed to load config file. Does file exists?");
     
     println!("{:?}", config_file.parse::<Table>().expect("Failed to parse config file."));
-
-    let options = {
-	let mut opt = Options::empty();
-
-	opt.insert(Options::ENABLE_STRIKETHROUGH);
-	opt.insert(Options::ENABLE_TABLES);
-	opt.insert(Options::ENABLE_TASKLISTS);
-	opt.insert(Options::ENABLE_YAML_STYLE_METADATA_BLOCKS);
-	opt.insert(Options::ENABLE_GFM);
-	opt.insert(Options::ENABLE_HEADING_ATTRIBUTES);
-	opt.insert(Options::ENABLE_MATH);
-
-	opt
-    };
 
     let _ = fs::remove_dir_all(output_dir());
 
@@ -110,6 +99,10 @@ async fn main() {
     println!("Building Posts: {:?}", &markdown_files);
     
     rebuild_posts(CONTENT_DIR, output_dir().as_str(), &markdown_files).expect("Build site");
+
+    let conn = Connection::open("blog.db")?;
+
+    initialize_db(&conn);
 
     let (layer, io) = SocketIo::new_layer();
     let io = Arc::new(Mutex::new(io));
@@ -173,11 +166,13 @@ async fn main() {
             })
             .expect("failed to watch content folder!");
         loop {
-            tokio::time::sleep(Duration::from_secs(1)).await;
+            tokio::time::sleep(Duration::from_millis(100)).await;
         }
     });
 
     tokio::try_join!(server_task, hotwatch_task, msg_handle_task).unwrap();
+
+    Ok(())
 }
 
 fn on_connect(socket: SocketRef, Data(data): Data<Value>) {
@@ -240,11 +235,21 @@ fn extract_frontmatter(yaml: &String, file: &String) -> Result<Frontmatter, ()> 
 	.as_str()
 	.expect(format!("Unable to read 'description' from frontmatter of '{}'.", &file).as_str())
 	.to_string();
-
+    
+    let tags: Vec<String> = match values["tags"].clone().into_vec() {
+        Some(t) => {
+            t.into_iter().map(|p| {
+                p.as_str().unwrap().to_string()
+            }).collect()
+        },
+        None => { Vec::new() }
+    };
+    
     Ok(Frontmatter {
 	title,
 	date,
-	description
+	description,
+        tags
     })
 }
 
@@ -294,12 +299,13 @@ fn parse_post(file: &str, opts: &Options, content_dir: &str, output_dir: &str) -
         .replace(content_dir, output_dir)
         .replace(".md", ".html");
 
-    let html = Layout {
+    let html = PostLayout {
 	dev: &is_dev(),
 	title: &frontmatter.title.clone(),
 	date: &format_date(&frontmatter.date),
 	description: &frontmatter.description.clone(),
-	content: &parsed
+	content: &parsed,
+        tags: &frontmatter.tags.clone()
     };
 
     Ok(Post {
@@ -307,6 +313,40 @@ fn parse_post(file: &str, opts: &Options, content_dir: &str, output_dir: &str) -
 	content: html.render().unwrap(),
 	slug: html_file.replace(output_dir, ""),
     })
+}
+
+fn initialize_db(conn: &Connection) -> Result<(), anyhow::Error> {
+    conn.execute(r#"
+        CREATE IF NOT EXISTS posts (
+            id INTEGER PRIMARY KEY,
+            slug TEXT NOT NULL,
+            title TEXT NOT NULL,
+            date DATETIME NOT NULL,
+            content TEXT NOT NULL
+    "#, [])?;
+
+    conn.execute(r#"
+        CREATE IF NOT EXISTS tags (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL
+        )
+    "#, [])?;
+
+    conn.execute(r#"
+        CREATE TABLE IF NOT EXISTS post_tags (
+            post_id INTEGER NOT NULL,
+            tag_id INTEGER NOT NULL,
+            PRIMARY KEY (post_id, tag_id),
+            FOREIGN KEY (post_id) REFERENCES posts (id) ON DELETE CASCADE,
+            FOREIGN KEY (tag_id) REFERENCES tags (id) ON DELETE CASCADE
+        )
+    "#, [])?;
+
+    conn.execute(
+        "CREATE INDEX IF NOT EXISTS idx_post_tags_tag_id ON post_tags (tag_id)",
+        [])?;
+
+    Ok(())
 }
 
 fn output_dir() -> String {

@@ -106,6 +106,7 @@ struct Directive {
     attributes: HashMap<String, String>,
 }
 
+#[allow(unused_must_use)]
 impl Directive {
     pub fn open(&self) -> String {
 	let mut tag = "<".to_string();
