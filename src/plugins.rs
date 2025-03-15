@@ -102,6 +102,7 @@ impl CodeHighlightPlugin {
 struct Directive {
     name: String,
     tag_name: String,
+    raw: String,
     // attributes: String,
     attributes: HashMap<String, String>,
 }
@@ -128,7 +129,7 @@ impl Directive {
 }
 
 pub struct DirectivePlugin {
-    stack: Vec<Directive>
+    stack: Vec<Directive>,
 }
 
 impl DirectivePlugin {
@@ -143,17 +144,18 @@ impl DirectivePlugin {
 	    match &event {
 		Event::Text(text) => {
 		    let re = Regex::new(r#":::(?<name>\w+)?\s?(?<attr>\{(.*)\})?"#).unwrap();
-		    if !re.is_match(&text) { return event; }
-		    let prefix = ":::".to_string();
-		    if prefix == text.to_string() {
-			if self.stack.len() >= 1 {
-			    return Event::Html(self.stack.pop().unwrap().close().into());
-			}
-		    } else {
-			let new_directive = resolve_directive(&text.to_string());
-			self.stack.push(new_directive.clone());
-			return Event::Html(new_directive.open().into());
-		    }
+		    if re.is_match(&text) {
+                        let prefix = ":::".to_string();
+		        if prefix == text.to_string() {
+			    if self.stack.len() >= 1 {
+			        return Event::Html(self.stack.pop().unwrap().close().into());
+			    }
+		        } else {
+			    let new_directive = resolve_directive(&text.to_string());
+			    self.stack.push(new_directive.clone());
+			    return Event::Html(new_directive.open().into());
+		        }
+                    }
 		},
 		_ => (),
 	    };
@@ -161,10 +163,26 @@ impl DirectivePlugin {
 	    event
 	}
     }
+
+    pub fn _apply_text_directive() -> impl FnMut(Event<'_>) -> Event<'_> {
+        return |event| {
+	    match &event {
+	        Event::Text(text) => {
+                    let re = Regex::new(r#"(?<dir>:[a-z]+(\{.*\})?)"#).unwrap();
+		    for directive in re.captures_iter(&text).map(|d| d.name("dir").unwrap().as_str()) {
+                        println!("{}", directive);
+		    }
+	        },
+	        _ => ()
+	    }
+
+            event
+        }
+    }
 }
 
 fn resolve_directive(start: &String) -> Directive {
-    let re = Regex::new(r#":::(?<name>\w+)?\s?(\{(?<attr>.*)\})?"#).unwrap();
+    let re = Regex::new(r#":{1,3}(?<name>\w+)?\s?(\{(?<attr>.*)\})?"#).unwrap();
     let result = re.captures(start).unwrap();
     let name = match result.name("name") {
 	Some(s) => s.as_str().to_string(),
@@ -202,20 +220,6 @@ fn resolve_directive(start: &String) -> Directive {
 	name,
 	tag_name,
 	attributes,
-    }
-}
-
-fn directive_text() -> impl FnMut(Event<'_>) -> Event<'_> {
-    return |event| {
-	match event {
-	    Event::Text(text) => {
-		let re = Regex::new(r#":(\w+)(\s?\[.*\])?(\s?{.*})?"#).unwrap();
-		for (_, [name, content, attributes]) in re.captures_iter(&text).map(|c| c.extract()) {
-		    println!("name: {}, content: {}, attributes: {}", name, content, attributes);
-		}
-		Event::Text(text)
-	    },
-	    _ => event
-	}
+        raw: Default::default()
     }
 }
