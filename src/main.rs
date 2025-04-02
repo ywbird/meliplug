@@ -117,7 +117,7 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let server_task = tokio::task::spawn(async move {
         let app = Router::new()
-            // `GET /` goes to `root`
+            // `GEpT /` goes to `root`
             .fallback_service(
                 ServeDir::new(output_dir()).not_found_service(ServeFile::new(
                     format!("{}/404.html", output_dir()).as_str(),
@@ -131,7 +131,7 @@ async fn main() -> Result<(), anyhow::Error> {
             .await
             .unwrap()
     });
-    
+
     let hotwatch_task = tokio::task::spawn(async move {
         println!("listenning for changes: {}", CONTENT_DIR);
         let mut hotwatch = hotwatch::Hotwatch::new().expect("hotwatch failed to initialize!");
@@ -177,6 +177,18 @@ async fn main() -> Result<(), anyhow::Error> {
 
 fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
     println!("Socket.IO connected. {} {}", socket.ns(), socket.id);
+
+    socket.on("rebuild", |socket: SocketRef, Data::<Value>(data)| {
+        let content_paths = vec![format!(
+            "{}{}",
+            CONTENT_DIR,
+            data.as_str().unwrap().to_string().replace(".html", ".md")
+        )];
+        let paths = vec![data.as_str().unwrap().to_string()];
+        println!("Rebuilding {:?}", &content_paths);
+        rebuild_posts(CONTENT_DIR, output_dir().as_str(), &content_paths).expect("Rebuilding page");
+        socket.emit("refresh", &json!({"paths": &paths})).ok();
+    });
 }
 
 fn rebuild_posts(
@@ -230,7 +242,7 @@ fn insert_post_to_db(conn: &mut Connection, post: &Post) -> Result<(), rusqlite:
             .query_row("SELECT COUNT(id) from posts", [], |row| row.get(0))
             .unwrap(),
     };
-    
+
     tx.execute(
         "INSERT OR REPLACE INTO posts (id, title, content, date, slug, raw_content) VALUES (?, ?, ?, ?, ?, ?)",
         params![
