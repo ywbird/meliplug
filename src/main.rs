@@ -1,8 +1,6 @@
-use askama::Template;
 use axum::Router;
-use chrono::DateTime;
-use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
 use rusqlite::{params, Connection};
+use pulldown_cmark::Options;
 use serde_json::json;
 use serde_json::Value;
 use socketioxide::{
@@ -13,43 +11,23 @@ use std::{env, fs, path::Path, sync::Arc, time::Duration};
 use tokio::sync::{mpsc, Mutex};
 use toml::Table;
 use tower_http::services::{ServeDir, ServeFile};
-use yaml_rust2::YamlLoader;
-
-mod plugins;
-use plugins::{CodeHighlightPlugin, DirectivePlugin, MathPlugin};
 
 mod utils;
-use utils::{copy_recursively, is_dev};
+use utils::{copy_recursively, is_dev, output_dir};
 
-#[derive(Template)]
-#[template(path = "post_layout.html")]
-struct PostLayout<'a> {
-    dev: &'a bool,
-    title: &'a String,
-    date: &'a String,
-    content: &'a String,
-    description: &'a String,
-    tags: &'a Vec<String>,
-}
+mod templates;
+use templates::Post;
 
-#[derive(PartialEq, Debug)]
-struct Frontmatter {
-    title: String,
-    date: String,
-    description: String,
-    tags: Vec<String>,
-}
+mod markdown;
+mod md_plugins;
+use markdown::parse_md_post;
 
-#[derive(Debug)]
-struct Post {
-    frontmatter: Frontmatter,
-    content: String,
-    slug: String,
-    raw: String,
-}
+mod orgmode;
+use orgmode::parse_org_post;
+
+mod highlight;
 
 const CONTENT_DIR: &str = "content";
-const OUTPUT_DIR: &str = "dist";
 const PUBLIC_DIR: &str = "public";
 
 #[tokio::main]
@@ -76,20 +54,20 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let _ = copy_recursively(PUBLIC_DIR, output_dir());
 
-    let markdown_files: Vec<String> = walkdir::WalkDir::new(CONTENT_DIR)
+    let content_files: Vec<String> = walkdir::WalkDir::new(CONTENT_DIR)
         .into_iter()
         .filter_map(|f| f.ok())
         .map(|f| f.path().display().to_string())
-        .filter(|p| p.ends_with(".md"))
+        .filter(|p| p.ends_with(".md") || p.ends_with(".org"))
         .collect();
 
-    println!("Building Posts: {:?}", &markdown_files);
+    println!("Building Posts: {:?}", &content_files);
 
     let mut conn = Connection::open("blog.db")?;
 
     initialize_db(&mut conn)?;
 
-    rebuild_posts(CONTENT_DIR, output_dir().as_str(), &markdown_files).expect("Build site");
+    rebuild_posts(CONTENT_DIR, output_dir().as_str(), &content_files).expect("Build site");
 
     let (layer, io) = SocketIo::new_layer();
     let io = Arc::new(Mutex::new(io));
@@ -134,6 +112,8 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let hotwatch_task = tokio::task::spawn(async move {
         println!("listenning for changes: {}", CONTENT_DIR);
+
+        // create hotwatch instance to watch change in content directory
         let mut hotwatch = hotwatch::Hotwatch::new().expect("hotwatch failed to initialize!");
         hotwatch
             .watch(CONTENT_DIR, move |ev| match ev.kind {
@@ -154,8 +134,10 @@ async fn main() -> Result<(), anyhow::Error> {
                     let web_paths: Vec<String> = paths
                         .clone()
                         .into_iter()
-                        .map(|p| p.replace(CONTENT_DIR, "").replace(".md", ".html"))
-                        .collect();
+                        .map(|p| p.replace(CONTENT_DIR, "")
+                            .replace(".md", ".md.html")
+                            .replace(".org", ".org.html")
+                        ).collect();
 
                     rebuild_posts(CONTENT_DIR, output_dir().as_str(), &paths)
                         .expect("Rebuilding site");
@@ -182,7 +164,7 @@ fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
         let content_paths = vec![format!(
             "{}{}",
             CONTENT_DIR,
-            data.as_str().unwrap().to_string().replace(".html", ".md")
+            data.as_str().unwrap().to_string().replace(".html", "")
         )];
         let paths = vec![data.as_str().unwrap().to_string()];
         println!("Rebuilding {:?}", &content_paths);
@@ -194,9 +176,9 @@ fn on_connect(socket: SocketRef, Data(_data): Data<Value>) {
 fn rebuild_posts(
     content_dir: &str,
     output_dir: &str,
-    markdown_files: &Vec<String>,
+    content_files: &Vec<String>,
 ) -> Result<(), anyhow::Error> {
-    let options = {
+    let md_options = {
         let mut opt = Options::empty();
 
         opt.insert(Options::ENABLE_STRIKETHROUGH);
@@ -212,12 +194,17 @@ fn rebuild_posts(
 
     let mut conn = Connection::open("blog.db")?;
 
-    for file in markdown_files {
+    for file in content_files {
         let html_file = file
             .replace(content_dir, output_dir)
-            .replace(".md", ".html");
+            .replace(".md", ".md.html")
+            .replace(".org", ".org.html");
 
-        let post = parse_post(&file, &options, content_dir, output_dir).unwrap();
+        let post = if file.ends_with(".md") {
+            parse_md_post(&file, &md_options, content_dir, output_dir).unwrap()
+        } else {
+            parse_org_post(&file, content_dir, output_dir).unwrap()
+        };
 
         insert_post_to_db(&mut conn, &post)?;
 
@@ -279,120 +266,6 @@ fn insert_post_to_db(conn: &mut Connection, post: &Post) -> Result<(), rusqlite:
     Ok(())
 }
 
-fn format_date(date: &String) -> String {
-    format!(
-        "{}",
-        DateTime::parse_from_rfc3339(date.as_str())
-            .expect("Error while parsing date")
-            .format("%d %b %Y")
-    )
-}
-
-fn extract_frontmatter(yaml: &String, file: &String) -> Result<Frontmatter, ()> {
-    let values = &(YamlLoader::load_from_str(yaml).unwrap())[0];
-    let title = values["title"]
-        .as_str()
-        .expect(format!("Unable to read 'title' from frontmatter of '{}'.", &file).as_str())
-        .to_string();
-    let date = values["date"]
-        .as_str()
-        .expect(format!("Unable to read 'date' from frontmatter of '{}'.", &file).as_str())
-        .to_string();
-    let description = values["description"]
-        .as_str()
-        .expect(
-            format!(
-                "Unable to read 'description' from frontmatter of '{}'.",
-                &file
-            )
-            .as_str(),
-        )
-        .to_string();
-
-    let tags: Vec<String> = match values["tags"].clone().into_vec() {
-        Some(t) => t
-            .into_iter()
-            .map(|p| p.as_str().unwrap().to_string())
-            .collect(),
-        None => Vec::new(),
-    };
-
-    Ok(Frontmatter {
-        title,
-        date,
-        description,
-        tags,
-    })
-}
-
-fn parse_post(
-    file: &str,
-    opts: &Options,
-    content_dir: &str,
-    output_dir: &str,
-) -> Result<Post, anyhow::Error> {
-    let raw_markdown = fs::read_to_string(file)?;
-
-    let mut raw_frontmatter = String::new();
-    let mut frontmatter_started = false;
-
-    let mut code_plugin = CodeHighlightPlugin::new();
-    let math_plugin = MathPlugin::new();
-    let mut directive_plugin = DirectivePlugin::new();
-
-    let parser = Parser::new_ext(&raw_markdown, *opts)
-        .map(|event| {
-            // frontmatter
-            match event {
-                Event::Start(Tag::MetadataBlock(text)) => {
-                    frontmatter_started = true;
-                    Event::Start(Tag::MetadataBlock(text))
-                }
-                Event::End(TagEnd::MetadataBlock(text)) => {
-                    frontmatter_started = false;
-                    Event::End(TagEnd::MetadataBlock(text))
-                }
-                Event::Text(text) => {
-                    if frontmatter_started {
-                        let _ = &raw_frontmatter.push_str(&text);
-                    }
-                    Event::Text(text)
-                }
-                _ => event,
-            }
-        })
-        .map(math_plugin.apply())
-        .map(code_plugin.apply())
-        .map(directive_plugin.apply());
-
-    let mut parsed = String::new();
-
-    pulldown_cmark::html::push_html(&mut parsed, parser);
-
-    let frontmatter = extract_frontmatter(&raw_frontmatter, &file.to_string())
-        .expect(format!("Error while exracting frontmatter from '{}'", file).as_str());
-
-    let html_file = file
-        .replace(content_dir, output_dir)
-        .replace(".md", ".html");
-
-    let html = PostLayout {
-        dev: &is_dev(),
-        title: &frontmatter.title.clone(),
-        date: &format_date(&frontmatter.date),
-        description: &frontmatter.description.clone(),
-        content: &parsed,
-        tags: &frontmatter.tags.clone(),
-    };
-
-    Ok(Post {
-        frontmatter,
-        content: html.render().unwrap(),
-        slug: html_file.replace(output_dir, "").replace(".md", ".html"),
-        raw: raw_markdown.clone(),
-    })
-}
-
 fn initialize_db(conn: &mut Connection) -> Result<(), anyhow::Error> {
     let tx = conn.transaction()?;
 
@@ -441,12 +314,4 @@ fn initialize_db(conn: &mut Connection) -> Result<(), anyhow::Error> {
     tx.commit()?;
 
     Ok(())
-}
-
-fn output_dir() -> String {
-    if is_dev() {
-        format!("{}/dev", OUTPUT_DIR)
-    } else {
-        format!("{}/production", OUTPUT_DIR)
-    }
 }

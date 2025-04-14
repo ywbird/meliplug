@@ -1,49 +1,28 @@
-use maud::{ html, PreEscaped, DOCTYPE };
+use askama::Template;
 
-pub struct PageGen {
-    title: String,
-    content: PreEscaped<String>,
-    head: PreEscaped<String>,
-    header: PreEscaped<String>,
-    footer: PreEscaped<String>,
+#[derive(Template)]
+#[template(path = "post_layout.html")]
+pub struct PostLayout<'a> {
+    pub dev: &'a bool,
+    pub title: &'a String,
+    pub date: &'a String,
+    pub content: &'a String,
+    pub description: &'a String,
+    pub tags: &'a Vec<String>,
 }
 
-impl PageGen {
-    pub fn new(title: String, content: PreEscaped<String>) -> Self {
-        Self {
-            title: title.clone(),
-            content,
-            head: html! { head {
-		title { (title.clone()) }
-            } },
-            header: html! { header {
-		nav {
-                ul {
-		    li {
-			a href={"/"} { "Home" }
-		    }
-		    li {
-			a href={"/about"} { "About" }
-		    }
-                }
-	    } } },
-            footer: html! { footer { } },
-        }
-    }
-
-    pub fn render(&self) -> String {
-        let markup = html! {
-            (DOCTYPE)
-            html {
-		(self.head)
-                body {
-                    (self.header)
-                    (self.content)
-                    (self.footer)
-                }
-            }
-        };
-
-        markup.into_string()
-    }
+#[derive(PartialEq, Debug)]
+pub struct Frontmatter {
+    pub title: String,
+    pub date: String,
+    pub description: String,
+    pub tags: Vec<String>,
+}
+ 
+#[derive(Debug)]
+pub struct Post {
+    pub frontmatter: Frontmatter,
+    pub content: String, 
+    pub slug: String,
+    pub raw: String,
 }

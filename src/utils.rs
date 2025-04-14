@@ -3,6 +3,27 @@ use std::{
     env,
     fs,
 };
+use chrono::DateTime;
+
+
+const OUTPUT_DIR: &str = "dist";
+
+pub fn format_date(date: &String) -> String {
+    format!(
+        "{}",
+        DateTime::parse_from_rfc3339(date.as_str())
+            .expect("Error while parsing date")
+            .format("%d %b %Y")
+    )
+}
+
+pub fn output_dir() -> String {
+    if is_dev() {
+        format!("{}/dev", OUTPUT_DIR)
+    } else {
+        format!("{}/production", OUTPUT_DIR)
+    }
+}
 
 /// Copy files from source to destination recursively.
 pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>) -> std::io::Result<()> {
