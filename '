@@ -243,13 +243,7 @@ fn rebuild_meta_pages(output_dir: &str, conn: &mut Connection) -> Result<(), any
     fs::write(&home_page_path, &home_page_content.unwrap())?;
 
     let posts_pages = build_posts_pages().unwrap();
-    for (idx, posts_page) in posts_pages.iter().enumerate() {
-        let posts_page_path = format!("{}/posts/{}.html", output_dir, idx + 1);
-        let posts_page_path = Path::new(posts_page_path.as_str());
-        let folder = posts_page_path.parent().unwrap();
-        let _ = fs::create_dir_all(folder);
-
-        fs::write(&posts_page_path, &posts_page)?;
+    for idx, posts_page in posts_pages.iter().enumerate() {
     }
 
     Ok(())

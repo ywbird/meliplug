@@ -8,6 +8,7 @@
 <meta charset="utf-8" >
 <meta name="og:title" content="{{title}}" >
 <meta name="og:description" content="{{description}}" >
+<link rel="stylesheet" href="/post.css" />
 
 <style>
   .tags {
@@ -31,9 +32,15 @@
   </li>
   {% endfor %}
 </ul>
+<hr/>
 {% endblock %}
+
+
 
 {% block content %}
 {{ content|safe }}
 {% endblock %}
 
+{% block endbody %}
+<script src="/post/script.js"></script>
+{% endblock %}

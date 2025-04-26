@@ -1,10 +1,5 @@
 use regex::Regex;
 use katex::opts::OutputType;
-use syntect::{
-    parsing::SyntaxSet,
-    highlighting::ThemeSet,
-    html::highlighted_html_for_string
-};
 use pulldown_cmark::{
     Event,
     Tag, TagEnd,
@@ -12,6 +7,8 @@ use pulldown_cmark::{
 };
 use std::collections::HashMap;
 use std::fmt::Write;
+
+use crate::highlight::{find_lang, highlight_code};
 
 pub struct MathPlugin {}
 
@@ -46,7 +43,6 @@ impl MathPlugin {
 
 pub struct CodeHighlightPlugin {
     lang: String,
-    source: String,
     is_in: bool,
 }
 
@@ -54,7 +50,6 @@ impl CodeHighlightPlugin {
     pub fn new() -> Self {
 	Self {
 	    lang: Default::default(),
-	    source: Default::default(),
 	    is_in: false
 	}
     }
@@ -63,37 +58,39 @@ impl CodeHighlightPlugin {
 	    match &event {
 		Event::Text(text) => {
 		    if self.is_in {
-			self.source.push_str(text);
-			return Event::Text("".into());
+                        let html = highlight_code(
+                            text.as_bytes(),
+                            find_lang(self.lang.to_lowercase().as_str())
+                        );
+
+			return Event::Html(html.into());
 		    }
 		},
 		Event::Start(Tag::CodeBlock(CodeBlockKind::Fenced(lang))) => {
-		    self.lang = lang.to_string();
-		    self.source = Default::default();
+		    self.lang = lang.split(" ").collect::<Vec<&str>>()[0].to_string();
 		    self.is_in = true;
-		    return Event::Text("".into());
+		    return Event::Html(format!("<pre class=\"codeblock\"><code data-language=\"{}\">", self.lang).into());
 		},
 		Event::End(TagEnd::CodeBlock) => {
 		    self.is_in = false;
-		    let ps = SyntaxSet::load_defaults_newlines();
-		    let ts = ThemeSet::load_defaults();
-
-		    let syntax = match ps.find_syntax_by_extension(self.lang.as_str()) {
-			Some(s) => s,
-			None => ps.find_syntax_plain_text(),
-		    };
-		    let theme = &ts.themes["base16-ocean.dark"];
-		    let html = highlighted_html_for_string(self.source.as_str(), &ps, syntax, theme);
-		    
-		    return match html {
-			Ok(out) => Event::Html(out.into()),
-			Err(err)=> Event::Html(format!("<pre>Highlight Error: {:?}</pre>", err).into()),
-		    };
+                    return Event::Html("</pre></code>".into());
 		},
 		_ => ()
 	    }
 
 	    event
+
+
+
+
+
+
+
+
+
+
+
+
 	}
     }
 }

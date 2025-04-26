@@ -2,14 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}{{ title }}{% endblock %}</title>
+    <title>{% block title %}{{ title }}{% endblock %} - MeliPlug</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="description" content="" />
     <link rel="icon" href="favicon.png">
-    <link rel="stylesheet" href="/concrete.min.css">
+    <!-- <link rel="stylesheet" href="/concrete.min.css"> -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css">
-    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css" />
+    <!-- <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/static/woff2/SUIT.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/global.css" />
+    <link rel="stylesheet" href="/code.css" />
     {% block head %}{% endblock %}
     
     {% if dev %}
@@ -35,22 +37,28 @@
       <button id="rebuild-btn">REBUILD</button>
     </div>
     {% endif %}
+    <div class="container">
+      <header>
+	<a href="/">
+	  <img id="logo" src="/logo.png" />
+	</a>
+	{% include "nav.html" %}
+      </header>
+      <main>
+	{% block header %}{% endblock %}
+	{% block content %}{% endblock %}
+      </main>
+      <footer>
+	<p>&copy;ywbird 2025</p>
+      </footer>
+    </div>
 
-    <header>
-      <h2>MeliPlug by ywbird</h2>
-      {% include "nav.html" %}
-      <hr/>
-      {% block header %}{% endblock %}
-    </header>
-    <main>
-      {{ content|safe }}
-    </main>
-    {% include "footer.html" %}
-
+    {% block endbody %}{% endblock %}
+    
     {% if dev %}
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+" crossorigin="anonymous"></script>
 
-    <script defer>
+    <script>
       const socket = io("/api");
 
       socket.on("connect", () => {

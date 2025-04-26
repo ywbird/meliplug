@@ -1,13 +1,13 @@
-use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
-use yaml_rust2::YamlLoader;
-use std::fs;
 use askama::Template;
+use pulldown_cmark::{Event, Options, Parser, Tag, TagEnd};
+use std::fs;
+use yaml_rust2::YamlLoader;
 
 use crate::md_plugins::{CodeHighlightPlugin, DirectivePlugin, MathPlugin};
 
 use crate::templates::{Frontmatter, Post, PostLayout};
 
-use crate::utils::{is_dev, format_date};
+use crate::utils::{format_date, is_dev};
 
 pub fn parse_md_post(
     file: &str,
@@ -61,9 +61,13 @@ pub fn parse_md_post(
         .replace(".md", ".md.html");
 
     let html = PostLayout {
-        dev: &is_dev(),
+        dev: is_dev(),
         title: &frontmatter.title.clone(),
-        date: &format_date(&frontmatter.date),
+        date: if frontmatter.date.len() > 0 {
+            &format_date(&frontmatter.date)
+        } else {
+            &"".to_string()
+        },
         description: &frontmatter.description.clone(),
         content: &parsed,
         tags: &frontmatter.tags.clone(),
@@ -83,20 +87,18 @@ fn extract_frontmatter(yaml: &String, file: &String) -> Result<Frontmatter, ()> 
         .as_str()
         .expect(format!("Unable to read 'title' from frontmatter of '{}'.", &file).as_str())
         .to_string();
-    let date = values["date"]
-        .as_str()
-        .expect(format!("Unable to read 'date' from frontmatter of '{}'.", &file).as_str())
-        .to_string();
-    let description = values["description"]
-        .as_str()
-        .expect(
-            format!(
-                "Unable to read 'description' from frontmatter of '{}'.",
-                &file
-            )
-            .as_str(),
-        )
-        .to_string();
+
+    let date = match values["date"].as_str() {
+        Some(text) => text,
+        None => values["publish_date"].as_str().unwrap_or_default(),
+    }
+    .to_string();
+
+    let description = match values["description"].as_str() {
+        Some(text) => text,
+        None => "",
+    }
+    .to_string();
 
     let tags: Vec<String> = match values["tags"].clone().into_vec() {
         Some(t) => t

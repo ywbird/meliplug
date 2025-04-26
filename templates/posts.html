@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="/posts.css" />
+{% endblock %}
+
+{% block header %}
+  <h1>{% block title %}Posts page {{ page_num }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<ul>
+{% for post in posts %}
+<li>
+  <a href="{{post.slug}}">
+    {{ post.title }}
+  </a>
+</li>
+{% endfor %}
+</ul>
+
+
+<ul class="pagination">
+  {% for i in 1..=max_page %}
+  <li class="pagination-item{% if page_num == i%} current{% endif %}">
+      <a href="/posts/{{i}}.html">
+        {{i}}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

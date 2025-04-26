@@ -1,0 +1,139 @@
+@font-face {
+    font-family: 'NeoDGMCode';
+    src: url('/neodgm_code.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.katex {
+    font-size: 1.2em;
+}
+
+main {
+    position: relative;
+    border: 1px solid black;
+    padding: 30px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & nav ul {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	gap: 20px;
+	padding-left: 0;
+
+	& li {
+	    list-style: none;
+	}
+    }
+}
+#logo {
+    width: 480px;
+}
+
+main p {
+    line-height: 2em;
+}
+
+code {
+    font-family: 'GalmuriMono9', monospace;
+    font-size: 20px !important;
+}
+
+html, body {
+    min-width: 100%;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    justify-content: center;
+    font-family: 'Galmuri9', sans-serif !important;
+    font-size: 20px;
+    font-smooth: never;
+    -webkit-font-smoothing : none;
+}
+
+strong, b {
+    text-shadow: 1px 0 0 black,
+		 -1px 0 0 black;
+    letter-spacing: 2px;
+    font-weight: normal;
+}
+
+h1 {
+    font-family: 'Galmuri11', sans-serif !important;
+    font-size: 36px;
+}
+
+h2 {
+    font-family: 'Galmuri11', sans-serif;
+    font-size: 24px;
+}
+
+.container {
+    margin-inline: auto;
+    padding-inline: 20px;
+    width: 750px;
+    font-smooth: never;
+    -webkit-font-smoothing : none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-block: 120px;
+}
+
+main ul {
+    padding-left: 20px;
+    & > * {
+	list-style: square;
+    }
+}
+
+main a {
+    text-decoration: none;
+    &:hover {
+	text-decoration: underline;
+    }
+    &:visited {
+	color: blue;
+    }
+}
+
+
+main :not(pre) > code {
+    background: lightgray;
+    padding-inline: 2px;
+}
+
+main h2, main h2 a,
+main h3, main h3 a,
+main h4, main h4 a
+{
+    font-weight: normal;
+    color: black !important;
+}
+
+main h2 {
+    font-family: 'Galmuri7', sans-serif;
+    font-size: 32px;
+    position: relative;
+}
+
+main h3 {
+    font-family: 'Galmuri7', sans-serif;
+    font-size: 24px;
+    position: relative;
+}
+
+main h4 {
+    font-family: 'Galmuri7', sans-serif;
+    font-size: 24px;
+    position: relative;
+}

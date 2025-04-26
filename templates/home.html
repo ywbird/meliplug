@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="/home.css" />
+{% endblock %}
+
+{% block header %}
+<h1>{% block title %}Index{% endblock %}</h1>
+<p>여기는 ywbird의 블로그.</p>
+{% endblock %}
+
+ extends "base.html" %}
+
+{% block title %}MeliPlug{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="/home.css" />
+<link rel="stylesheet" href="/posts.css" />
+{% endblock %}
+
+{% block header %}
+<h1>{% block title %}Index{% endblock %}</h1>
+<p>여기는 ywbird의 블로그.</p>
+{% endblock %}
+
+{% block content %}
+
+<h2 id="ywbird">Me</h2>
+<div class="flip" id="profile-flip">
+  <div class="flip-inner">
+    <div class="flip-1 col-layout">
+      <img id="pfp-img" src="https://files.catbox.moe/n7m1u4.png" height=300 width=300/>
+      <div class="ywbird-content">
+	<h3>이도이, doi, <code>^..^</code> ywbird.</h3>
+	<p>
+	  재미있는 것, 흥미있는 것을 위주로 탐구하고 발견합니다. <br/>
+	  현재, 웹개발을 위주로 <b>공학</b>, <b>수학</b> 등 여러 분야를 탐구하고 있습니다.
+	</p>
+      </div>
+    </div>
+    <div class="flip-2 col-layout">
+      <img id="pfp-img2" src="https://files.catbox.moe/1r796q.PNG" height=300 width=300/>
+      <div class="ywbird-content">
+	<h3><code>^..^</code> ywbird.</h3>
+	<p>
+	  심심[深尋]하다
+	</p>
+	<p>
+	  <code style="background:#F7DF1E;">JS</code>
+	  <code style="background:#CE412B; color: white;">Rust</code>
+	  <code style="background:#3776AB; color: white;">Python</code>
+	  <code style="background:#2C2D72; color: white;">Lua</code>
+	</p>
+	<p>
+	  <code style="background:#CC2929; color: white;">Math</code>
+	  <code style="background:#5395FD; color: white;">Tech</code>
+	</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2 id="camako">My Laptop</h2>	
+<div class="col-layout">
+  <img id="camako-img" src="https://files.catbox.moe/l46k6c.webp"/>
+  <div id="camako-content">
+    <h3><code>\[])</code> camako</h3>
+    <pre><code>- Hst: ThinkPad X390
+- OS : Arch Linux
+- WM : Sway/Wayland</code></pre>
+    </ul>
+  </div>
+</div>
+
+<h2><a href="/posts/1.html">Recent Posts</a></h2>
+
+<ul>
+{% for post in posts %}
+
+<li>
+  <a href="{{post.slug}}">
+    {{ post.title }}
+  </a>
+</li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block endbody %}
+<script src="/home.js"></script>
+{% endblock %}

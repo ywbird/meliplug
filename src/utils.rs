@@ -34,6 +34,9 @@ pub fn copy_recursively(source: impl AsRef<Path>, destination: impl AsRef<Path>)
         if filetype.is_dir() {
             copy_recursively(entry.path(), destination.as_ref().join(entry.file_name()))?;
         } else {
+            if fs::exists(destination.as_ref().join(entry.file_name()).into_os_string()).unwrap() {
+                fs::remove_file(destination.as_ref().join(entry.file_name()))?
+            };
             fs::copy(entry.path(), destination.as_ref().join(entry.file_name()))?;
         }
     }

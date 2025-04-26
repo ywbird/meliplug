@@ -1,0 +1,38 @@
+
+.pagination {
+    display: flex;
+    gap: 4px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    padding-left: 0px;
+    width: 100%;
+
+    & .pagination-item {
+	font-family: 'GalmuriMono11', monospace;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+	background-color: blue;
+	list-style: none;
+
+	&.current {
+	    background-color: unset;
+	    
+	    & a { color: black; }
+	}
+
+	& a {
+	    color: white;
+	    width: 24px;
+	    height: 24px;
+	    display: block;
+	    text-align: center;
+
+	    &:hover {
+		text-decoration: none;
+	    }
+	}
+    }
+}
+

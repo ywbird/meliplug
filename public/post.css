@@ -1,0 +1,38 @@
+
+main > .section[data-level="1"] { margin-left: calc(1 * 20px); }
+main > .section[data-level="2"] { margin-left: calc(2 * 20px); }
+main > .section[data-level="3"] { margin-left: calc(3 * 20px); }
+
+main h2 {
+    &[data-level="1"] { padding-left: calc(1 * 20px); }
+    &::before {
+	font-family: 'Galmuri11', sans-serif;
+	font-size: 24px;
+	letter-spacing: 6px;
+	content: "*";
+	position: absolute;
+	translate: -100%;
+    }
+}
+main h3 {
+    &[data-level="2"] { padding-left: calc(2 * 20px); }
+    &::before {
+	font-family: 'Galmuri11', sans-serif;
+	font-size: 24px;
+	letter-spacing: 6px;
+	content: "**";
+	position: absolute;
+	translate: -100%;
+    }
+}
+main h4 {
+    &[data-level="3"] { padding-left: calc(3 * 20px); }
+    &::before {
+	font-family: 'Galmuri11', sans-serif;
+	font-size: 24px;
+	letter-spacing: 6px;
+	content: "***";
+	position: absolute;
+	translate: -100%;
+    }
+}
