@@ -1,0 +1,3 @@
+<div class="{{ .Get "class" }} sc_columns">
+  {{ .Inner | .Page.RenderString (dict "display" "block") -}}
+</div>
