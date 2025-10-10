@@ -16,7 +16,6 @@ function init() {
 		`
 	}
 
-	// if (!!themeBtn) {
 	themeBtn.addEventListener("click", () => {
 		const theme = window.localStorage.getItem("theme", "light");
 		if (theme === "light") {
@@ -33,5 +32,37 @@ function init() {
 			`
 		}
 	})
-	// }
+
+
+	const colorBtn = document.getElementById("color-btn");
+
+	const color = window.localStorage.getItem("theme", "solarized");
+	if (color === "solarized") {
+		colorBtn.innerHTML = `
+		[Rosé Pine/<span>Solarized</span>]
+		`
+	} else {
+		colorBtn.innerHTML = `
+		[<span>Rosé Pine</span>/Solarized]
+		`
+	}
+
+	colorBtn.addEventListener("click", () => {
+		const color = window.localStorage.getItem("color", "solarized");
+		if (color === "solarized") {
+			document.documentElement.classList.add('rose-pine');
+			document.documentElement.classList.remove('solarized');
+			window.localStorage.setItem("color", "rose-pine");
+			colorBtn.innerHTML = `
+			[<span>Rosé Pine</span>/Solarized]
+			`
+		} else {
+			document.documentElement.classList.add('solarized');
+			document.documentElement.classList.remove('rose-pine');
+			window.localStorage.setItem("color", "solarized");
+			colorBtn.innerHTML = `
+			[Rosé Pine/<span>Solarized</span>]
+			`
+		}
+	})
 }

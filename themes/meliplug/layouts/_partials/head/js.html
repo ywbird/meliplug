@@ -1,27 +1,37 @@
 {{- with resources.Get "js/main.js" }}
-  {{- $opts := dict
-    "minify" (not hugo.IsDevelopment)
-    "sourceMap" (cond hugo.IsDevelopment "external" "")
-    "targetPath" "js/main.js"
-  }}
-  {{- with . | js.Build $opts }}
-    {{- if hugo.IsDevelopment }}
-      <script src="{{ .RelPermalink }}"></script>
-    {{- else }}
-      {{- with . | fingerprint }}
-        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
-      {{- end }}
-    {{- end }}
-  {{- end }}
+{{- $opts := dict
+"minify" (not hugo.IsDevelopment)
+"sourceMap" (cond hugo.IsDevelopment "external" "")
+"targetPath" "js/main.js"
+}}
+{{- with . | js.Build $opts }}
+{{- if hugo.IsDevelopment }}
+<script src="{{ .RelPermalink }}"></script>
+{{- else }}
+{{- with . | fingerprint }}
+<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 
 <script>
-	(function(){
-	const theme = window.localStorage.getItem("theme", "light");
-	if (theme === "light") {
-		document.documentElement.classList.remove('dark');
-	} else {
-		document.documentElement.classList.add('dark');
-	}
+	(function () {
+		const theme = window.localStorage.getItem("theme", "light");
+		if (theme === "light") {
+			document.documentElement.classList.remove('dark');
+		} else {
+			document.documentElement.classList.add('dark');
+		}
+
+
+		const color = window.localStorage.getItem("color", "solarized");
+		if (color === "solarized") {
+			document.documentElement.classList.add('solarized');
+			document.documentElement.classList.remove('rose-pine');
+		} else {
+			document.documentElement.classList.add('rose-pine');
+			document.documentElement.classList.remove('solarized');
+		}
 	})()
 </script>
