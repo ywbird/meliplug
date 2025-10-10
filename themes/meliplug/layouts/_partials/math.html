@@ -2,11 +2,14 @@
 <script>
 	MathJax = {
 		tex: {
+			macros: {
+				"RA": "\\rightarrow"
+			},
 			displayMath: [['$$', '$$']],  // block
 			inlineMath: [['$', '$']]                  // inline
-			},
-			loader:{
-				load: ['ui/safe']
-				},
-				};
+		},
+		loader: {
+			load: ['ui/safe']
+		},
+	};
 </script>

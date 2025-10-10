@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ .Content }}
   {{ range first 10 site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}<span class="post-list_date">({{ .Date.Format "2006-01-01" }})</span></a></h2>
+    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}<span class="post-list_date">({{ .Date.Format "2006-01-02" }})</span></a></h2>
     <!-- {{ .Summary }} -->
   {{ end }}
 {{ end }}

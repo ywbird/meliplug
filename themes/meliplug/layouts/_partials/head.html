@@ -7,3 +7,7 @@
 {{ if or .Params.math .Site.Params.math }}
 {{ partial "math.html" . }}
 {{ end }}
+
+{{ if or .Params.jsxgraph .Site.Params.jsxgraph }}
+{{ partial "jsxgraph.html" . }}
+{{ end }}

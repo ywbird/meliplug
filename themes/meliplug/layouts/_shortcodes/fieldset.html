@@ -1,0 +1,6 @@
+<fieldset>
+	<legend>{{- .Get 0 -}}</legend>
+	<div>
+	{{ .Inner | .Page.RenderString (dict "display" "block") -}}
+	</div>
+</fieldset>
