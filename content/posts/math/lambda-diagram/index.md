@@ -4,6 +4,7 @@ description: building diagram for lambda calculus generator
 draft: false
 toc: true
 math: true
+date: 2025-10-11T01:38:33+09:00
 tags:
     - Math
     - Go
