@@ -1,7 +1,7 @@
 ---
 title: Lambda Diagram
 description: building diagram for lambda calculus generator
-draft: true
+draft: false
 toc: true
 math: true
 tags:
