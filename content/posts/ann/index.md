@@ -1,6 +1,7 @@
 ---
 title: ANN 구현하기 - 1. NEAT 구현하기
 description: ANN을 구현하기
+draft: true
 ---
 
 ## ANN 방식 고르기
