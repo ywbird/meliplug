@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
+
 <head>
-  {{ partial "head.html" . }}
+	{{ partial "head.html" . }}
 </head>
+
 <body>
-  <header>
-    {{ partial "header.html" . }}
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    {{ partial "footer.html" . }}
-  </footer>
+	<header>
+		{{ partial "header.html" . }}
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+			{{ if or .Params.mess .Site.Params.mess }}
+			{{ partial "mess-left.html" . }}
+			{{ end }}
+		</aside>
+		<main>
+			{{ block "main" . }}{{ end }}
+		</main>
+		<aside id="right-aside">
+			{{ if or .Params.mess .Site.Params.mess }}
+			{{ partial "mess-right.html" . }}
+			{{ end }}
+		</aside>
+	</div>
+	<footer>
+		{{ partial "footer.html" . }}
+	</footer>
 </body>
+
 </html>

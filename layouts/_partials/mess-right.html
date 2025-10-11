@@ -1,0 +1,34 @@
+<div id="dvd-wrap">
+	<a href="dvd.html"><img src="dvdlogo.png" alt="DVD logo" id="dvd"></a>
+	<pre id="dvd-bait"><-- click this</pre>
+</div>
+
+<style>
+	#dvd-wrap {
+		position: relative;
+
+		#dvd {
+			width: 100px;
+			background-color: red;
+			animation: hueRot 10s linear infinite;
+		}
+
+		#dvd-bait {
+			color: var(--mute);
+			position: absolute;
+			bottom: 0;
+			margin-left: 7rem;
+		}
+	}
+
+
+	@keyframes hueRot {
+		from {
+			filter: hue-rotate(0deg);
+		}
+
+		to {
+			filter: hue-rotate(360deg);
+		}
+	}
+</style>
