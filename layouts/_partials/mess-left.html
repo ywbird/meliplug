@@ -1,8 +1,14 @@
 <div id="mood-wrap">
-<a target="_blank" href="https://www.imood.com/users/ywbird"><img src="https://moods.imood.com/display/uname-ywbird/imood.gif" alt="The current mood of ywbird at www.imood.com" border="0"></a>
 	<pre id="mood-sign">
-	my mood --></pre>
+		my mood --></pre>
+	<a id="mood-label" target="_blank" href="https://www.imood.com/users/ywbird"><img
+			src="https://moods.imood.com/display/uname-ywbird/imood.gif"
+			alt="The current mood of ywbird at www.imood.com" border="0"></a>
 </div>
+
+<a target="_blank" href="https://meliplug.info/ywbird.gpg">
+	<pre id="gpg-sign"><span id="gpg-sitebase">https://meliplug.info/</span>ywbird.gpg</pre>
+</a>
 
 <style>
 	#mood-wrap {
@@ -10,13 +16,27 @@
 		position: relative;
 		display: flex;
 
+		#mood-label {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+
 		#mood-sign {
 			color: var(--mute);
 			position: absolute;
-			bottom: 0;
+			top: 0;
 			right: 0;
-			margin-right: 5rem;
+			margin-right: 6rem;
 			margin-block: 0;
 		}
+	}
+
+	#gpg-sitebase {
+		opacity: 0;
+	}
+
+	#gpg-sign:hover #gpg-sitebase {
+		opacity: 1;
 	}
 </style>
