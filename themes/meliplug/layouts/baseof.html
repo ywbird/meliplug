@@ -15,14 +15,14 @@
 			{{ partial "mess-left.html" . }}
 			{{ end }}
 		</aside>
-		<main>
-			{{ block "main" . }}{{ end }}
-		</main>
 		<aside id="right-aside">
 			{{ if or .Params.mess .Site.Params.mess }}
 			{{ partial "mess-right.html" . }}
 			{{ end }}
 		</aside>
+		<main>
+			{{ block "main" . }}{{ end }}
+		</main>
 	</div>
 	<footer>
 		{{ partial "footer.html" . }}

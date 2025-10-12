@@ -54,15 +54,28 @@ main {
 #main {
 	padding-inline: 10px;
 	position: relative;
+}
+
+
+#left-aside {
+	position: absolute;
+	min-height: 100%;
+	right: 100%;
+	top: 0;
+}
+
+#right-aside {
+	position: absolute;
+	min-height: 100%;
+	left: 100%;
+	top: 0;
+}
+
+@media (max-width: 700px) {
+
+	#right-aside,
 	#left-aside {
-		position: absolute;
-		right: 100%;
-		top: 0;
-	}
-	#right-aside {
-		position: absolute;
-		left: 100%;
-		top: 0;
+		display: none;
 	}
 }
 
@@ -74,6 +87,7 @@ header {
 		display: flex;
 		flex-direction: row;
 		padding-left: 0;
+		flex-wrap: wrap;
 		gap: 1rem;
 
 		& li {
@@ -119,6 +133,7 @@ footer {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 #theme-btn,
@@ -464,6 +479,7 @@ main {
 		flex-direction: row;
 		gap: 0.4rem;
 		align-items: start;
+		flex-wrap: wrap;
 
 		&.align-center {
 			align-items: center;
