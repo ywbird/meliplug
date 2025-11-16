@@ -72,9 +72,9 @@ $$
 
 $$
 \begin{align}
-Q_0 &= lerp(P_0, P_1, t) \\\\
-Q_1 &= lerp(P_1, P_2, t) \\\\
-\\\\
+Q_0 &= lerp(P_0, P_1, t) \\
+Q_1 &= lerp(P_1, P_2, t) \\
+\\
 P &= lerp(Q_1, Q_2, t)
 \end{align}
 $$
@@ -92,13 +92,13 @@ $$
 
 $$
 \begin{align}
-Q_0 &= lerp(P_0, P_1, t) \\\\
-Q_1 &= lerp(P_1, P_2, t) \\\\
-Q_2 &= lerp(P_2, P_3, t) \\\\
-\\\\
-R_0 &= lerp(Q_0, Q_1, t) \\\\
-R_1 &= lerp(Q_1, Q_2, t) \\\\
-\\\\
+Q_0 &= lerp(P_0, P_1, t) \\
+Q_1 &= lerp(P_1, P_2, t) \\
+Q_2 &= lerp(P_2, P_3, t) \\
+\\
+R_0 &= lerp(Q_0, Q_1, t) \\
+R_1 &= lerp(Q_1, Q_2, t) \\
+\\
 P &= lerp(R_0, R_1, t)
 \end{align}
 $$
@@ -132,7 +132,7 @@ $$
 
 $$
 \begin{align}
-P(t) &= \sum_{i=0}^n {n  \choose i}(1-t)^{n-i}t^i P_i \\\\
+P(t) &= \sum_{i=0}^n {n  \choose i}(1-t)^{n-i}t^i P_i \\
      &= (1-t)^3 \cdot {\color{red}P_0} + 3 \cdot (1-t)^2 \cdot t \cdot {\color{green}P_1} + 3 \cdot (1-t) \cdot t^2 \cdot {\color{teal}P_2} + t^3 \cdot {\color{orange}P_3}
 \end{align}
 $$  
@@ -141,10 +141,10 @@ $$
 
 $$
 \begin{align}
-y&={\color{red}(1-t)^3}\\\\
-y&={\color{green}3 \cdot (1-t)^2 \cdot t}\\\\
-y&={\color{teal}3 \cdot (1-t) \cdot t^2}\\\\
-y&={\color{orange}t^3}\\\\
+y&={\color{red}(1-t)^3}\\
+y&={\color{green}3 \cdot (1-t)^2 \cdot t}\\
+y&={\color{teal}3 \cdot (1-t) \cdot t^2}\\
+y&={\color{orange}t^3}\\
 \end{align}
 $$
 
@@ -165,7 +165,7 @@ De Casteljau Algorithm에서 3차 곡선의 식을 정리하면 아래의 식으
 
 $$
 \begin{align}
-P(t) &= \sum_{i=0}^n {n  \choose i}(1-t)^{n-i}t^i P_i \\\\
+P(t) &= \sum_{i=0}^n {n  \choose i}(1-t)^{n-i}t^i P_i \\
      &= (1-t)^3 \cdot {\color{red}P_0} + 3 \cdot (1-t)^2 \cdot t \cdot {\color{green}P_1} + 3 \cdot (1-t) \cdot t^2 \cdot {\color{teal}P_2} + t^3 \cdot {\color{orange}P_3}
 \end{align}
 $$  

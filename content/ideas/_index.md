@@ -4,6 +4,10 @@ draft: false
 ---
 
 
+## In Progess...
+
+ - [ ] TIS-100 in web
+
 ## Everything that comes in in my mind :brain:
 
  - [ ] 금요학술포럼 했던거 내용, 후기
@@ -18,16 +22,16 @@ draft: false
  - [ ] Game Programming Patterns
  - [ ] N-Queen problem
  - [ ] https://schultzschultz.com/touchtype/
- - [ ] TIS-100 in web
  - [ ] Learn assembly (fasm mabye?)
- - [ ] Learn C - Modern Approach to C
+ - [ ] Learn C - Modern Approach to C  
+    raylib
  - [ ] Galaxy civilization simulation ( from 3-body-problem )
  - [ ] reusable.go - hitbox
  - [ ] Great Kingdom web - by 이세돌
  - [ ] Wave function collapse
- - [ ] Aheui CPU
- - [ ] DVD screen saver that never bounce off corner
-  (like, it move away from it)
+ - [ ] Aheui CPU / Game
+ - [ ] Three.js
+     - Depth map 
 
 {{< details summary="🍯주제 source" >}}
 
@@ -35,6 +39,12 @@ draft: false
 > - <https://github.com/codecrafters-io/build-your-own-x>
 
 {{< /details >}}
+
+### Creative Coding
+
+ - Tron
+ - Word Popcorn (word -> ascii -> numbers -> ascii)
+ - Realtime FFT
 
 ### Sound communication
 
@@ -57,8 +67,6 @@ simple data transfer through sound pitch
 ## Processing :airplane:
 
  - [ ] [Particle](/posts/idea/particle/)
- - [ ] rust markdown blog page  
-    (ref. [@fasterthanlime](https://fasterthanli.me), https://kerkour.com/rust-static-site-generator)
 
 ## Done :white_check_mark:
 
@@ -72,9 +80,14 @@ simple data transfer through sound pitch
  - [x] [Lambda caculus visualization](/posts/math/lambda-diagram)  
     <https://github.com/ywbird/lambda-diagram>
     <https://tromp.github.io/cl/diagrams.html>
+ - [x] DVD screen saver that never bounce off corner  
+    [/dvd.html](/dvd.html)  
+    (like, it move away from it)
 
 ## Cancel :x:
 
  - [ ] ~~touchpad scroll to navigate - chrome extension~~  
    (mouse geasture로 타협 봄)
-
+ - [ ] ~~rust markdown blog page~~  
+    (ref. [@fasterthanlime](https://fasterthanli.me), https://kerkour.com/rust-static-site-generator)
+    (hugo로 정착)
