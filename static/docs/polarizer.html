@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>f3fd</title>
+  <style>
+html {
+color: #1a1a1a;
+background-color: #fdfdfd;
+}
+body {
+margin: 0 auto;
+max-width: 36em;
+padding-left: 50px;
+padding-right: 50px;
+padding-top: 50px;
+padding-bottom: 50px;
+hyphens: auto;
+overflow-wrap: break-word;
+text-rendering: optimizeLegibility;
+font-kerning: normal;
+}
+@media (max-width: 600px) {
+body {
+font-size: 0.9em;
+padding: 12px;
+}
+h1 {
+font-size: 1.8em;
+}
+}
+@media print {
+html {
+background-color: white;
+}
+body {
+background-color: transparent;
+color: black;
+font-size: 12pt;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3, h4 {
+page-break-after: avoid;
+}
+}
+p {
+margin: 1em 0;
+}
+a {
+color: #1a1a1a;
+}
+a:visited {
+color: #1a1a1a;
+}
+img {
+max-width: 100%;
+}
+svg {
+height: auto;
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+margin-top: 1.4em;
+}
+h5, h6 {
+font-size: 1em;
+font-style: italic;
+}
+h6 {
+font-weight: normal;
+}
+ol, ul {
+padding-left: 1.7em;
+margin-top: 1em;
+}
+li > ol, li > ul {
+margin-top: 0;
+}
+blockquote {
+margin: 1em 0 1em 1.7em;
+padding-left: 1em;
+border-left: 2px solid #e6e6e6;
+color: #606060;
+}
+code {
+font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+font-size: 85%;
+margin: 0;
+hyphens: manual;
+}
+pre {
+margin: 1em 0;
+overflow: auto;
+}
+pre code {
+padding: 0;
+overflow: visible;
+overflow-wrap: normal;
+}
+.sourceCode {
+background-color: transparent;
+overflow: visible;
+}
+hr {
+border: none;
+border-top: 1px solid #1a1a1a;
+height: 1px;
+margin: 1em 0;
+}
+table {
+margin: 1em 0;
+border-collapse: collapse;
+width: 100%;
+overflow-x: auto;
+display: block;
+font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+margin-bottom: 0.75em;
+}
+tbody {
+margin-top: 0.5em;
+border-top: 1px solid #1a1a1a;
+border-bottom: 1px solid #1a1a1a;
+}
+th {
+border-top: 1px solid #1a1a1a;
+padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+margin-bottom: 4em;
+text-align: center;
+}
+#TOC li {
+list-style: none;
+}
+#TOC ul {
+padding-left: 1.3em;
+}
+#TOC > ul {
+padding-left: 0;
+}
+#TOC a:not(:hover) {
+text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<h1 id="lcd">LCD</h1>
+<p>#para/resource<br />
+#tech</p>
+<blockquote>
+<p>https://meliplug.info/docs/polarizer.html</p>
+</blockquote>
+<h2 id="액정---liquid-crystal">액정 - Liquid Crystal</h2>
+<p>액체와 고체 사이의 특성을 띄는 물질<br />
+<img role="img" aria-label="LC" src="data:image/avif;base64,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" alt="LC" /></p>
+<h2 id="dsm-lcd">DSM LCD</h2>
+<p>평소에 액정 분자는 정렬되어있어 일정한 굴절률을 가지고 따라서 빛을
+투과 시킨다.<br />
+액정에 전압을 가하면 액정 분자의 질서가 붕괴, 굴절률이 무작위적으로
+변한다. 빛은 액정 내부에서 무작위적으로 굴절되어 산란된다.</p>
+<h3 id="dsm-lcd---구조">DSM LCD - 구조</h3>
+<p>두개의 유리판 사이에 액정을 넣는다.<br />
+한쪽 유리판에 미리 정해진 모양의 투명 전도층을 추가한다.<br />
+다른 한쪽에 전체적으로 투명 전도층을 추가한다.<br />
+전압이 가해지면 해당 영역의 액정이 무질서 해지면서 불투명해진다.<br />
+이외의 영역은 투명하게 유지된다.</p>
+<figure>
+<img role="img" aria-label="DSM 전압 off" src="data:image/avif;base64,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" alt="DSM 전압 off" />
+<figcaption aria-hidden="true">DSM 전압 off</figcaption>
+</figure>
+<figure>
+<img role="img" aria-label="DSM 전압 on" src="data:image/avif;base64,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" alt="DSM 전압 on" />
+<figcaption aria-hidden="true">DSM 전압 on</figcaption>
+</figure>
+<h2 id="tn-lcd">TN LCD</h2>
+<p>빛(전자기파)는 전기장과 자기장이 수직으로 진동하며 나아간다.<br />
+편광판(polarizer)은 미세한 슬릿을 가지고있다.<br />
+슬릿과 평행하지 않은 전기장을 갖는 빛은 편광판을 통과하지 못한다.<br />
+편광판을 통과한 빛은 서로 전기장이 평행하게 정렬된 빛(polarized light)이
+된다.</p>
+<p>첫 번째 편광판에 이어 두 번째 편광판을 90도 회전시켜 배치하면 모든
+빛이 차단된다.</p>
+<figure>
+<img role="img" aria-label="Polarizer" src="data:image/avif;base64,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" alt="Polarizer" />
+<figcaption aria-hidden="true">Polarizer</figcaption>
+</figure>
+<p>TN LCD에서는 두 유리판에 초미세 스크레치를 내어 액정을 그 방향으로
+정렬 시킨다.<br />
+두 유리판을 90도 회전 시켜 배치한다.<br />
+그렇게 하면 두 유리판 사이 액정 분자들이 비틀린 나선형 구조(Twisted
+Nematic)로 배치된다.<br />
+이때 두 유리판의 거리가 정확해야한다.<br />
+비틀려 배열된 액정 분자들은 빛의 복굴절을 유도하여 빛의 편광
+방향(전기장의 방향)이 90도 회전되도록 한다.<br />
+90도 회전된 편광된 빛은 두 번째 편광판을 통과한다.<br />
+투명 전도층에 전압을 가하면 액정 분자의 비틀림이 풀려
+수직(untwisted)으로 정렬된다.<br />
+따라서 90도 회전되지 못한 빛은 두번째 편광판을 통과하지 못하고, 어두운
+화면이 나타난다.</p>
+<figure>
+<img role="img" aria-label="TN" src="data:image/avif;base64,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" alt="TN" />
+<figcaption aria-hidden="true">TN</figcaption>
+</figure>
+<p>만약 두번째 편광판을 90도 회전시킨다면 흑백 반전이 일어날 것이다.</p>
+</body>
+</html>
