@@ -8,9 +8,13 @@ draft: false
 
  - [ ] TIS-100 in web
 
+## 금요학술포럼
+
+ - [ ] Procedural Animation
+ - [ ] JPEG DCT
+
 ## Everything that comes in in my mind :brain:
 
- - [ ] 금요학술포럼 했던거 내용, 후기
  - [ ] Godot 배우기 - godot draw function 쓸만해보임
  - [ ] Border radius. is it better with it? Or without it?
  - [ ] 비즈니스 한문장 {{% h "**problem**" "red" %}} + {{%h "**solution**" "blue" %}} = {{% h "**result**" "green" %}}  
@@ -40,18 +44,18 @@ draft: false
 
 {{< /details >}}
 
-### Creative Coding
+## Creative Coding
 
  - Tron
  - Word Popcorn (word -> ascii -> numbers -> ascii)
  - Realtime FFT
 
-### Sound communication
+## Sound communication
 
 simple data transfer through sound pitch
 <https://youtube.com/shorts/WxUluB7SFGQ?si=l1BlUOo2cyg_yZay>
 
-### SDL2 :framed_picture:
+## SDL2 :framed_picture:
 
  - [ ] modded minesweeper
  - [ ] KMeans

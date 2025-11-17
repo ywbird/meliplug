@@ -38,32 +38,19 @@ mask3 = cv2.inRange(hsv, lower_bright, upper_bright)
 
 mask = cv2.bitwise_or(cv2.bitwise_or(mask1, mask2), mask3)
 mask = cv2.medianBlur(mask, 5)
-
-contours, _ = cv2.findContours(
-    binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
-)
-for cnt in contours:
-    if cv2.contourArea(cnt) < 5:
-        continue
-    M_cnt = cv2.moments(cnt)
-    if M_cnt["m00"] == 0:
-        continue
-    cx = int(M_cnt["m10"] / M_cnt["m00"])
-    cy = int(M_cnt["m01"] / M_cnt["m00"])
-
-    if is_new_shot((cx, cy), hits):
-        score = calculate_score(cx, cy)
-        shot_number = len(shots) + 1
-        shots.append((shot_number, (cx, cy), score))
-        hits.append((cx, cy, time.time()))
-        print(f"Shot {shot_number}: Score={score}, Position=({cx},{cy})")
-        # for i in range(20):
-        #     cap.read()
-
-    if len(shots) >= MAX_SHOTS:
-        reset()
 ```
 
 ### 변경점
 
 기존 빨강색을 추출하는 방식은 주변 환경에 따라 인지가 달라질 수 있기 때문에, 개선점으로 이미지를 YCbCr으로 처리하는 방식을 사용하기로 했다.
+
+```python
+# BGR → YCrCb 변환 (YCbCr과 동일)
+ycrcb = cv2.cvtColor(warped, cv2.COLOR_BGR2YCrCb)
+
+# 채널 분리
+Y, Cr, Cb = cv2.split(ycrcb)
+
+# 이진 이미지
+_, binary = cv2.threshold(Cr, WHITE_THRESHOLD, 255, cv2.THRESH_BINARY)
+```

@@ -518,3 +518,11 @@ main {
 		}
 	}
 }
+
+.menu-buttons {
+  display: none;
+}
+
+.draft {
+  color: red;
+}

@@ -1,6 +1,6 @@
 baseURL = 'https://meliplug.info/'
 languageCode = 'en-us'
-title = 'MeliPlug'
+title = 'MeliPlug.info'
 theme = 'meliplug'
 enableEmoji = true
 
@@ -25,10 +25,11 @@ enableEmoji = true
     pageRef = '/projects'
     weight = 40
 
-  [[menus.main]]
-    name = 'Tags'
-    pageRef = '/tags'
-    weight = 50
+  # [[menus.main]]
+  #   name = 'Tags'
+  #   pageRef = '/tags'
+  #   weight = 50
+
 
 
 [markup]

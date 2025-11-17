@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", init)
 function init() {
 	const themeBtn = document.getElementById("theme-btn");
 
-	const theme = window.localStorage.getItem("theme", "light");
+	const theme = window.localStorage.getItem("theme", "dark");
 	if (theme === "light") {
 		themeBtn.innerHTML = `
 		[Dark/<span>Light</span>]
@@ -17,7 +17,7 @@ function init() {
 	}
 
 	themeBtn.addEventListener("click", () => {
-		const theme = window.localStorage.getItem("theme", "light");
+		const theme = window.localStorage.getItem("theme", "dark");
 		if (theme === "light") {
 			document.documentElement.classList.add('dark');
 			window.localStorage.setItem("theme", "dark");
@@ -36,7 +36,7 @@ function init() {
 
 	const colorBtn = document.getElementById("color-btn");
 
-	const color = window.localStorage.getItem("theme", "solarized");
+	const color = window.localStorage.getItem("theme", "rose-pine");
 	if (color === "solarized") {
 		colorBtn.innerHTML = `
 		[Rosé Pine/<span>Solarized</span>]
@@ -48,7 +48,7 @@ function init() {
 	}
 
 	colorBtn.addEventListener("click", () => {
-		const color = window.localStorage.getItem("color", "solarized");
+		const color = window.localStorage.getItem("color", "rose-pine");
 		if (color === "solarized") {
 			document.documentElement.classList.add('rose-pine');
 			document.documentElement.classList.remove('solarized');

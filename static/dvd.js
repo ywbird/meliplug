@@ -15,7 +15,7 @@ function init() {
 
 	let scanlines = new Image()
 	scanlines.crossOrigin = "anonymous" // Enable CORS request
-	scanlines.src = 'https://i.sstatic.net/QPN59.png' // Example scanline texture
+	scanlines.src = 'scanline.png' // Example scanline texture
 	let dvdlogo = new Image()
 	dvdlogo.crossOrigin = "anonymous" // Enable CORS request
 	dvdlogo.src = 'dvdlogo.png' // Example scanline texture
