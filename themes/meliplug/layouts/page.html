@@ -1,17 +1,25 @@
 {{ define "main" }}
-	<h1>{{ .Title }}</h1>
+<h1>{{ .Title }}</h1>
 
-	{{ partial "tags.html" (dict "taxonomy" "tags" "page" .) }}
+{{ partial "tags.html" (dict "taxonomy" "tags" "page" .) }}
 
-	{{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-	{{ $dateHuman := .Date | time.Format ":date_long" }}
-	<time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+{{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+{{ $dateHuman := .Date | time.Format ":date_long" }}
+Created: <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
 
-	{{ if or .Params.toc .Site.Params.toc }}
-	{{ .TableOfContents }}
-	{{ end }}
+<br>
 
-	<hr>
+{{ if isset .Params "update" }}
+{{ $dateMachine = .Params.update | time.Format "2006-01-02T15:04:05-07:00" }}
+{{ $dateHuman = .Params.update | time.Format ":date_long" }}
+Updated: <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+{{ end }}
 
-	{{ .Content }}
+{{ if or .Params.toc .Site.Params.toc }}
+{{ .TableOfContents }}
+{{ end }}
+
+<hr>
+
+{{ .Content }}
 {{ end }}

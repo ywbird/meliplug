@@ -44,6 +44,6 @@ tags:
 
 2. $(\lambda x.M[x])N \longrightarrow_{\beta} M[x:=N]$ : **$\beta$-reduction($\beta$-축약)**, $M$의 $x$를 $N$으로 대체
 
-## Related
+## References
 
  - <https://ywbird.github.io/ppt.old/lambda-ppt>

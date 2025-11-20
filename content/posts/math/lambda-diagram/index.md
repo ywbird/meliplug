@@ -203,7 +203,7 @@ func GenAbstDiag(abst AstAbstraction) AbstDiag {
 }
 ```
 
-## Related
+## References
 
  - [What is PLUS times PLUS? - 2swap (Youtube)](https://youtu.be/RcVA8Nj6HEo)
  - <https://tromp.github.io/cl/diagrams.html>
