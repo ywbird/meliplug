@@ -284,6 +284,8 @@ html.dark body {
 main {
 	border-block: 1px solid var(--outline);
 
+  width: 100%;
+
 	a {
 		color: var(--primary6);
 
@@ -523,6 +525,28 @@ main {
   display: none;
 }
 
-.draft {
+.post-list_draft {
   color: red;
+}
+
+.post-list_archived {
+  color: powderblue;
+}
+
+.post_draft {
+  color: red;
+  background-color: color-mix(in srgb, red 50%, transparent 50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.post_archived {
+  color: powderblue;
+  background-color: color-mix(in srgb, powderblue 50%, transparent 50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
 }

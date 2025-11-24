@@ -1,9 +1,9 @@
 ---
 title: "게임/시각화 툴에 대한 고민"
 date: 2025-08-14T14:50:21+09:00
+update: 2025-11-25T01:01:57+09:00
 description: "게임/시각화 툴에 대한 고민"
 toc: true
-draft: true
 ---
 
 ## Introduction
@@ -62,6 +62,17 @@ Go 기반 게임엔진
 {{< callout >}}
 내가 Go를 많이 써보지 않음
 {{< /callout >}}
+
+### GO WASM
+
+Go WASM으로 HTML Canvas 조작하기
+
+ - [x] GUI
+ - [x] Simple Draw
+ - [x] Compile language
+ - [x] Web exportable
+ - [ ] Slow!!!  
+ 왜인지 모르지만..
 
 ### Macroquad
 
