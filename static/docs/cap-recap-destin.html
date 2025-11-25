@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>0219</title>
+  <meta name="author" content="이도이" />
+  <title>포획-재포획법 시뮬레이션 보고서 2차</title>
   <style>
 html {
 color: #1a1a1a;
@@ -167,11 +168,34 @@ vertical-align: middle;
 </style>
 </head>
 <body>
-<h1 id="포획-재포획법-시뮬레이션-2---목적지-ai">포획-재포획법 시뮬레이션
-2 - 목적지 AI</h1>
-<p>#para/project #state/done<br />
-#biology #math #statistics<br />
-최종수정: 2025-11-15T05:37:22+09:00</p>
+<header id="title-block-header">
+<h1 class="title">포획-재포획법 시뮬레이션 보고서 2차</h1>
+<p class="author">이도이</p>
+</header>
+<h2 id="차-보고서-요약">1차 보고서 요약</h2>
+<p>생명과학 시간에 개체군에서 모든 개체를 일일이 새는 것이 불가능할 때
+개체군의 수를 추정하는 방법의 하나인 <a href="chgu">포획-재포획 법</a>을
+배우게 되었다.</p>
+<p>방법을 배운 뒤, 실재로 얼마나 실용적인지 궁금해졌고, 방법을 검증하기
+위해 시뮬레이션을 설계하였다.</p>
+<p>결과적으로, 개체군의 크기가 클수록 추정 정확도가 향상되었다.<br />
+포획 비율과 재포획 비율의 일관적인 값 및 1에 가까운 비율은
+포획-재포획법이 실용성이 있음을 보여주었다.</p>
+<p>개선점으로 이번 시뮬레이션에서 개체들은 직선 운동과 벽에서 튕겨
+나가는 간단한 움직임만을 구현했다. 이러한 시뮬레이션의 현실성 부족으로
+오차와 현실과의 괴리가 발생할 수 있었다고 생각한다. 시뮬레이션을
+수정하여 개체의 움직임에 다른 방식을 사용하였을 때 어떠한 결과가 나올지
+확인해 볼 것이다.</p>
+<h2 id="차-보고서-요약-1">2차 보고서 요약</h2>
+<p>최초 보고서에서 부족했던 개체의 움직임을 무작위로 위치를 지정하여
+그곳으로 향하는 목적지 기반으로 수정하였고, 그 결과 이상적 결과에 더
+가까운 결과를 얻었다.</p>
+<blockquote>
+<p>지적 탐구심으로 시뮬레이션을 직접 설계하고 부족한 점을 찾고, 후에
+부족했던 점을 개선하여 시뮬레이션을 수정, 보완하여 실제로 더 나은 결과를
+얻었다는 부분을 강조해 주세요.</p>
+</blockquote>
+<h2 id="본문">본문</h2>
 <blockquote>
 <p><a href="mtjs">포획-재포획법 시뮬레이션</a><br />
 ## 개선점<br />
