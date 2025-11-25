@@ -1,25 +1,25 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range first 10 site.RegularPages }}
-  <h2>
-    <a href="{{ .RelPermalink }}">
-      {{- .LinkTitle -}}
-      <span class="post-list_date">
-{{ $dateMachine := "" }}
-{{ $dateHuman := "" }}
-{{- if isset .Params "update" -}}
-{{- $dateMachine = .Params.update | time.Format "2006-01-02T15:04:05-07:00" -}}
-{{- $dateHuman = .Params.update | time.Format "2006-01-02" -}}
-{{- else -}}
-{{ $dateMachine = .Date | time.Format "2006-01-02T15:04:05-07:00" }}
-{{ $dateHuman = .Date | time.Format "2006-01-02" }}
-{{- end -}}
-(<time datetime="{{ $dateMachine }}">{{- $dateHuman -}}</time>)
-        </span>
-      {{- if .Draft -}}<span class="post-list_draft">DRAFT</span>{{- end -}}
-      {{- if .Params.Archived -}}<span class="post-list_archived">ARCHIVED</span>{{- end -}}
-    </a>
-  </h2>
-    <!-- {{ .Summary }} -->
-  {{ end }}
+{{ .Content }}
+{{ range first 10 site.RegularPages }}
+<h2>
+  <a href="{{ .RelPermalink }}">
+    {{- .LinkTitle -}}
+    <span class="post-list_date">
+      {{ $dateMachine := "" }}
+      {{ $dateHuman := "" }}
+      {{- if isset .Params "update" -}}
+      {{- $dateMachine = .Params.update | time.Format "2006-01-02T15:04:05-07:00" -}}
+      {{- $dateHuman = .Params.update | time.Format "2006-01-02" -}}
+      {{- else -}}
+      {{ $dateMachine = .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman = .Date | time.Format "2006-01-02" }}
+      {{- end -}}
+      (<time datetime="{{ $dateMachine }}">{{- $dateHuman -}}</time>)
+    </span>
+    {{- if .Draft -}}<span class="post-list_draft">DRAFT</span>{{- end -}}
+    {{- if .Params.Archived -}}<span class="post-list_archived">ARCHIVED</span>{{- end -}}
+  </a>
+</h2>
+<!-- {{ .Summary }} -->
+{{ end }}
 {{ end }}

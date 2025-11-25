@@ -19,6 +19,8 @@ Updated: <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
 {{ end }}
 
 {{ if or .Params.toc .Site.Params.toc }}
+<br>
+Table of Content:
 {{ .TableOfContents }}
 {{ end }}
 

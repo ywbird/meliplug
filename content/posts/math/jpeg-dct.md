@@ -6,10 +6,15 @@ draft: true
 jsxgraph: true
 math: true
 toc: true
+tags:
+    - math
+    - jpeg
+    - jsxgraph
+    - 금요학술포럼
 ---
 
 {{< callout "note" >}}
-본 글은 제7회 금요학술포험(2025-11-07)에서 발표한 내용을 정리한 것 입니다.  
+본 글은 제7회 금요학술포럼(2025-11-07)에서 발표한 내용을 정리한 것 입니다.  
 발표 ppt와 자료는 아래 링크에 있습니다.  
  - ppt: <https://ppt.meliplug.info/ppt/jpeg>
  - viz: <https://viz.meliplug.info/jpeg-dct-web>

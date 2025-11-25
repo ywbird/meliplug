@@ -57,7 +57,7 @@ Langton's Ant는 튜링 완전 머신이다.
 <table class="center"><thead>
   <tr>
     <th colspan="2" rowspan="3"></th>
-    <th colspan="9">Current Color</th>
+    <th colspan="9">Current</th>
   </tr>
   <tr>
     <th colspan="3">C0</th>
@@ -66,18 +66,18 @@ Langton's Ant는 튜링 완전 머신이다.
   </tr>
   <tr>
     <th>Write</th>
-    <th>Rotation</th>
-    <th>Next State</th>
+    <th>Rot</th>
+    <th>Next</th>
     <th>Write</th>
-    <th>Rotation</th>
-    <th>Next State</th>
+    <th>Rot</th>
+    <th>Next</th>
     <th>Write</th>
-    <th>Rotation</th>
-    <th>Next State</th>
+    <th>Rot</th>
+    <th>Next</th>
   </tr></thead>
 <tbody>
   <tr>
-    <td style="font-weight: bold;" rowspan="2">Current State</td>
+    <td style="font-weight: bold;" rowspan="2">Current</td>
     <td style="font-weight: bold;">S0</td>
     <td></td>
     <td>X</td>
