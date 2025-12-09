@@ -1,0 +1,8 @@
+<h{{ .Level }} id="{{ .Anchor }}" {{- with .Attributes.class }} class="{{ . }}" {{- end }}>
+  {{- .Text }}
+  {{ if or $.Page.Params.toc $.Page.Site.Params.toc }}
+  <a class="anchor" href="#toc">#<sup>{{- .Level -}}</sup></a>
+  {{ else }}
+  <a class="anchor" href="#{{ .Anchor }}">#<sup>{{- .Level -}}</sup></a>
+  {{ end }}
+</h{{ .Level }}>

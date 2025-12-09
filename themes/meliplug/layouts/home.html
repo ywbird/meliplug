@@ -1,7 +1,7 @@
 {{ define "main" }}
 {{ .Content }}
 {{ range first 10 site.RegularPages }}
-<h2>
+<h2 class="post-list_item">
   <a href="{{ .RelPermalink }}">
     {{- .LinkTitle -}}
     <span class="post-list_date">
