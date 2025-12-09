@@ -1,7 +1,6 @@
 ---
 title: 'Uxn/Varvara Ecosystem'
-date: '2025-12-07T17:26:47+09:00'
-update: '2025-12-09T23:04:12+09:00'
+date: '2025-12-09T23:04:12+09:00'
 draft: false
 tags:
   - Uxn
