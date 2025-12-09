@@ -1,14 +1,14 @@
 ---
 title: 'Uxn/Varvara Ecosystem'
 date: '2025-12-07T17:26:47+09:00'
-update: '2025-12-09T22:55:46+09:00'
+update: '2025-12-09T23:04:12+09:00'
 draft: false
 tags:
   - Uxn
 ---
 
 {{< quote >}}
-**Let's try to go slow, and fix things.**
+Let's try to go slow, and fix things.
 {{</ quote >}}
 
 ## What is Uxn/Varvara
