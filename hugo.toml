@@ -50,3 +50,6 @@ enableEmoji = true
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+[security]
+  enableInlineShortcodes = true

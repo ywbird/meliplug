@@ -6,18 +6,18 @@ draft: false
 
 ## In Progess...
 
- - [ ] TIS-100 in web
+ - [-] TIS-100 in web
 
 ## 금요학술포럼
 
- - [ ] Procedural Animation
- - [ ] JPEG DCT
+ - [-] Procedural Animation
+ - [-] JPEG DCT
 
 ## Everything that comes in in my mind :brain:
 
  - [ ] Godot 배우기 - godot draw function 쓸만해보임
  - [ ] Border radius. is it better with it? Or without it?
- - [ ] 비즈니스 한문장 {{% h "**problem**" "red" %}} + {{%h "**solution**" "blue" %}} = {{% h "**result**" "green" %}}  
+ - [ ] 비즈니스 한문장 {{< h primary1 >}}**problem**{{</ h >}} + {{< h primary2 >}}**solution**{{</ h >}} = {{% h primary3 %}}**result**{{%/ h %}}  
     > ex) 1000 songs in your pocket.
  - [ ] "Five Million Two hundred" -> 5,000,200 (tokenizer?)
  - [ ] Logisim
@@ -36,7 +36,7 @@ draft: false
  - [ ] Aheui CPU / Game
  - [ ] Three.js
      - Depth map 
- - [ ] Custom PPT framework
+ - [-] Custom PPT framework: [ywbird/recmoy](https://github.com/ywbird/recmoy)
 
 {{< details summary="🍯주제 source" >}}
 

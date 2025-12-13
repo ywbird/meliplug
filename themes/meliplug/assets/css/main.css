@@ -416,6 +416,7 @@ main {
       &::before {
         content: "[";
       }
+
       &::after {
         content: "]";
       }
@@ -511,9 +512,14 @@ main {
       display: inline-block;
     }
 
-    &:checked::after {
+    &:not([data-status=processing]):checked::after {
       content: "[x]";
       color: var(--primary8);
+    }
+
+    &[data-status=processing]::after {
+      content: "[-]" !important;
+      color: var(--primary2);
     }
   }
 
@@ -578,6 +584,13 @@ main {
         padding-inline: .6rem;
       }
     }
+  }
+
+  .sc_highlight {
+    display: inline;
+    color: var(--highlight);
+    font-weight: 500;
+    text-shadow: 0px 0px 3px var(--highlight);
   }
 
   .sc_columns {

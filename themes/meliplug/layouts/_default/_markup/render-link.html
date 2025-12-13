@@ -1,10 +1,3 @@
-<a href="{{ .Destination | safeURL }}"
-   {{ with .Title }} title="{{ . }}"{{ end }}
-   {{ if (strings.HasPrefix .Destination "http") }}
-     target="_blank" rel="noopener noreferrer" class="external"
-   {{ end }}
-   {{ if (strings.HasPrefix .Destination "#") }}
-     class="internal"
-   {{ end }}>
+<a href="{{ .Destination | safeURL }}" {{ with .Title }} title="{{ . }}"{{ end }} {{ if (strings.HasPrefix .Destination "http") }} target="_blank" rel="noopener noreferrer" class="external"{{ end }} {{ if (strings.HasPrefix .Destination "#") }} class="internal"{{ end }} >
   {{- .Text | safeHTML -}}
 </a>

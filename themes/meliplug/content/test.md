@@ -30,14 +30,14 @@ callout caution
 
 ---
 
-{{< h "banana" "primary1" >}}
-{{< h "banana" "primary2" >}}
-{{< h "banana" "primary3" >}}
-{{< h "banana" "primary4" >}}
-{{< h "banana" "primary5" >}}
-{{< h "banana" "primary6" >}}
-{{< h "banana" "primary7" >}}
-{{< h "banana" "primary8" >}}
+{{< h primary1 >}}banana{{</ h >}}
+{{< h primary2 >}}banana{{</ h >}}
+{{< h primary3 >}}banana{{</ h >}}
+{{< h primary4 >}}banana{{</ h >}}
+{{< h primary5 >}}banana{{</ h >}}
+{{< h primary6 >}}banana{{</ h >}}
+{{< h primary7 >}}banana{{</ h >}}
+{{< h primary8 >}}banana{{</ h >}}
 
 ## Math
 
