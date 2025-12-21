@@ -1,0 +1,52 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Bezier Curve | MeliPlug.info</title><link rel=stylesheet href=/css/main.min.62bb6187cb24459829ba96814ff6823c7c5b8609fd405f0e6fbb107a8e55f122.css integrity="sha256-Yrthh8skRZgpupaBT/aCPHxbhgn9QF8Ob7sQeo5V8SI=" crossorigin=anonymous><link rel=stylesheet href=/css/code.min.29bfd3b9f622c1a0c8f584f6791fa51fc9fd6808577e6ca258969c1aac25c8cc.css integrity="sha256-Kb/TufYiwaDI9YT2eR+lH8n9aAhXfmyiWJacGqwlyMw=" crossorigin=anonymous><script src=/js/main.5895d3641665792c4b76dac1fae169914339d0b674fc44f35ffac34541a01cc6.js integrity="sha256-WJXTZBZleSxLdtrB+uFpkUM50LZ0/ETzX/rDRUGgHMY=" crossorigin=anonymous></script><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js></script><script>MathJax={tex:{macros:{RA:"\\rightarrow"},displayMath:[["$$","$$"]],inlineMath:[["$","$"]]},loader:{load:["ui/safe"]}}</script></head><body><header><img src=/logo-1.svg alt id=logo><div class=menu-bar><nav><ul><li><a href=/>[Home]</a></li><li><a href=/ideas/>[Ideas]</a></li><li><a aria-current=true class=ancestor href=/posts/>[Posts]</a></li><li><a href=/projects/>[Projects]</a></li></ul></nav><div class=menu-buttons><span role=button id=color-btn></span>
+<span role=button id=theme-btn></span></div></div></header><div id=main><aside id=left-aside></aside><aside id=right-aside></aside><main><h1>Bezier Curve</h1><div class=tags><div>Tags:</div><ul><li><a href=/tags/math/>#Math</a></li><li><a href=/tags/animation/>#Animation</a></li><li><a href=/tags/desmos/>#Desmos</a></li><li><a href=/tags/%EA%B8%88%EC%9A%94%ED%95%99%EC%88%A0%ED%8F%AC%EB%9F%BC/>#금요학술포럼</a></li></ul></div>Created: <time datetime=2024-01-01T00:00:00+09:00>2024 Jan 1 - 00:00:00</time><br><hr><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><p>이 포스트는 고1 금요학술포럼에서의 발표를 글로 옮긴것으로 블로그를 시작하기 전 활동입니다.<br>발표 당시 PPT는 다음 링크에서 확인 가능합니다.<br><a href=https://ywbird.github.io/ppt.old/bezier-ppt/ target=_blank rel="noopener noreferrer" class=external>https://ywbird.github.io/ppt.old/bezier-ppt/</a></p></div></aside><h2 id=vector-이미지><a class=anchor href=#vector-%ec%9d%b4%eb%af%b8%ec%a7%80>#</a>
+Vector 이미지</h2><ul><li>Scalable Vector Graphics</li><li>확대해도 깨지지 않는 이미지</li></ul><table><thead><tr><th style=text-align:center>SVG</th><th style=text-align:center>PNG</th></tr></thead><tbody><tr><td style=text-align:center><img src=https://github.com/ywbird/ppt.old/raw/main/bezier-ppt/SVG_Logo.svg width=200></td><td style=text-align:center><img src=https://github.com/ywbird/ppt.old/raw/main/bezier-ppt/SVG_Logo.svg.png width=200></td></tr></tbody></table><p>왼쪽은 vector 이미지, 오른쪽은 png 이미지.<br>가능하다면 컴퓨터에서는 <code>Ctrl</code> + <code>+</code>로 확대하거나, 모바일에서 핀치로 확대해서 보면 왼쪽은 픽셀이 보이지 않는 반면, 오른쪽은 픽셀이 보인다.</p><h2 id=구현-방식><a class=anchor href=#%ea%b5%ac%ed%98%84-%eb%b0%a9%ec%8b%9d>#</a>
+구현 방식</h2><ul><li><a href=# class=internal>De Casteljau Algorithm</a></li><li><a href=# class=internal>Bernstein Polynomial</a></li></ul><p>사실 알고리즘 자체를 구현한것은 <strong>Bernstein Polynomial</strong>가 먼저였지만, 이를 시각적으로 볼 수 있게 표현한 <strong>De Casteljau Algorithm</strong>을 먼저 알아보자.</p><h2 id=de-casteljau-algorithm><a class=anchor href=#de-casteljau-algorithm>#</a>
+De Casteljau <small>Algorithm</small></h2><aside class="callout important"><p class=callout-title>Important</p><div class=callout-content>$$
+lerp(P_0, P_1, t) = (1-t) \cdot P_0 + t \cdot P_1,\ 0 \leq t \leq 1
+$$<p>$P_0$ 와 $P_1$ 사이의 점 $P$가 존재, $P_0$, $P_1$ 사이 거리 비율로 $P$ 표현<br>Linear Interpolation - 선형 보간 함수 - lerp</p></div></aside><ul><li>점 2 개 Lerp → Linear Bézier Curve</li><li>점 3 개 Lerp → Quadratic Bézier Curve</li><li>점 4 개 Lerp → Cubic Bézier Curve</li><li>점 N 개 Lerp → $N − 1$ -th Bézier Curve</li></ul><h3 id=linear-bézier><a class=anchor href=#linear-b%c3%a9zier>##</a>
+Linear Bézier</h3>$$
+P = lerp(P_0, P_1, t)
+$$<p><img src=https://github.com/user-attachments/assets/e00d7fe6-6edb-4308-8997-6b093ecd8548 alt="linear {60%x}"></p><aside class="callout tip"><p class=callout-title>Add</p><div class=callout-content><details><summary>📈 Animated Desmos Graph</summary><iframe src=https://www.desmos.com/calculator/ehfqlvs10h?embed width=500 height=500 style="border:1px solid #ccc" frameborder=0></iframe></details></div></aside><h3 id=quadratic-bézier><a class=anchor href=#quadratic-b%c3%a9zier>##</a>
+Quadratic Bézier</h3>$$
+\begin{align}
+Q_0 &= lerp(P_0, P_1, t) \\
+Q_1 &= lerp(P_1, P_2, t) \\
+\\
+P &= lerp(Q_1, Q_2, t)
+\end{align}
+$$<p><img src=https://github.com/user-attachments/assets/c9c2c8b7-9f58-47a9-ba3d-a57bcd4d258b alt="quadratic {60%x}"></p><aside class="callout tip"><p class=callout-title>Add</p><div class=callout-content><details><summary>📈 Animated Desmos Graph</summary><iframe src=https://www.desmos.com/calculator/yvanai4rim?embed width=500 height=500 style="border:1px solid #ccc" frameborder=0></iframe></details></div></aside><h3 id=cubic-bézier><a class=anchor href=#cubic-b%c3%a9zier>##</a>
+Cubic Bézier</h3>$$
+\begin{align}
+Q_0 &= lerp(P_0, P_1, t) \\
+Q_1 &= lerp(P_1, P_2, t) \\
+Q_2 &= lerp(P_2, P_3, t) \\
+\\
+R_0 &= lerp(Q_0, Q_1, t) \\
+R_1 &= lerp(Q_1, Q_2, t) \\
+\\
+P &= lerp(R_0, R_1, t)
+\end{align}
+$$<p><img src=https://github.com/user-attachments/assets/4a839f2b-571c-4328-bf04-fadf84456565 alt="cubic {60%x}"></p><aside class="callout tip"><p class=callout-title>Add</p><div class=callout-content><details><summary>📈 Animated Desmos Graph</summary><iframe src=https://www.desmos.com/calculator/ghpvgn98s9?embed width=500 height=500 style="border:1px solid #ccc" frameborder=0></iframe></details></div></aside><hr><p>이처럼 De Casteljau <small>Algorithm</small>은 $lerp$를 쌓는 방식으로 Bézier Curve를 구현한다.<br>위에서 구현한 것 이상으로 4차, 5차로도 만들 수 있겠지만, 그 이상의 곡선은 거의 3차 곡선(Cubic Bézier) 여러개를 사용해 거의 똑같이 만드는것이 가능함에 더해 계산 효율성마저 떨어지기 때문에 잘 사용하지 않는다.</p><h2 id=bernstein-polynomial><a class=anchor href=#bernstein-polynomial>#</a>
+Bernstein Polynomial</h2><p>조절점 $P_0, P_1, P_2, ..., P_n$ 에 대한 Bézier Curve</p><br>$$
+P(t) = \sum_{i=0}^n P_i {n \choose i}(1-t)^{n-i}t^i P_i,\,0 \leq t \leq 1
+$$<h3 id=일때><a class=anchor href=#%ec%9d%bc%eb%95%8c>##</a>
+$n=3$ 일때</h3>$$
+\begin{align}
+P(t) &= \sum_{i=0}^n {n \choose i}(1-t)^{n-i}t^i P_i \\
+&= (1-t)^3 \cdot {\color{red}P_0} + 3 \cdot (1-t)^2 \cdot t \cdot {\color{green}P_1} + 3 \cdot (1-t) \cdot t^2 \cdot {\color{teal}P_2} + t^3 \cdot {\color{orange}P_3}
+\end{align}
+$$<hr>$$
+\begin{align}
+y&={\color{red}(1-t)^3}\\
+y&={\color{green}3 \cdot (1-t)^2 \cdot t}\\
+y&={\color{teal}3 \cdot (1-t) \cdot t^2}\\
+y&={\color{orange}t^3}\\
+\end{align}
+$$<p><img src=https://github.com/user-attachments/assets/11a19b61-2be7-4596-9311-03777330c967 alt="bern {60%x}"></p><aside class="callout tip"><p class=callout-title>Add</p><div class=callout-content><details><summary>📈 Animated Desmos Graph</summary><iframe src=https://www.desmos.com/calculator/czhu7lwtoe?embed width=500 height=500 style="border:1px solid #ccc" frameborder=0></iframe></details></div></aside><p>계산해보면, 위 항들의 합은 항상 $1$임을 알 수 있는데, 각 점에 가중치를 준다고 생각하면 편할 듯 하다.</p><h2 id=관계><a class=anchor href=#%ea%b4%80%ea%b3%84>#</a>
+관계?</h2><p>De Casteljau Algorithm에서 3차 곡선의 식을 정리하면 아래의 식으로 Bernstein Polynomial에서 $n=3$일때의 식과 완전히 동일하다.</p>$$
+\begin{align}
+P(t) &= \sum_{i=0}^n {n \choose i}(1-t)^{n-i}t^i P_i \\
+&= (1-t)^3 \cdot {\color{red}P_0} + 3 \cdot (1-t)^2 \cdot t \cdot {\color{green}P_1} + 3 \cdot (1-t) \cdot t^2 \cdot {\color{teal}P_2} + t^3 \cdot {\color{orange}P_3}
+\end{align}
+$$</main></div><footer><p>&copy;2021-2025 doi, ywbird.</p></footer></body></html>

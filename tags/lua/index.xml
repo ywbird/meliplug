@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Lua on MeliPlug.info</title><link>https://meliplug.info/tags/lua/</link><description>Recent content in Lua on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 12 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://meliplug.info/tags/lua/index.xml" rel="self" type="application/rss+xml"/><item><title>Lua 변수 타입</title><link>https://meliplug.info/posts/old/lua/2021-11-12-variable-type/</link><pubDate>Fri, 12 Nov 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/lua/2021-11-12-variable-type/</guid><description>&lt;h2 id="간단한-목차"&gt;
+ 
+ &lt;a class="anchor" href="#%ea%b0%84%eb%8b%a8%ed%95%9c-%eb%aa%a9%ec%b0%a8"&gt;#&lt;/a&gt;
+ 간단한 목차
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;숫자 변수&lt;/li&gt;
+&lt;li&gt;문자열 변수&lt;/li&gt;
+&lt;li&gt;리스트 변수&lt;/li&gt;
+&lt;li&gt;참, 거짓 변수&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="숫자-변수"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%88%ab%ec%9e%90-%eb%b3%80%ec%88%98"&gt;#&lt;/a&gt;
+ 숫자 변수
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;걍 숫자입니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;이렇게 변수끼리 더할 수 있습니다.&lt;/p&gt;
+&lt;h2 id="문자열-변수"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%ac%b8%ec%9e%90%ec%97%b4-%eb%b3%80%ec%88%98"&gt;#&lt;/a&gt;
+ 문자열 변수
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;banana&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;banana&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;문자열이다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;lua &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;is &amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;easy&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;lua&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;easy&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;문자열끼리 더할 수 있습니다.&lt;/p&gt;</description></item><item><title>첫 Lua 스크립트 실행시켜보기</title><link>https://meliplug.info/posts/old/lua/2021-11-11-start/</link><pubDate>Thu, 11 Nov 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/lua/2021-11-11-start/</guid><description>&lt;h2 id="루아-인터프리터로-사용해보기"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%a3%a8%ec%95%84-%ec%9d%b8%ed%84%b0%ed%94%84%eb%a6%ac%ed%84%b0%eb%a1%9c-%ec%82%ac%ec%9a%a9%ed%95%b4%eb%b3%b4%ea%b8%b0"&gt;#&lt;/a&gt;
+ 루아 인터프리터로 사용해보기
+&lt;/h2&gt;
+&lt;p&gt;Lua는 파이썬처럼 인터프리터 대화형 셸로 사용할 수 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://meliplug.info/lua/setup" &gt;저번 회차&lt;/a&gt;
+에서 설치한 lua폴더로 가서 &lt;code&gt;🥞lua54.exe&lt;/code&gt;(54가 아니라 다른이름일 수도 있음)를 실행시킨다&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://user-images.githubusercontent.com/83404333/141263869-ffe99fc2-d1f4-4850-b3b3-f906cab800fb.png" alt="lua"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;또는 &lt;code&gt;cmd&lt;/code&gt;를 열어서 lua54를 치는 방법도 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://user-images.githubusercontent.com/83404333/141263570-10c2bf1c-2c6f-46d9-81da-209289de3e95.png" alt="lua"&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;열고나면 대화형 셸이 나오는데 여기에 다음과 같이 써봅시다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;hello, world!&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;hello&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;world&lt;/span&gt;&lt;span class="err"&gt;!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;그럼 &lt;code&gt;hello, world!&lt;/code&gt; 라고 출력될 겁니다.&lt;/p&gt;
+&lt;p&gt;🎉축하합니다! 당신은 첫 Lua코드를 실행시켰습니다!&lt;/p&gt;
+&lt;h2 id="루아-파일로-실행시키기"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%a3%a8%ec%95%84-%ed%8c%8c%ec%9d%bc%eb%a1%9c-%ec%8b%a4%ed%96%89%ec%8b%9c%ed%82%a4%ea%b8%b0"&gt;#&lt;/a&gt;
+ 루아 파일로 실행시키기
+&lt;/h2&gt;
+&lt;p&gt;이제 Lua를 파일로 실행 시켜봅시다.&lt;/p&gt;
+&lt;p&gt;다음과 같은 파일을 프로젝트 폴더에 생성합니다.&lt;/p&gt;</description></item><item><title>Lua 기초 설정</title><link>https://meliplug.info/posts/old/lua/2021-11-10-setup/</link><pubDate>Wed, 10 Nov 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/lua/2021-11-10-setup/</guid><description>&lt;h2 id="소개"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%86%8c%ea%b0%9c"&gt;#&lt;/a&gt;
+ 소개
+&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;Lua&lt;/code&gt;는 파이썬이나 자바스크립트 같은 인터프리터 언어입니다.&lt;br&gt;
+Lua의 문법이 파이썬처럼 영어로 읽어도 이해가 될정도로 쉽게 설계되어있습니다.&lt;/p&gt;
+&lt;p&gt;코딩을 할때 나오는 다음과 같은 문장 있죠?&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;if 조건문 then
+ 실행할 문장 1
+ 실행할 문장 2
+ 실행할 문장 3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;이렇게 나오는데, 실제 Lua 코드는&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-lua" data-lang="lua"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="err"&gt;조건문&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="err"&gt;실행할&lt;/span&gt; &lt;span class="err"&gt;문장&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="err"&gt;실행할&lt;/span&gt; &lt;span class="err"&gt;문장&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="err"&gt;실행할&lt;/span&gt; &lt;span class="err"&gt;문장&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kr"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위와같이 조건문이나 문이 끝날때 end를 붙이면 됩니다.&lt;/p&gt;
+&lt;h2 id="설치"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%84%a4%ec%b9%98"&gt;#&lt;/a&gt;
+ 설치
+&lt;/h2&gt;
+&lt;p&gt;Lua는 다른 파이썬같은 언어같이 인터프리터가 필요합니다.&lt;/p&gt;
+&lt;p&gt;❗이 강좌는 Windows 10 운영체제 기준입니다.
+{: .notice.notice&amp;ndash;danger}&lt;/p&gt;</description></item></channel></rss>

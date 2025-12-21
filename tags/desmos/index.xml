@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Desmos on MeliPlug.info</title><link>https://meliplug.info/tags/desmos/</link><description>Recent content in Desmos on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0900</lastBuildDate><atom:link href="https://meliplug.info/tags/desmos/index.xml" rel="self" type="application/rss+xml"/><item><title>Bezier Curve</title><link>https://meliplug.info/posts/math/bezier/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0900</pubDate><guid>https://meliplug.info/posts/math/bezier/</guid><description>&lt;aside class="callout note"&gt;
+	&lt;p class="callout-title"&gt;Note&lt;/p&gt;
+	&lt;div class="callout-content"&gt;&lt;p&gt;이 포스트는 고1 금요학술포럼에서의 발표를 글로 옮긴것으로 블로그를 시작하기 전 활동입니다.&lt;br&gt;
+발표 당시 PPT는 다음 링크에서 확인 가능합니다.&lt;br&gt;
+&lt;a href="https://ywbird.github.io/ppt.old/bezier-ppt/" target="_blank" rel="noopener noreferrer" class="external" &gt;https://ywbird.github.io/ppt.old/bezier-ppt/&lt;/a&gt;
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;h2 id="vector-이미지"&gt;
+ 
+ &lt;a class="anchor" href="#vector-%ec%9d%b4%eb%af%b8%ec%a7%80"&gt;#&lt;/a&gt;
+ Vector 이미지
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Scalable Vector Graphics&lt;/li&gt;
+&lt;li&gt;확대해도 깨지지 않는 이미지&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+ &lt;tr&gt;
+ &lt;th style="text-align: center"&gt;SVG&lt;/th&gt;
+ &lt;th style="text-align: center"&gt;PNG&lt;/th&gt;
+ &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+ &lt;tr&gt;
+ &lt;td style="text-align: center"&gt;&lt;img src="https://github.com/ywbird/ppt.old/raw/main/bezier-ppt/SVG_Logo.svg" width="200"/&gt;&lt;/td&gt;
+ &lt;td style="text-align: center"&gt;&lt;img src="https://github.com/ywbird/ppt.old/raw/main/bezier-ppt/SVG_Logo.svg.png" width="200"/&gt;&lt;/td&gt;
+ &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;왼쪽은 vector 이미지, 오른쪽은 png 이미지.&lt;br&gt;
+가능하다면 컴퓨터에서는 &lt;code&gt;Ctrl&lt;/code&gt; + &lt;code&gt;+&lt;/code&gt;로 확대하거나, 모바일에서 핀치로 확대해서 보면 왼쪽은 픽셀이 보이지 않는 반면, 오른쪽은 픽셀이 보인다.&lt;/p&gt;
+&lt;h2 id="구현-방식"&gt;
+ 
+ &lt;a class="anchor" href="#%ea%b5%ac%ed%98%84-%eb%b0%a9%ec%8b%9d"&gt;#&lt;/a&gt;
+ 구현 방식
+&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#" class="internal" &gt;De Casteljau Algorithm&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#" class="internal" &gt;Bernstein Polynomial&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;사실 알고리즘 자체를 구현한것은 &lt;strong&gt;Bernstein Polynomial&lt;/strong&gt;가 먼저였지만, 이를 시각적으로 볼 수 있게 표현한 &lt;strong&gt;De Casteljau Algorithm&lt;/strong&gt;을 먼저 알아보자.&lt;/p&gt;</description></item></channel></rss>

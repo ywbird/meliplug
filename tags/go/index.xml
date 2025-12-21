@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Go on MeliPlug.info</title><link>https://meliplug.info/tags/go/</link><description>Recent content in Go on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 11 Oct 2025 01:38:33 +0900</lastBuildDate><atom:link href="https://meliplug.info/tags/go/index.xml" rel="self" type="application/rss+xml"/><item><title>Lambda Diagram</title><link>https://meliplug.info/posts/math/lambda-diagram/</link><pubDate>Sat, 11 Oct 2025 01:38:33 +0900</pubDate><guid>https://meliplug.info/posts/math/lambda-diagram/</guid><description>&lt;aside class="callout important"&gt;
+	&lt;p class="callout-title"&gt;Important&lt;/p&gt;
+	&lt;div class="callout-content"&gt;&lt;p&gt;이 포스팅은 &lt;a href="https://meliplug.info/posts/math/lambda-calculus" &gt;lambda calculus&lt;/a&gt;
+를 알고있다는 전제 하에 작성되었습니다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;
+
+&lt;div class="justify-center sc_columns"&gt;
+ &lt;div&gt;
+&lt;p&gt;&lt;img src="./example1.png" alt="church numeral 5" title="church numeral 5"&gt;&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;\f.\x.(f(f(f(f(fx)))))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href="https://github.com/tromp" target="_blank" rel="noopener noreferrer" class="external" &gt;@tromp&lt;/a&gt;
+가 고안한 lambda calculus를 시각화 하는 방법이다.
+&lt;a href="https://tromp.github.io/cl/diagrams.html" target="_blank" rel="noopener noreferrer" class="external" &gt;https://tromp.github.io/cl/diagrams.html&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id="lambda-calculus-parsing"&gt;
+ 
+ &lt;a class="anchor" href="#toc"&gt;#&lt;/a&gt;
+ Lambda Calculus Parsing
+&lt;/h2&gt;
+&lt;h3 id="tokenizing"&gt;
+ 
+ &lt;a class="anchor" href="#toc"&gt;##&lt;/a&gt;
+ Tokenizing
+&lt;/h3&gt;
+&lt;p&gt;토큰 타입 목록, 토큰을 만든다.&lt;/p&gt;
+&lt;p&gt;다이어그램을 생성하는 것이 주 목적이기에, 문법은 간단하면서 렉싱하기 쉽게 만들었다.&lt;/p&gt;
+&lt;h3 id="parsing"&gt;
+ 
+ &lt;a class="anchor" href="#toc"&gt;##&lt;/a&gt;
+ Parsing
+&lt;/h3&gt;
+&lt;p&gt;파싱은 복잡하지 않게 제귀-하강 파싱(Recursive-descent parsing)을 사용했다.&lt;/p&gt;
+&lt;p&gt;그렇기에, &lt;strong&gt;적용&lt;/strong&gt;을 무조건 괄호로 감싸야한다. 그러나, 연속적 &lt;strong&gt;적용&lt;/strong&gt;은 하나의 괄호 내에 사용할 수 있다.&lt;/p&gt;</description></item></channel></rss>

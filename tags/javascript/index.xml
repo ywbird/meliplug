@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on MeliPlug.info</title><link>https://meliplug.info/tags/javascript/</link><description>Recent content in Javascript on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 05 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://meliplug.info/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>자바스크립트 while 문과 for 문</title><link>https://meliplug.info/posts/old/js/2021-10-05-while-for/</link><pubDate>Tue, 05 Oct 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/js/2021-10-05-while-for/</guid><description>&lt;h2 id="while-문"&gt;
+ 
+ &lt;a class="anchor" href="#while-%eb%ac%b8"&gt;#&lt;/a&gt;
+ while 문
+&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-js" data-lang="js"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;let&lt;/span&gt; &lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//i 를 설정한다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;	&lt;span class="c1"&gt;//앞의 i &amp;lt; 100 값이 true(참)인동안 반복된다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;	&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//i 값에 1을 더한다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;	&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;i&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;//i 값을 출력한다.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;위의 코드는 &lt;code&gt;i&lt;/code&gt;의 값이 100 초과인동안 반복되고 매 반복마다 콘솔에 &lt;code&gt;i&lt;/code&gt;값을 출력한후 &lt;code&gt;i&lt;/code&gt;에다가 1씩 더한다.&lt;/p&gt;
+&lt;p&gt;위에서 말했듯 while 문은 &lt;code&gt;()&lt;/code&gt; 내부에 있는 조건의 값이 &lt;u&gt;true(참)인 동안 반복&lt;/u&gt; 된다.&lt;/p&gt;
+&lt;p&gt;❗ 참인동안 반복이고 거짓이 되는순간 반복이 끝난다. 맨날 까먹어서 저도 고생했어요 😭
+{: .notice&amp;ndash;warning}&lt;/p&gt;
+&lt;p&gt;❗ 만약 조건 부분이 절대 끝나지 않도록 설정한다면 브라우저가 폭8 할 테니까 절대로 하지 말 것!!
+{: .notice&amp;ndash;warning}&lt;/p&gt;</description></item></channel></rss>

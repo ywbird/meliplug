@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows on MeliPlug.info</title><link>https://meliplug.info/tags/windows/</link><description>Recent content in Windows on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 12 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://meliplug.info/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>Cmd 자동실행 파일 만들기</title><link>https://meliplug.info/posts/old/windows/2022-01-12-cmd-start/</link><pubDate>Wed, 12 Jan 2022 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/windows/2022-01-12-cmd-start/</guid><description>&lt;h1 id="필요성"&gt;
+ 
+ &lt;a class="anchor" href="#%ed%95%84%ec%9a%94%ec%84%b1"&gt;&lt;/a&gt;
+ ♟필요성
+&lt;/h1&gt;
+&lt;p&gt;이전 글인 🏷&lt;a href="https://meliplug.info/windows/cat" &gt;리눅스 cat 명령어 구현하기&lt;/a&gt;
+ 글만 봐도 &lt;code&gt;cmd&lt;/code&gt;를 실행할 때 파일을 여는 것은 필요해 보입니다.&lt;br&gt;
+아니면 아래처럼 &lt;code&gt;cmd&lt;/code&gt;의 시작 경로를 설정할 때도 쓰일 수 있죠.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-batch" data-lang="batch"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; cd C:\Users
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;또한 여태 제 글에 나오턴 아래와 같은 모습을 한 터미널 또한 자동 실행파일로 구현한 것입니다.&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;[C:\Users\username] (12:00:00.00) (C)
+~$
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(대충 이런느낌)
+{:.small}&lt;/p&gt;
+&lt;h1 id="설치"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%84%a4%ec%b9%98"&gt;&lt;/a&gt;
+ 💎설치(?)
+&lt;/h1&gt;
+&lt;p&gt;터미널에 다음 명령어 2개를 실행시킵니다.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-batch" data-lang="batch"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; reg add &lt;span class="s2"&gt;&amp;#34;HKCU\Software\Microsoft\Command Processor&amp;#34;&lt;/span&gt; /v AutoRun &lt;span class="se"&gt;^ &lt;/span&gt;/t REG_EXPAND_SZ /d &lt;span class="s2"&gt;&amp;#34;C:\init.cmd&amp;#34;&lt;/span&gt; /f
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-batch" data-lang="batch"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; echo &lt;span class="p"&gt;@&lt;/span&gt;&lt;span class="k"&gt;echo&lt;/span&gt; off &lt;span class="p"&gt;&amp;gt;&lt;/span&gt; C:\init.cmd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;C:&lt;/code&gt; 드라이버로 가서 &lt;code&gt;init.cmd&lt;/code&gt;를 열어줍니다.
+아래와 같이 적어주면 됩니다.&lt;/p&gt;</description></item><item><title>리눅스 cat 명령어 구현하기</title><link>https://meliplug.info/posts/old/windows/2022-01-11-cat/</link><pubDate>Tue, 11 Jan 2022 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/windows/2022-01-11-cat/</guid><description>&lt;h1 id="cat-명령어란"&gt;
+ 
+ &lt;a class="anchor" href="#cat-%eb%aa%85%eb%a0%b9%ec%96%b4%eb%9e%80"&gt;&lt;/a&gt;
+ 😻cat 명령어란?
+&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;cat&lt;/code&gt; 명령어는 linux에서 지원하는 명령어이며, 명령어의 인자로 파일의 이름을 받아서 출력하는 명령어 입니다.&lt;/p&gt;
+&lt;p&gt;{% include code title=&amp;lsquo;hello.txt&amp;rsquo; %}&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Hello, World!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;{% include code title=&amp;lsquo;banana.txt&amp;rsquo; %}&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Banana is yam.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;$ cat hello.txt banana.txt
+Hello, World!
+Banana is yam.
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id="type-명령어의-문제점"&gt;
+ 
+ &lt;a class="anchor" href="#type-%eb%aa%85%eb%a0%b9%ec%96%b4%ec%9d%98-%eb%ac%b8%ec%a0%9c%ec%a0%90"&gt;&lt;/a&gt;
+ 🙀type 명령어의 문제점
+&lt;/h1&gt;
+&lt;p&gt;윈도우에는 기본적으로 &lt;code&gt;type&lt;/code&gt;라는 명령어가 있습니다.
+&lt;code&gt;type&lt;/code&gt;는 &lt;code&gt;cat&lt;/code&gt;과 비슷하지만 &lt;code&gt;cat&lt;/code&gt;은 파일이 여러개라도 항상 파일의 내용만 출력하는 반면 &lt;code&gt;type&lt;/code&gt;는 인자가 2개 이상이면 파일의 이름도 같이 출력돼서 문제가 있습니다.&lt;/p&gt;</description></item></channel></rss>

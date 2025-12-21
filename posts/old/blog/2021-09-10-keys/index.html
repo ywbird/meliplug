@@ -1,0 +1,71 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>키보드 모양 | MeliPlug.info</title><link rel=stylesheet href=/css/main.min.62bb6187cb24459829ba96814ff6823c7c5b8609fd405f0e6fbb107a8e55f122.css integrity="sha256-Yrthh8skRZgpupaBT/aCPHxbhgn9QF8Ob7sQeo5V8SI=" crossorigin=anonymous><link rel=stylesheet href=/css/code.min.29bfd3b9f622c1a0c8f584f6791fa51fc9fd6808577e6ca258969c1aac25c8cc.css integrity="sha256-Kb/TufYiwaDI9YT2eR+lH8n9aAhXfmyiWJacGqwlyMw=" crossorigin=anonymous><script src=/js/main.5895d3641665792c4b76dac1fae169914339d0b674fc44f35ffac34541a01cc6.js integrity="sha256-WJXTZBZleSxLdtrB+uFpkUM50LZ0/ETzX/rDRUGgHMY=" crossorigin=anonymous></script></head><body><header><img src=/logo-1.svg alt id=logo><div class=menu-bar><nav><ul><li><a href=/>[Home]</a></li><li><a href=/ideas/>[Ideas]</a></li><li><a aria-current=true class=ancestor href=/posts/>[Posts]</a></li><li><a href=/projects/>[Projects]</a></li></ul></nav><div class=menu-buttons><span role=button id=color-btn></span>
+<span role=button id=theme-btn></span></div></div></header><div id=main><aside id=left-aside></aside><aside id=right-aside></aside><main><h1>키보드 모양</h1><div class=post_archived><span class=post_archived_label>[ ARCHIVED ]</span><ul class=post_archived_description><li>더 이상 관심사가 아닌 경우</li><li>현재와 다른 내용인 경우</li><li>현재 관리되고 있지 않은 경우</li></ul></div><div class=tags><div>Tags:</div><ul><li><a href=/tags/blog/>#Blog</a></li></ul></div>Created: <time datetime=2021-09-10T00:00:00+00:00>2021 Sep 10 - 00:00:00</time><br><hr><p>그냥 블로그 꾸미다가 필요해서 추가하게 됐다.</p><h1 id=소개><a class=anchor href=#%ec%86%8c%ea%b0%9c></a>소개</h1><p><code>A</code>{: .key} ⬅대충 이런 거. <strong>누를 수도 있다!</strong></p><h2 id=만들기><a class=anchor href=#%eb%a7%8c%eb%93%a4%ea%b8%b0>#</a>
+만들기</h2><p>먼저 📁<code>_sass\mininmal-mistakes</code> 폴더에 📝<code>_keys.scss</code> 파일을 만듭니다.
+다음 내용을 작성합니다.</p><h3 id=_keysscss><a class=anchor href=#_keysscss>##</a>
+📄_keys.scss</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=o>//</span> <span class=nt>Keys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>key</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>font-family</span><span class=p>:</span> <span class=err>$</span><span class=kc>monospace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>font-weight</span><span class=p>:</span> <span class=kc>bold</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>background</span><span class=p>:</span> <span class=mh>#fff</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>display</span><span class=p>:</span> <span class=kc>inline-block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>border</span><span class=p>:</span> <span class=mi>0</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>margin</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding</span><span class=p>:</span> <span class=mi>0</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding-right</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding-left</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#fff</span><span class=p>,</span> <span class=mi>0</span> <span class=mf>.25</span><span class=kt>em</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#bbb</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>cursor</span><span class=p>:</span> <span class=kc>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>transition</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>.8</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>key</span><span class=p>:</span><span class=nd>active</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>top</span><span class=p>:</span> <span class=mi>2</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#fff</span><span class=p>,</span> <span class=mi>0</span> <span class=mf>.05</span><span class=kt>em</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#bbb</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=minimal-mistakesscss-에-임포트-하기><a class=anchor href=#minimal-mistakesscss-%ec%97%90-%ec%9e%84%ed%8f%ac%ed%8a%b8-%ed%95%98%ea%b8%b0>##</a>
+📄minimal-mistakes.scss 에 임포트 하기</h3><p>그후 📁<code>_sass</code> 폴더에 📄<code>minimal-mistakes.scss</code> 파일을 열고 마지막줄에 다음 내용을 입력합니다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=c>/* Custom classes */</span>
+</span></span><span class=line><span class=cl><span class=p>@</span><span class=k>import</span> <span class=s2>&#34;minimal-mistakes/keys&#34;</span><span class=p>;</span>
+</span></span></code></pre></div><h2 id=적용><a class=anchor href=#%ec%a0%81%ec%9a%a9>#</a>
+적용</h2><p>그런후 원하는 글자를 강조표시 뒤에 <code>{: .key}</code> 를 붙이면 됩니다.</p><pre tabindex=0><code>`글자`{: .key}
+</code></pre><p><code>글자</code>{: .key}</p><h3 id=예><a class=anchor href=#%ec%98%88>##</a>
+예</h3><p>Win + E 를 쓰고싶으면</p><pre tabindex=0><code>`Win`{: .key}+`E`{: .key}
+</code></pre><p><code>Win</code>{: .key}+<code>E</code>{: .key}</p><hr><p>Ctrl + W 를 쓰고싶으면</p><pre tabindex=0><code>`Ctrl`{: .key}+`W`{: .key}
+</code></pre><p><code>Ctrl</code>{: .key}+<code>W</code>{: .key}</p><h2 id=응용><a class=anchor href=#%ec%9d%91%ec%9a%a9>#</a>
+응용</h2><p>이를 응용해서 특수키를 만들 수 있다.</p><p><code>Win</code>{: .key} 등 특수키를 노란색으로 바꿔보자.</p><h3 id=_keysscss-에-추가><a class=anchor href=#_keysscss-%ec%97%90-%ec%b6%94%ea%b0%80>##</a>
+📄_keys.scss 에 추가</h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>special</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>key</span><span class=p>.</span><span class=nc>sp</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>color</span><span class=p>:</span> <span class=mh>#000</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>font-family</span><span class=p>:</span> <span class=err>$</span><span class=kc>monospace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>font-weight</span><span class=p>:</span> <span class=kc>bold</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>background</span><span class=p>:</span> <span class=mh>#fff6a8</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>align-items</span><span class=p>:</span> <span class=kc>center</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>display</span><span class=p>:</span> <span class=kc>inline-block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>border</span><span class=p>:</span> <span class=mi>0</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>margin</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding</span><span class=p>:</span> <span class=mi>0</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding-right</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>padding-left</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#fff6a8</span><span class=p>,</span> <span class=mi>0</span> <span class=mf>.25</span><span class=kt>em</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#a89f6b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>cursor</span><span class=p>:</span> <span class=kc>pointer</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	
+</span></span><span class=line><span class=cl>	<span class=k>transition</span><span class=p>:</span> <span class=mf>.1</span><span class=kt>s</span> <span class=nb>cubic-bezier</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mf>.8</span><span class=p>,</span> <span class=mi>1</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=p>.</span><span class=nc>key</span><span class=p>.</span><span class=nc>sp</span><span class=p>:</span><span class=nd>active</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>top</span><span class=p>:</span> <span class=mi>2</span><span class=kt>em</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=k>box-shadow</span><span class=p>:</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#fff6a8</span><span class=p>,</span> <span class=mi>0</span> <span class=mf>.05</span><span class=kt>em</span> <span class=mi>0</span> <span class=mi>0</span> <span class=mh>#a89f6b</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>그리고</p><pre tabindex=0><code>`Win`{: .key .sp} + `R`{: .key}
+</code></pre><p>하면&mldr;</p><p><code>Win</code>{: .key .sp} + <code>R</code>{: .key}</p><p>짠! 완성이다.</p></main></div><footer><p>&copy;2021-2025 doi, ywbird.</p></footer></body></html>

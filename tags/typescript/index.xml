@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Typescript on MeliPlug.info</title><link>https://meliplug.info/tags/typescript/</link><description>Recent content in Typescript on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 25 Feb 2025 21:01:12 +0900</lastBuildDate><atom:link href="https://meliplug.info/tags/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>구상 - Rust Blog</title><link>https://meliplug.info/posts/rust-blog/concept/</link><pubDate>Tue, 25 Feb 2025 21:01:12 +0900</pubDate><guid>https://meliplug.info/posts/rust-blog/concept/</guid><description>&lt;h2 id="rust-배우는-김에-웹개발도-같이-해보자"&gt;
+ 
+ &lt;a class="anchor" href="#rust-%eb%b0%b0%ec%9a%b0%eb%8a%94-%ea%b9%80%ec%97%90-%ec%9b%b9%ea%b0%9c%eb%b0%9c%eb%8f%84-%ea%b0%99%ec%9d%b4-%ed%95%b4%eb%b3%b4%ec%9e%90"&gt;#&lt;/a&gt;
+ Rust 배우는 김에 웹개발도 같이 해보자!
+&lt;/h2&gt;
+&lt;p&gt;Rust 배우고 있는 와중, 웹개발을 접목하면서 배우려고 블로그를 만들기로 함.&lt;br&gt;
+안정화(?) 될때까지는 현재 블로그 테마를 쓸 예정.&lt;/p&gt;
+&lt;h2 id="static-site"&gt;
+ 
+ &lt;a class="anchor" href="#static-site"&gt;#&lt;/a&gt;
+ Static Site
+&lt;/h2&gt;
+&lt;p&gt;블로그 사이트이므로, 그냥 html로 빌드하는 사이트를 만들기로 함.&lt;br&gt;
+아래 글에서 기본적인 작동 방식을 알았다.&lt;br&gt;
+&lt;a href="https://kerkour.com/rust-static-site-generator" target="_blank" rel="noopener noreferrer" class="external" &gt;https://kerkour.com/rust-static-site-generator&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;사실 개발하고싶은 방향은 fasterthanlime의 블로그이지만, Rust초보인 내가 접근하기 너무 어렵다고 판단했다.&lt;br&gt;
+&lt;a href="https://fasterthanli.me/articles/a-new-website-for-2020" target="_blank" rel="noopener noreferrer" class="external" &gt;https://fasterthanli.me/articles/a-new-website-for-2020&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id="cms"&gt;
+ 
+ &lt;a class="anchor" href="#cms"&gt;#&lt;/a&gt;
+ CMS?
+&lt;/h2&gt;
+&lt;p&gt;일반적인 개발 블로그처럼 Markdown을 이용하기로 했다.&lt;br&gt;
+Markdown을 parse하는데 이용할 툴은, &lt;a href="https://github.com/wooorm/markdown-rs" target="_blank" rel="noopener noreferrer" class="external" &gt;markdown-rs&lt;/a&gt;
+&lt;/p&gt;</description></item></channel></rss>
