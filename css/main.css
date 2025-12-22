@@ -728,9 +728,14 @@ main {
 }
 
 .fleets {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 600px;
+  gap: 1.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   & .fleet-list_item {
     font-family: "KyoboHandwriting2019", serif ;
@@ -738,14 +743,30 @@ main {
     padding-block: 0.2rem;
     padding-inline: 0.4rem;
     color: var(--base2);
+    width: 35%;
     position: relative;
-    min-height: 150px;
+    min-height: 180px;
+    font-size: .9em;
+    height: fit-content;
+    transition: .1s;
+
+    ul, ol {
+      padding-left: 20px;
+    }
+
+    & .fleet_item_readmore {
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+
+      a { color: inherit; text-decoration: underline; }
+    }
 
     &:hover {
       rotate: 1deg;
     }
 
-    &::before {
+    &.more::before {
       content: "";
       position: absolute;
       bottom: 0;
