@@ -743,12 +743,13 @@ main {
     padding-block: 0.2rem;
     padding-inline: 0.4rem;
     color: var(--base2);
-    width: 35%;
+    width: 250px;
     position: relative;
     min-height: 180px;
     font-size: .9em;
     height: fit-content;
     transition: .1s;
+    word-break: break-all;
 
     ul, ol {
       padding-left: 20px;
