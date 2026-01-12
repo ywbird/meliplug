@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jpeg on MeliPlug.info</title>
+    <link>http://localhost:1313/tags/jpeg/</link>
+    <description>Recent content in Jpeg on MeliPlug.info</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Nov 2025 11:23:44 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/jpeg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JPEG DCT는 어떻게 작동하는가?</title>
+      <link>http://localhost:1313/posts/math/jpeg-dct/</link>
+      <pubDate>Tue, 18 Nov 2025 11:23:44 +0900</pubDate>
+      <guid>http://localhost:1313/posts/math/jpeg-dct/</guid>
+      <description>&lt;aside class=&#34;callout note&#34;&gt;&#xA;&#x9;&lt;p class=&#34;callout-title&#34;&gt;Note&lt;/p&gt;&#xA;&#x9;&lt;div class=&#34;callout-content&#34;&gt;&lt;p&gt;본 글은 제7회 금요학술포럼(2025-11-07)에서 발표한 내용을 정리한 것 입니다.&lt;br&gt;&#xA;발표 ppt와 자료는 아래 링크에 있습니다.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;ppt: &lt;a href=&#34;https://ppt.meliplug.info/ppt/jpeg&#34;   target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34; class=&#34;external&#34;  &gt;https://ppt.meliplug.info/ppt/jpeg&lt;/a&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;viz: &lt;a href=&#34;https://viz.meliplug.info/jpeg-dct-web&#34;   target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34; class=&#34;external&#34;  &gt;https://viz.meliplug.info/jpeg-dct-web&lt;/a&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;doc: &lt;a href=&#34;https://meliplug.info/docs/jpeg.html&#34;   target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34; class=&#34;external&#34;  &gt;https://meliplug.info/docs/jpeg.html&lt;/a&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/div&gt;&#xA;&lt;/aside&gt;&#xA;&#xA;&lt;h2 id=&#34;fourier-transformation&#34;&gt;&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#toc&#34;&gt;#&lt;/a&gt;&#xA;  Fourier Transformation&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;푸리에 변환이란 시간이나 공간에 대한 함수를 시간이나 공간 주파수 성분으로 분석하는 것을 말한다.&lt;/p&gt;&#xA;&lt;p&gt;함수 $x(t)$가 복소수 범위에서 정의되어 있고 르베그 적분이 가능할 때, 이 함수의 푸리에 변환 $X(\xi)$는 다음과 같이 정의된다.&#xA;&lt;/p&gt;&#xA;$$&#xA;\begin{align}&#xA;X(\xi) &amp;= \int^{\infty}_{-\infty}{x(t)e^{-2\pi i \xi t}}dt \\&#xA;       &amp;= \int^{\infty}_{-\infty}{x(t)(\cos(-2\pi \xi t)+i \sin(-2\pi \xi t))}dt \\&#xA;\end{align}&#xA;$$&lt;h2 id=&#34;fast-fourier-tranform&#34;&gt;&#xA;  &#xA;  &lt;a class=&#34;anchor&#34; href=&#34;#toc&#34;&gt;#&lt;/a&gt;&#xA;  Fast Fourier Tranform&#xA;&lt;/h2&gt;&#xA;&lt;p&gt;DFT(이산 푸리에 변환 Discrete Fourier Transform)은 이산적(불연속적) 입력 신호에 대한 푸리에 변환으로, 디지털 신호 분석에 주로 사용된다.&lt;br&gt;&#xA;FFT(고속 푸리에 변환)은 DFT를 빠르게 계산하는 알고리즘이다.&#xA;불연속적 값에 대한 푸리에 변환이므로, 적분이 아닌 합을 이용한다.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

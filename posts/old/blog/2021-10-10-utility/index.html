@@ -1,0 +1,58 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>블로그에 쓸모있는 기능들 추가하기 | MeliPlug.info</title><link rel=stylesheet href=/css/main.min.928b985d476544897c25e28e9e2363569baba882fba70ef90440b1f9a9aa01f8.css integrity="sha256-kouYXUdlRIl8JeKOniNjVpurqIL7pw75BECx+amqAfg=" crossorigin=anonymous><link rel=stylesheet href=/css/code.min.29bfd3b9f622c1a0c8f584f6791fa51fc9fd6808577e6ca258969c1aac25c8cc.css integrity="sha256-Kb/TufYiwaDI9YT2eR+lH8n9aAhXfmyiWJacGqwlyMw=" crossorigin=anonymous><script src=/js/main.5895d3641665792c4b76dac1fae169914339d0b674fc44f35ffac34541a01cc6.js integrity="sha256-WJXTZBZleSxLdtrB+uFpkUM50LZ0/ETzX/rDRUGgHMY=" crossorigin=anonymous></script></head><body><header><img src=/logo-1.svg alt id=logo><div class=menu-bar><nav><ul><li><a href=/>[Home]</a></li><li><a href=/ideas/>[Ideas]</a></li><li><a aria-current=true class=ancestor href=/posts/>[Posts]</a></li><li><a href=/projects/>[Projects]</a></li></ul></nav><div class=menu-buttons><span role=button id=color-btn></span>
+<span role=button id=theme-btn></span></div></div></header><div id=main><aside id=left-aside></aside><aside id=right-aside></aside><main><h1>블로그에 쓸모있는 기능들 추가하기</h1><div class=post_archived><span class=post_archived_label>[ ARCHIVED ]</span><ul class=post_archived_description><li>더 이상 관심사가 아닌 경우</li><li>현재와 다른 내용인 경우</li><li>현재 관리되고 있지 않은 경우</li></ul></div><div class=tags><div>Tags:</div><ul><li><a href=/tags/blog/>#Blog</a></li></ul></div>Created: <time datetime=2021-10-10T00:00:00+00:00>2021 Oct 10 - 00:00:00</time><br><hr><h2 id=만들것><a class=anchor href=#%eb%a7%8c%eb%93%a4%ea%b2%83>#</a>
+만들것</h2><ul><li><a href=#%e2%80%8e%eb%af%b8%eb%a6%ac%eb%b3%b4%ea%b8%b0 class=internal>따옴표 모양 인용문</a></li><li><a href=#%eb%af%b8%eb%a6%ac%eb%b3%b4%ea%b8%b0 class=internal>코드 파일 제목</a></li></ul><h2 id=인용문><a class=anchor href=#%ec%9d%b8%ec%9a%a9%eb%ac%b8>#</a>
+인용문</h2><h3 id=미리보기><a class=anchor href=#%eb%af%b8%eb%a6%ac%eb%b3%b4%ea%b8%b0>##</a>
+‎미리보기</h3><pre tabindex=0><code class=language-liquid data-lang=liquid>{% raw %}{% include quote text=&#34;바나난 마시따!&#34; by=&#34;고앵이&#34; %}{% endraw %}
+
+
+{% raw %}{% include quote text=&#34;천재는 99% 의 노력과 &lt;br&gt;1% 의 영감으로 이루어진다&#34; by=&#34;에디슨&#34; %}{% endraw %}
+</code></pre><p>{% include quote text=&ldquo;바나난 마시따!&rdquo; by=&ldquo;고앵이&rdquo; %}</p><p>{% include quote text=&ldquo;천재는 99% 의 노력과<br>1% 의 영감으로 이루어진다&rdquo; by=&ldquo;에디슨&rdquo; %}</p><p>이런 느낌?</p><h3 id=만들기><a class=anchor href=#%eb%a7%8c%eb%93%a4%ea%b8%b0>##</a>
+‎만들기</h3><p>📂includes 폴더에 📝quote 라는 파일을 만듭니다.(확장자가 없습니다!!)</p><p>{% include code title="_includes\quote" %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl>{% raw %}{% capture text %}{{ include.text }}{% endcapture %}{% endraw %} {% raw %}{% capture by %}{{
+</span></span><span class=line><span class=cl>include.by }}{% endcapture %}{% endraw %}
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;quote text-center&#34;</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;opacity: 70%; font-style: italic;&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>i</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;fas fa-quote-left&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>i</span><span class=p>&gt;&lt;</span><span class=nt>br</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>span</span><span class=p>&gt;</span>{% raw %}{{ text }}{% endraw %}<span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;&lt;</span><span class=nt>br</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>i</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;fas fa-quote-right&#34;</span><span class=p>&gt;&lt;/</span><span class=nt>i</span><span class=p>&gt;&lt;</span><span class=nt>br</span> <span class=p>/&gt;</span>
+</span></span><span class=line><span class=cl>  {% raw %}{% if include.by %}{% endraw %} - {% raw %}{{ by }}{% endraw %} {% raw %}{% endif %}{% endraw %}
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>이걸로 만들기는 끝입니다.<br>원래 이렇게 태그에 스타일 넣으면 않좋은데.. 일단 걍 합니다&mldr; ㅎ</p><h3 id=적용하기><a class=anchor href=#%ec%a0%81%ec%9a%a9%ed%95%98%ea%b8%b0>##</a>
+‎적용하기</h3><p>포스트 내부에 다음과 같은 코드 한줄만 추가해 주면 됩니다!</p><pre tabindex=0><code class=language-liquid data-lang=liquid>{% raw %}{% include quote text=&#34;바나난 마시따!&#34; by=&#34;고앵이&#34; %}{% endraw %}
+</code></pre><p><span class=var>text</span> 부분이 내용이고 <span class=var>by</span> 부분이 그 말을 한사람 이라고 생각하시면 됩니다.
+줄바꿈을 하고싶다면 <code>&lt;br></code> 을 줄바꿈 하고싶은 부분에 넣어주면 됩니다!</p><h3 id=예시><a class=anchor href=#%ec%98%88%ec%8b%9c>##</a>
+‎예시</h3><br><p>{% include quote text=&ldquo;인간이 다섯 명이나 모이면<br>반드시 한 명 쓰레기가 있다.&rdquo; by=&ldquo;지보로 선생&rdquo; %}</p><br><p>{% include quote text=&ldquo;나는 생각한다 고로 나는 존재한다.&rdquo; by=&ldquo;데카르트&rdquo; %}</p><br><p>{% include quote text=&ldquo;적의 적은 나의 친구&rdquo; by=&ldquo;윈스턴 처칠&rdquo; %}</p><h2 id=코드-제목><a class=anchor href=#%ec%bd%94%eb%93%9c-%ec%a0%9c%eb%aa%a9>#</a>
+코드 제목</h2><h3 id=미리보기-1><a class=anchor href=#%eb%af%b8%eb%a6%ac%eb%b3%b4%ea%b8%b0-1>##</a>
+미리보기</h3><p>{% include code title=&ldquo;example.html&rdquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl><span class=cp>&lt;!DOCTYPE html&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>h1</span><span class=p>&gt;</span>HTML example code<span class=p>&lt;/</span><span class=nt>h1</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>HTML example p tag<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>html</span><span class=p>&gt;</span>
+</span></span></code></pre></div><p>자동으로 문서모양의 아이콘을 추가해 줍니다!</p><h3 id=만들기-1><a class=anchor href=#%eb%a7%8c%eb%93%a4%ea%b8%b0-1>##</a>
+만들기</h3><p>📂includes 폴더에 📝code 라는 파일을 만듭니다.(확장자가 없습니다!!)</p><p>{% include code title="_includes\code" %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-html data-lang=html><span class=line><span class=cl>{% raw %}{% capture title %}{{ include.title }}{% endcapture %}{% endraw %}
+</span></span><span class=line><span class=cl><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;code-title&#34;</span><span class=p>&gt;</span>
+</span></span><span class=line><span class=cl>  <span class=p>&lt;</span><span class=nt>img</span> <span class=na>draggable</span><span class=o>=</span><span class=s>&#34;false&#34;</span> <span class=na>title</span><span class=o>=</span><span class=s>&#34;memo&#34;</span> <span class=na>src</span><span class=o>=</span><span class=s>&#34;https://twemoji.maxcdn.com/2/svg/1f4dd.svg&#34;</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;emoji&#34;</span> <span class=p>/&gt;</span>{% raw
+</span></span><span class=line><span class=cl>  %}{{ title }}{% endraw %}
+</span></span><span class=line><span class=cl><span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+</span></span></code></pre></div><br><p>❗절대 다음줄 넘기거나 코드 고치지 마세요 제발.. 그러면 아이콘이랑 제목 간격이 너무 길어져버려요.
+{: .notice&ndash;warning}</p><p>📝<span class=mns>_scss\minimal-mistakes\_decorations.scss</span>을 만듭니다.(있다면 마지막줄에 넣어주세요!)</p><p>{% include code title=&rsquo;_decorations.scss&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-scss data-lang=scss><span class=line><span class=cl><span class=nc>.code-title</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=na>margin-bottom</span><span class=o>:</span> <span class=o>-</span><span class=mi>8</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>display</span><span class=o>:</span> <span class=ni>inline-block</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>border-top-left-radius</span><span class=o>:</span> <span class=mi>6</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>border-top-right-radius</span><span class=o>:</span> <span class=mi>6</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>background-color</span><span class=o>:</span> <span class=nv>$base00</span><span class=p>;</span> <span class=c1>//코드 블럭 색
+</span></span></span><span class=line><span class=cl>  <span class=na>padding</span><span class=o>:</span> <span class=mi>2</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>padding-left</span><span class=o>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>padding-right</span><span class=o>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>padding-bottom</span><span class=o>:</span> <span class=mi>4</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=na>font-size</span><span class=o>:</span> <span class=ni>medium</span><span class=p>;</span> <span class=c1>//↓ monospace 폰트 ↓
+</span></span></span><span class=line><span class=cl>  <span class=na>font-family</span><span class=o>:</span> <span class=nv>$monospace</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=적용하기-1><a class=anchor href=#%ec%a0%81%ec%9a%a9%ed%95%98%ea%b8%b0-1>##</a>
+적용하기</h3><p>적용할때는 다음과 같은 코드를 코드 블럭 위에 추가해 주면 됩니다.</p><pre tabindex=0><code class=language-liquid data-lang=liquid>{% raw %}{% include code title=&#34;_includes\code&#34; %}{% endraw %}
+</code></pre><p><span class=var>title</span> 부분에 파일의 제목을 넣으시면 됩니다.</p><p>❗언어가 없는 코드 블럭에는 쓰지 말아주세요. 색이 이상해져버려요 ㅎ
+아래와 같이요&mldr;
+{: .notice&ndash;warning}</p><p>{% include code title=&ldquo;random.txt&rdquo; %}</p><pre tabindex=0><code>HI! I&#39;m example text
+</code></pre><h2 id=마무리><a class=anchor href=#%eb%a7%88%eb%ac%b4%eb%a6%ac>#</a>
+마무리</h2><p>이상으로 <strong>{{ page.title }}</strong> 포스팅을 마치겠습니다.</p></main></div><footer><p>&copy;2021-2026 doi, ywbird.</p></footer></body></html>

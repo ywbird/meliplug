@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pack on MeliPlug.info</title><link>https://meliplug.info/tags/pack/</link><description>Recent content in Pack on MeliPlug.info</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sat, 23 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://meliplug.info/tags/pack/index.xml" rel="self" type="application/rss+xml"/><item><title>안카이드님의 비공개 리팩</title><link>https://meliplug.info/posts/old/pack/2021-10-23-ankaid-private/</link><pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/pack/2021-10-23-ankaid-private/</guid><description>&lt;h2 id="다운로드"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%8b%a4%ec%9a%b4%eb%a1%9c%eb%93%9c"&gt;#&lt;/a&gt;
+ 다운로드
+&lt;/h2&gt;
+&lt;p&gt;설명 없어요.&lt;/p&gt;
+&lt;p&gt;영상으로 대체&lt;/p&gt;
+&lt;p&gt;{% include video id=&amp;ldquo;X0l1pYy2HgQ&amp;rdquo; provider=&amp;ldquo;youtube&amp;rdquo; %}&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/ywbird/pack/raw/main/03fa48bc09dd6e7ae539ddd102fe605e5b0697a5640eba8a63b1612f5598d409/!%20%C2%A7cP%C2%A79ix%C2%A7ae%C2%A7el%20%C2%A7fParty.zip" target="_blank" rel="noopener noreferrer" class="external" &gt;&lt;i class="fas fa-download"&gt;&lt;/i&gt; 다운로드&lt;/a&gt;
+{: .btn .btn&amp;ndash;success}&lt;/p&gt;
+&lt;p&gt;따라 만든겁니다. 배포 허가 받았습니다.&lt;/p&gt;
+&lt;p&gt;안카님 팩도 원래 &lt;strong&gt;EUM3&lt;/strong&gt; 라는 리팩 수정 팩입니다.
+(갑옷 모양 바꾸는거 까먹었는데 곧 고칠거)&lt;/p&gt;
+&lt;p&gt;{% include video id=&amp;ldquo;PcRRThIom94&amp;rdquo; provider=&amp;ldquo;youtube&amp;rdquo; %}&lt;/p&gt;
+&lt;h2 id="마무리"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%a7%88%eb%ac%b4%eb%a6%ac"&gt;#&lt;/a&gt;
+ 마무리
+&lt;/h2&gt;
+&lt;p&gt;이상으로 &lt;strong&gt;{{ page.title }}&lt;/strong&gt; 포스팅을 마치겠습니다.&lt;/p&gt;</description></item><item><title>하이픽셀 픽셀 파티 리소스팩</title><link>https://meliplug.info/posts/old/pack/2021-10-23-pixel-party/</link><pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/pack/2021-10-23-pixel-party/</guid><description>&lt;h2 id="설명"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%84%a4%eb%aa%85"&gt;#&lt;/a&gt;
+ 설명
+&lt;/h2&gt;
+&lt;p&gt;하이픽셀에 새로 추가된 게임 &amp;ldquo;Pixel Party&amp;rdquo;&lt;br&gt;
+특정 색의 블럭을 제외하고 땅이 없어지는 게임이다.&lt;br&gt;
+(어디선가 본것 같은 느낌은 기분탓이다. ㅎ)&lt;br&gt;
+근데.. 블럭 색의 구분이 불가하다&amp;hellip;&lt;br&gt;
+근데 하픽이 잘못 만든게 아니다. 마크의 텍스처 팀이 잘못 한거다.&lt;/p&gt;
+&lt;h2 id="기본-리소스팩의-문제점"&gt;
+ 
+ &lt;a class="anchor" href="#%ea%b8%b0%eb%b3%b8-%eb%a6%ac%ec%86%8c%ec%8a%a4%ed%8c%a9%ec%9d%98-%eb%ac%b8%ec%a0%9c%ec%a0%90"&gt;#&lt;/a&gt;
+ 기본 리소스팩의 문제점
+&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://user-images.githubusercontent.com/83404333/138555464-ce10e0f7-5641-4fa1-9694-6df116a6c223.png" alt="gray&amp;amp;black"&gt;{: .r}&lt;/p&gt;
+&lt;p&gt;왼쪽이 회색(Gray) 오른쪽이 검정(Black) 인데&amp;hellip; 구분을 못하겠는데요&amp;hellip;?
+검정은 갈색이고…&lt;/p&gt;
+&lt;p&gt;물론 저렇게 써놓으면 알아볼 수 있지만 만약에 인겜이면 못알아 봅니다 ㄹㅇ&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://user-images.githubusercontent.com/83404333/138555671-bc6f2937-4eef-4652-aba5-44c67adec001.png" alt="lightblue&amp;amp;blue&amp;amp;cyan"&gt;{: .r}&lt;/p&gt;
+&lt;p&gt;왼쪽이 하늘색(Light Blue) 가운데가 파란색(Blue) 오른쪽이 시안(Cyan) (시안은 청록색 비슷한거)&lt;/p&gt;</description></item><item><title>마인크래프트 기본 리소스팩</title><link>https://meliplug.info/posts/old/pack/2021-08-28-default/</link><pubDate>Sat, 28 Aug 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/pack/2021-08-28-default/</guid><description>&lt;p&gt;마인크래프트 리소스팩 을 만들려면 일단 베이스가 되는 &lt;strong&gt;기본 리소스팩&lt;/strong&gt;이 있어야합니다.&lt;/p&gt;
+&lt;p&gt;이때 마인크래프트 기본 리소스팩을 얻는 방법에는 두가지가 있습니다.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="#%eb%8b%a4%ec%9a%b4%eb%b0%9b%ea%b8%b0" class="internal" &gt;다운받기&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="#%ec%b6%94%ec%b6%9c%ed%95%98%ea%b8%b0" class="internal" &gt;추출하기&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="다운받기"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%8b%a4%ec%9a%b4%eb%b0%9b%ea%b8%b0"&gt;#&lt;/a&gt;
+ 다운받기
+&lt;/h2&gt;
+&lt;p&gt;먼저 다운받는 법이 있습니다.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/ywbird/pack/raw/main/37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f/default.zip" target="_blank" rel="noopener noreferrer" class="external" &gt;&lt;i class="fas fa-download"&gt;&lt;/i&gt; 다운로드&lt;/a&gt;
+{: .btn .btn&amp;ndash;success}
+제가 직접 추출한거니 안심하셔도 됩니다.
+만약 다운로드 파일이 의심스럽다면 &lt;a href="#%ec%b6%94%ec%b6%9c%ed%95%98%ea%b8%b0" class="internal" &gt;#추출하기&lt;/a&gt;
+하시면 됩니다.&lt;/p&gt;
+&lt;h2 id="추출하기"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%b6%94%ec%b6%9c%ed%95%98%ea%b8%b0"&gt;#&lt;/a&gt;
+ 추출하기
+&lt;/h2&gt;
+&lt;p&gt;추출하는법은 조금 복잡합니다.
+먼저 추출을 원하는 마인크래프트 버전을 한번 켯다가 꺼주세요.&lt;/p&gt;
+&lt;h3 id="마인크래프트-폴더로-가기"&gt;
+ 
+ &lt;a class="anchor" href="#%eb%a7%88%ec%9d%b8%ed%81%ac%eb%9e%98%ed%94%84%ed%8a%b8-%ed%8f%b4%eb%8d%94%eb%a1%9c-%ea%b0%80%ea%b8%b0"&gt;##&lt;/a&gt;
+ 마인크래프트 폴더로 가기
+&lt;/h3&gt;
+&lt;p&gt;그후 &lt;strong&gt;마인크래프트&lt;/strong&gt; 폴더로 가 줍시다.&lt;br&gt;
+&lt;code&gt;Win&lt;/code&gt;{: .key .sp}+&lt;code&gt;R&lt;/code&gt;{: .key.h} 을 눌러 다음 경로를 넣습니다.&lt;/p&gt;</description></item><item><title>리소스팩 만들때 준비물</title><link>https://meliplug.info/posts/old/pack/2021-08-25-needs/</link><pubDate>Wed, 25 Aug 2021 00:00:00 +0000</pubDate><guid>https://meliplug.info/posts/old/pack/2021-08-25-needs/</guid><description>&lt;h1 id="텍스트-에디터---노트패드"&gt;
+ 
+ &lt;a class="anchor" href="#%ed%85%8d%ec%8a%a4%ed%8a%b8-%ec%97%90%eb%94%94%ed%84%b0---%eb%85%b8%ed%8a%b8%ed%8c%a8%eb%93%9c"&gt;&lt;/a&gt;
+ 텍스트 에디터 - 노트패드++
+&lt;/h1&gt;
+&lt;p&gt;노트패드++ 는 심플하면서도 기능이 좋은 에디터 입니다.
+무료이며 매우 추천함&lt;br&gt;
+&lt;a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener noreferrer" class="external" &gt;노트패드 공식 다운로드 페이지&lt;/a&gt;
+&lt;br&gt;
+&lt;img src="https://user-images.githubusercontent.com/83404333/131980906-b7af938b-380c-4b05-920c-f3c2fc4df179.png" alt="notepad++"&gt;
+{: .text-left}
+&lt;code&gt;이미지 원본 : 노트패드++ 홈페이지&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id="이미지-편집-툴---paintdotnet"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%9d%b4%eb%af%b8%ec%a7%80-%ed%8e%b8%ec%a7%91-%ed%88%b4---paintdotnet"&gt;&lt;/a&gt;
+ 이미지 편집 툴 - PaintDotNet
+&lt;/h1&gt;
+&lt;p&gt;페인트닷넷은 무료 포토샵으로 많이 알려져있을만큼 성능이 좋습니다.&lt;br&gt;
+역시 무료, 매우 만족하며 쓰는중&lt;br&gt;
+&lt;a href="https://www.getpaint.net/" target="_blank" rel="noopener noreferrer" class="external" &gt;Paint.net 공식 다운로드 페이지&lt;/a&gt;
+&lt;br&gt;
+(paint.net 외에는 &lt;a href="https://www.gimp.org/" target="_blank" rel="noopener noreferrer" class="external" &gt;GIMP&lt;/a&gt;
+를 추천합니다.)
+&lt;img src="https://user-images.githubusercontent.com/83404333/131980981-9acb6e9f-51c9-4f48-90ac-966cee6a969e.png" alt="pain.net"&gt;
+{: .text-left}
+&lt;code&gt;이미지 원본 : PaintDotNet 홈페이지&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id="이미지-보는-툴---emulsion"&gt;
+ 
+ &lt;a class="anchor" href="#%ec%9d%b4%eb%af%b8%ec%a7%80-%eb%b3%b4%eb%8a%94-%ed%88%b4---emulsion"&gt;&lt;/a&gt;
+ 이미지 보는 툴 - EMULSION
+&lt;/h1&gt;
+&lt;p&gt;EMULSION ~~(뭐라고 읽는지 모르겠다)&lt;del&gt;은 다른 이미지 툴과는 다르게 확대를 해도 이미지가 흐려지지 않습니다. 그 외에도 이미지 편집같은 추가기능이 없어서 매우 가볍습니다.
+&lt;a href="https://arturkovacs.github.io/emulsion-website/" target="_blank" rel="noopener noreferrer" class="external" &gt;EMULSION 공식 다운로드 페이지&lt;/a&gt;
+&lt;br&gt;
+(다른 프로그램을 쓰고싶다면 프로그램 설정에서 antialiasing&lt;/del&gt;(한국어로 뭔지 모르겠다)~~을 끄시면 됩니다.)
+&lt;img src="https://arturkovacs.github.io/emulsion-website/gif/animation.gif" alt="EMULSION"&gt;
+{: .text-left}
+&lt;code&gt;이미지 원본 : EMULSION 홈페이지&lt;/code&gt;&lt;/p&gt;</description></item></channel></rss>
