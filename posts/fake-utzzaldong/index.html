@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>웃짤동 생성기 | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>웃짤동 생성기</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="2023-12-03T00:00:00&#43;09:00">2023 Dec 3 - 00:00:00</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<figure><a href="https://youtube.com/@%ec%9b%83%ec%a7%a4%eb%8f%99" target="_blank"><img src="/posts/fake-utzzaldong/utzzaldong.webp"
+    alt="웃짤동 유튜브 프로필 사진" width="256"></a><figcaption>
+      <p>웃짤동 유튜브 프로필</p>
+    </figcaption>
+</figure>
+
+<p><a href="https://youtube.com/@%ec%9b%83%ec%a7%a4%eb%8f%99"   target="_blank" rel="noopener noreferrer" class="external"  >웃짤동<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+은 2023년 유튜브 쇼츠에 커뮤니티 유머글 영상이 범람하기 이전, 커뮤니티 글 더빙 영상 형태를 최초로 도입한 유튜버이다.</p>
+<p>2023년 유튜브 쇼츠에 커뮤니티 유머글 영상이 범람하기 이전, 나는 자신이 재미있게 본 유머글이나 커뮤니티 게시글을 캡쳐본 처럼 저화질이 아니게 공유할 수 있었으면 좋았겠다는 생각을 했다.<br>
+커뮤니티 글 또한 웹 콘텐츠이므로, HTML DOM을 이미지로 바꾸는 방법만 있다면 간단하게 만들 수 있을거라 생각하고 제작을 시작하게 되었다.</p>
+<h2 id="stack">
+  <a href="#stack">Stack</a>
+</h2>
+<p>DOM을 이미지로 바꾸는 라이브러리는 대부분 <code>document</code>의 직접적 사용이 필요했고 DOM을 다루기에, HTML 문법이 아닌 JSX 문법과 virtual DOM을 사용하는 React는 복잡성을 늘릴 수 있다고 판단했다.
+HTML 문법을 그대로 사용하는 웹 프레임워크는 Svelte와 Vue가 있는데, 나는 Vue를 배우지 않았기에, Svelte를 선택하였다.
+(추후 알게된 사실은 Vue 또한 virtual DOM을 사용한다는 것.)</p>
+<h2 id="input">
+  <a href="#input">Input</a>
+</h2>
+<h3 id="profile">
+  <a href="#profile">Profile</a>
+</h3>
+<p>웃짤동의 특징중 하나는 커뮤니티 글을 그대로 캡쳐하는 것이 아닌, 자체적인 인터페이스를 가지고, 모든 글마다 말장난으로 이루어진 닉네임이라고 할 수 있다.</p>
+<blockquote>
+<p>예) 영문도모르고영문학과왔다, 아무리생강캐도난마늘, 캐리비안의해녀</p>
+</blockquote>
+<p>이러한 특징을 반영하여, 닉네임의 인풋에 이러한 이름을 랜덤으로 가져오는 기능을 포함하였다.</p>
+<p><img src="./20251215094317.avif" alt="nickname"></p>
+<p>마찬가지로, 프로필 사진 또한 <a href="https://www.dicebear.com"   target="_blank" rel="noopener noreferrer" class="external"  >DiceBear API<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+를 사용하여 랜덤한 사진을 사용할 수 있도록 했다.</p>
+<p><img src="./20251215095510.avif" alt="pfp"></p>
+<h3 id="content">
+  <a href="#content">Content</a>
+</h3>
+<p>내용을 강조하고, 이미지를 넣을 수 있게 GFM<sub>(Github Flavored Markdown)</sub>을 렌더하는 기능을 포함하였다.</p>
+<p><img src="./20251215100109.avif" alt="markdown"></p>
+<p><img src="./20251215100150.avif" alt="rendered markdown"></p>
+<h2 id="dom-to-image">
+  <a href="#dom-to-image">DOM to Image</a>
+</h2>
+<p>본 프로젝트의 가장 중요한 부분이라 할 수 있는 DOM을 이미지로 변환하는 작업이다.</p>
+<p>이 프로젝트를 위해 서버를 하나 돌릴 생각은 없었고, 브라우저에서 렌더링된 DOM을 이미지로 변환하는 것이 더 편할 것이므로, DOM을 이미지로 변환하는 것은 client에서 이루어 져야했다.</p>
+<p>탐색 결과 나온 라이브러리는 두 개 정도가 있었다.</p>
+<ul>
+<li><code>dom-to-image</code></li>
+<li><code>html2canvas</code></li>
+</ul>
+
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

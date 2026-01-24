@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Neovim on MeliPlug.info</title>
+    <link>http://localhost:1313/tags/neovim/</link>
+    <description>Recent content in Neovim on MeliPlug.info</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 01 Jan 1970 09:00:00 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/neovim/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Neovim Colorscheme Review</title>
+      <link>http://localhost:1313/posts/neovim/colorschemes/</link>
+      <pubDate>Thu, 01 Jan 1970 09:00:00 +0900</pubDate>
+      <guid>http://localhost:1313/posts/neovim/colorschemes/</guid>
+      <description>&lt;h2 id=&#34;gruvbox&#34;&gt;
+  &lt;a href=&#34;#gruvbox&#34;&gt;Gruvbox&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/sainnhe/gruvbox-material&#34;   target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34; class=&#34;external&#34;  &gt;sainnhe/gruvbox-material&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;20&#34; height=&#34;20&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;g fill=&#34;none&#34;&gt;&lt;path d=&#34;m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z&#34;/&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;h2 id=&#34;kanagawa&#34;&gt;
+  &lt;a href=&#34;#kanagawa&#34;&gt;Kanagawa&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/rebelot/kanagawa.nvim&#34;   target=&#34;_blank&#34; rel=&#34;noopener noreferrer&#34; class=&#34;external&#34;  &gt;rebelot/kanagawa.nvim&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;20&#34; height=&#34;20&#34; viewBox=&#34;0 0 24 24&#34;&gt;&lt;g fill=&#34;none&#34;&gt;&lt;path d=&#34;m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z&#34;/&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z&#34;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/a&gt;
+&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

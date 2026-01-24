@@ -1,0 +1,285 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>Uxntal | MeliPlug.info</title><link rel=stylesheet href=/css/main.min.55d3673b3a28abf955f15aa79cf0b705411a0db04e2c485293f1e83896d02692.css integrity="sha256-VdNnOzooq/lV8VqnnPC3BUEaDbBOLEhSk/HoOJbQJpI=" crossorigin=anonymous><link rel=stylesheet href=/css/code.min.29bfd3b9f622c1a0c8f584f6791fa51fc9fd6808577e6ca258969c1aac25c8cc.css integrity="sha256-Kb/TufYiwaDI9YT2eR+lH8n9aAhXfmyiWJacGqwlyMw=" crossorigin=anonymous><script src=/js/main.60b2d451228917c6833af597c59d5dbb7d06ba49d1510e6fddb2dd850dd14179.js integrity="sha256-YLLUUSKJF8aDOvWXxZ1du30GuknRUQ5v3bLdhQ3RQXk=" crossorigin=anonymous></script></head><body><header><img src=/logo-1.svg alt id=logo><div class=menu-bar><nav><ul><li><a href=/>[Home]</a></li><li><a href=/ideas/>[Ideas]</a></li><li><a aria-current=true class=ancestor href=/posts/>[Posts]</a></li><li><a href=/projects/>[Projects]</a></li></ul></nav><div class=menu-buttons><span role=button id=color-btn></span>
+<span role=button id=theme-btn></span></div></div></header><div id=main><aside id=left-aside></aside><aside id=right-aside><div id=toc-anchor></div></aside><main><h1>Uxntal</h1><div class=tags><div>Tags:</div><ul><li><a href=/tags/assembly/>#Assembly</a></li><li><a href=/tags/uxn/>#Uxn</a></li></ul></div>Created: <time datetime=2025-12-09T22:55:34+09:00>2025 Dec 9 - 22:55:34</time><br>Updated: <time datetime=2026-01-24T22:32:29+09:00>2026 Jan 24 - 22:32:29</time><br><div class=toc id=toc><span class=toc-title>Table of Content</span><nav id=TableOfContents><ul><li><a href=#read-only-memory-rom><span class=sc_highlight>Read Only Memory (ROM)</span></a></li><li><a href=#random-access-memory-ram><span class=sc_highlight>Random Access Memory (RAM)</span></a></li><li><a href=#data-structure>Data Structure</a></li><li><a href=#comments>Comments</a></li><li><a href=#runes>Runes</a><ul><li><a href=#labels>Labels</a></li><li><a href=#padding>Padding</a></li><li><a href=#number-ascii-runes>Number, Ascii Runes</a></li><li><a href=#adressing>Adressing</a></li><li><a href=#wrappings>Wrappings</a></li><li><a href=#macro>Macro</a></li></ul></li><li><a href=#opcodes>Opcodes</a><ul><li><a href=#notation>Notation</a></li><li><a href=#mode>Mode</a></li><li><a href=#immediate-opcodes>Immediate Opcodes</a></li></ul></li><li><a href=#further-more>Further More&mldr;</a></li><li><a href=#related>Related</a></li><li><a href=#references>References</a></li></ul></nav></div><hr><div id=content><div class=quote><span class=quote_inside>A programming language for the Uxn virtual machine.</span></div><p><strong>Uxntal</strong>은 <strong>Uxn</strong>의 언어이다.</p><p>Uxntal은 Uxn CPU 위에서 돌아가는 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+으로 컴파일 되기 위한 Assembly 언어이다.</p><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><p>Uxntal은 여느 프로그래밍 언어와 마찬가지로 상호의존적으로 엮여진 구조이기에, 순서대로 배우기는 어렵지만, 최대한 독립적인 개념부터 정리했다.</p></div></aside><h2 id=read-only-memory-rom><a href=#read-only-memory-rom><span class=sc_highlight style=--highlight:var(--primary7)>Read Only Memory (ROM)</span></a></h2><p><span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+은 Uxntal로부터 어셈블된다. 이름이 <strong>ROM</strong>(<strong>R</strong>ead <strong>O</strong>nly <strong>M</strong>emory)이지만, Uxn에 로드되는 순간, <strong><code>STA</code> 등을 이용해 수정될 수 있다</strong>.</p><p>Uxntal의 <a href=#opcodes class=internal>opcode</a>
+를 포함한 대부분의 데이터는 그대로 byte로 변환된다.</p><p>Uxn은 기본적으로 <span class=sc_highlight style=--highlight:var(--primary7)>ROM <code>0x0100</code></span>
+부터 로드되고, <span class=sc_highlight style=--highlight:var(--primary7)><code>0x0100</code></span>
+부터 작성된다. 하지만 원한다면 특정 주소부터 작성을 시작할 수 있다.</p><div id=zero-page><aside class="callout warning"><p class=callout-title>Warning</p><div class=callout-content><p><strong>Zero-page</strong><br><span class=sc_highlight style=--highlight:var(--primary7)><code>0x0100</code></span>
+이하의 주소는 <strong>zero-page</strong>라고 불리고, Uxn/Varvara 시스템에 의해 사용되기에, 사용자가 작성하려 하면 에러가 나고, 실제 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+도 <span class=sc_highlight style=--highlight:var(--primary7)><code>0x0100</code></span>
+부터 작성된다. 그렇기에 보통 라벨만 붙이고 사용한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=kd>|00</span><span class=w> </span><span class=mh>#00</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( ASSEMBLY ERROR
+</span></span></span><span class=line><span class=cl><span class=cm>Writing zero-page: #00 in @on-reset, test.tal:1.
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div></div></aside></div><h2 id=random-access-memory-ram><a href=#random-access-memory-ram><span class=sc_highlight style=--highlight:var(--primary1)>Random Access Memory (RAM)</span></a></h2><p>Uxn은 2개의 256bytes의 스택으로 구성된 <span class=sc_highlight style=--highlight:var(--primary1)>RAM</span>
+을 제공한다.<br>RAM은 기본으로 작업하는 공간인 <span class=sc_highlight style=--highlight:var(--primary1)>WST</span>
+(<strong>W</strong>orking <strong>ST</strong>ack)과 추가적으로 연산에 활용할 수 있는 <span class=sc_highlight style=--highlight:var(--primary1)>RST</span>
+(<strong>R</strong>eturn <strong>ST</strong>ack)으로 이루어져있다.</p><p><strong>Memory:</strong></p><ul><li><span class=sc_highlight style=--highlight:var(--primary1)>WST</span>
+(Working Stack)</li><li><span class=sc_highlight style=--highlight:var(--primary1)>RST</span>
+(Return Stack)</li></ul><h2 id=data-structure><a href=#data-structure>Data Structure</a></h2><p>데이터는 0~255(2<sup>8</sup>-1) 범위의 정수인 <span class=sc_highlight style=--highlight:var(--primary1)>byte</span>
+, 0~65535(2<sup>16</sup>-1) 범위의 정수인 <span class=sc_highlight style=--highlight:var(--primary1)>short</span>
+로 구분되지만, 그 차이는 스택에서 차지하는 양의 차이일 뿐이다.
+Byte 데이터는 두 자리 hex( <span class=sc_highlight style=--highlight:var(--primary1)><code>0x00</code></span>
+)로, short 데이터는 네 자리 hex(<span class=sc_highlight style=--highlight:var(--primary1)><code>0x0000</code></span>
+)로 스택에 삽입할 수 있지만, 스택 내부에서의 구분은 없다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#00</span><span class=w> </span><span class=mh>#ab</span><span class=w> </span><span class=mh>#1234</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 00 ab 12 34
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout caution"><p class=callout-title>Caution</p><div class=callout-content><p>헷갈릴 수 있지만, <code>#00</code> 자체로 WST의 최상단에 <code>00</code> 바이트를 삽입하는 코드이다.<br><a href=#lit class=internal>Literal(<code>LIT</code>)</a></p></div></aside><p><strong>Data:</strong></p><ul><li><p><span class=sc_highlight style=--highlight:var(--primary1)>Byte</span></p></li><li><p><span class=sc_highlight style=--highlight:var(--primary1)>Short</span>
+= Byte × 2</p></li></ul><h2 id=comments><a href=#comments>Comments</a></h2><p><code>( </code> 와 <code> )</code>로 감싸진 문자열은 주석 처리된다.
+(띄어쓰기도 포함이다.)
+ </p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( This is comment. )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( 
+</span></span></span><span class=line><span class=cl><span class=cm>    This is comment too )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( ( You can also nest ) )</span><span class=w>
+</span></span></span></code></pre></div><h2 id=runes><a href=#runes>Runes</a></h2><p>Unxtal에는 몇 가지 char을 이용해 사용할 수 있는 기능이 있다.</p><h3 id=labels><a href=#labels>Labels</a></h3><p>라벨은 특정 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소</span>
+에 이름을 붙이는 역할을 한다.</p><p>라벨은 <strong>scope</strong>와 <strong>sublabel</strong>으로 나뉘며, scope는 <code>@</code>으로 시작하는 문자열로 만들 수 있다. Sublabel은 <code>&</code>으로 시작하는 문자열, 또는 <code>@scope/name</code>같이 만들 수 있다. 확인할 수 있듯이, sublabel은 scope의 하위에 위치할 수 있다.</p><div class=sc_columns><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=nf>@banana</span><span class=w> </span><span class=nl>&amp;peel</span><span class=w>
+</span></span></span></code></pre></div><p>=</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=nf>@banana</span><span class=w> </span><span class=nf>@banana/peel</span><span class=w>
+</span></span></span></code></pre></div></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><p>Uxntal에서는 라벨로 점프할 수 있는 기능을 지원한다.</p><ul><li><a href=#jmi class=internal><strong>Jump Immediate</strong>(<code>JMI</code>)</a></li><li><a href=#jci class=internal><strong>Jump Conditional Immediate</strong>(<code>JCI</code>)</a></li><li><a href=#jsi class=internal><strong>Jump Stash Return Immediate</strong>(<code>JSI</code>)</a></li></ul></div></aside><aside class="callout warning"><p class=callout-title>Warning</p><div class=callout-content><p>Uxntal은 hex를 일반 데이터로 받아들이기 때문에, 라벨이 <code>a-f</code>의 문자열로만 이루어 질 수 는 없다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#00</span><span class=w> </span><span class=nf>bed</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>@bed</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( ASSEMBLY ERROR
+</span></span></span><span class=line><span class=cl><span class=cm>Hexadecimal invalid: bed in @on-reset, hello.tal:2.
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><p><a href=#vector class=internal><code>@on-reset</code></a></p></div></aside><p>라벨로 다음과 같은 기능을 수행할 수 있다.</p><p><strong>Function</strong>은 어느 위치에서 실행된 뒤, 다시 그 위치로 돌아오는, 말 그대로 함수이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=nf>@func</span><span class=w> </span><span class=cm>( -- )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=cm>( ... )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=kr>JMP2r</span><span class=w>
+</span></span></span></code></pre></div><p><strong>Constant</strong>는 uxntal에 따로 변수의 문법이 없기 때문에, <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+에 데이터를 쌓아두고 그 <span class=sc_highlight style=--highlight:var(--primary7)>주소</span>
+를 참조하여 변수로 사용한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=nf>@text</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;Hello</span><span class=w> </span><span class=l>20</span><span class=w> </span><span class=s>&#34;World</span><span class=w> </span><span class=l>0a</span><span class=w>
+</span></span></span></code></pre></div><p><span id=vector><strong>Vector</strong></span>는 일종의 <strong>event listener</strong>같은 개념이다.<br>거의 Varvara에서만 사용되기에, 추후 Varvara를 다룰때 더 자세히 다룰 것이다.</p><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><p>사실 Uxntal <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+을 읽기 시작하는 지점인 <span class=sc_highlight style=--highlight:var(--primary7)><code>0x0100</code></span>
+에는 기본적으로 <span class=sc_highlight style=--highlight:var(--primary7)><code>@on-reset</code></span>
+이라는 vector가 할당되어있다.</p></div></aside><h3 id=padding><a href=#padding>Padding</a></h3><p><code>|</code>를 이용해 특정 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 메모리</span>
+부터 작성을 시작할 수 있다. 하지만 Uxn은 <span class=sc_highlight style=--highlight:var(--primary7)>ROM <code>0x0100</code></span>
+부터 실행할 것이기에, 실행을 원한다면 <span class=sc_highlight style=--highlight:var(--primary7)><code>0x0100</code></span>
+에 코드를 작성해야 한다. 또한, 지나온 <span class=sc_highlight style=--highlight:var(--primary7)>메모리</span>
+에 <em>작성</em>할 수 없기 때문에 작은 순서로 작성해야한다. (라벨을 붙이는 것 만이라면 가능하다.)</p><div class=sc_columns><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=kd>|100</span><span class=w> </span><span class=mh>#00</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>routine</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>|200</span><span class=w> </span><span class=nf>@routine</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 01
+</span></span></span><span class=line><span class=cl><span class=cm>RST: 01 06
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=kd>|100</span><span class=w> </span><span class=mh>#00</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>r-one</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>|200</span><span class=w> </span><span class=nf>@r-one</span><span class=w> </span><span class=nf>r-two</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>|150</span><span class=w> </span><span class=nf>@r-two</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( ASSEMBLY ERROR
+</span></span></span><span class=line><span class=cl><span class=cm>Writing rewind: INC in @r-two, test.tal:3.
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div></div><p><code>$</code>를 이용해 현재 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소</span>
+에서 상대적으로 움직일 수 있다.</p><p>라벨과 함께 이용해서 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+의 특정 위치에 구조체(struct)를 만들 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=kd>|d0</span><span class=w> </span><span class=nf>@player</span><span class=w> </span><span class=nl>&amp;x</span><span class=w> </span><span class=kd>$2</span><span class=w> </span><span class=nl>&amp;y</span><span class=w> </span><span class=kd>$2</span><span class=w> </span><span class=nl>&amp;health</span><span class=w> </span><span class=kd>$1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>(
+</span></span></span><span class=line><span class=cl><span class=cm>player 구조체에 x, y가 각 short를 차지하고, health가 byte를 차지한다.
+</span></span></span><span class=line><span class=cl><span class=cm>코드 내에서 player/x 등으로 호출할 수 있다. 
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><p>Padding 결과, ROM 파일은 아래와 같다.</p><details><summary>Details</summary><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( test.tal )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>|100</span><span class=w> </span><span class=s>&#34;A</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>|150</span><span class=w> </span><span class=s>&#34;B</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>$4f</span><span class=w>  </span><span class=s>&#34;C</span><span class=w>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>$ ./uxnasm test.tal test.rom
+</span></span><span class=line><span class=cl>$ xxd test.rom
+</span></span><span class=line><span class=cl>00000000: 4100 0000 0000 0000 0000 0000 0000 0000  A...............
+</span></span><span class=line><span class=cl>00000010: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000020: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000030: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000040: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000050: 4200 0000 0000 0000 0000 0000 0000 0000  B...............
+</span></span><span class=line><span class=cl>00000060: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000070: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000080: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>00000090: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+</span></span><span class=line><span class=cl>000000a0: 43                                       C
+</span></span></code></pre></div></details></div></aside><h3 id=number-ascii-runes><a href=#number-ascii-runes>Number, Ascii Runes</a></h3><p>스택에 데이터를 삽입하는 runes</p><ul><li><p><code>#</code>로 hex값을 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+에 삽입할 수 있다. <a href=#lit class=internal>Literal (<code>LIT</code>)</a></p></li><li><p><code>"</code>로 아스키 문자열의 각 글자를 byte로 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+삽입할 수 있다.</p><div id=raw><aside class="callout warning"><p class=callout-title>Warning</p><div class=callout-content><p>프로그램의 실행 중 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+에 삽입하는 것이 아니다. 어셈블러가 <code>"</code>를 만나면, 뒤의 문자열을 아스키 hex로 변환해 <strong>그대로</strong> <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+에 삽입한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( test.rom )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=s>&#34;banana</span><span class=w>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>$ ./uxnasm test.tal test.rom
+</span></span><span class=line><span class=cl>$ xxd hello.rom
+</span></span><span class=line><span class=cl>00000000: 6261 6e61 6e61                           banana
+</span></span></code></pre></div></div></aside></div></li></ul><h3 id=adressing><a href=#adressing>Adressing</a></h3><p>Uxntal에는 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소</span>
+를 다루는 6가지 runes가 존재한다. 각 rune은 라벨의 <span class=sc_highlight style=--highlight:var(--primary7)>주소</span>
+를 가져오는 역할을 한다.</p><p><strong>Literal-</strong> 은 실행 당시에 그 <span class=sc_highlight style=--highlight:var(--primary7)>주소</span>
+를 가져와서 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+에 삽입한다.</p><ul><li><strong>Literal Relative</strong>(<code>,</code>)는 현재 PC에서 라벨의 주소까지의 거리를 스택에 삽입한다.</li><li><strong>Literal Zero Page</strong>(<code>.</code>)는 <a href=#zero-page class=internal>zero-page</a>
+라벨의 주소(byte)를 스택에 삽입한다.</li><li><span id=literal-absolute><strong>Literal Absolute</strong>(<code>;</code>)</span>는 라벨의 주소(short)를 스택에 삽입한다.</li></ul><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( test.rom )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=vg>;label</span><span class=w> </span><span class=nf>@label</span><span class=w>
+</span></span></span></code></pre></div><details><summary>Result & Analyze</summary><div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>$ ./uxnasm test.tal test.rom
+</span></span><span class=line><span class=cl>$ xxd test.rom
+</span></span><span class=line><span class=cl>00000000: a001 03                                  ...
+</span></span><span class=line><span class=cl>          ^^~~~~~
+</span></span><span class=line><span class=cl>    (1)---+     +--(2)
+</span></span></code></pre></div><ul><li>(1) <code>0x0a</code>: <a href=#lit class=internal>LIT2</a>
+의 opcode, 즉 다음에 오는 short를 stack에 삽입</li><li>(2) <code>0x0103</code>: <code>@label</code>의 ROM 주소</li></ul></details></div></aside><p><strong>Raw-</strong> 는 어셈블러 시점에 <span class=sc_highlight style=--highlight:var(--primary7)>주소</span>
+를 가져와서 <a href=#raw class=internal><span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+에 삽입</a>
+한다.</p><ul><li><strong>Raw Relative</strong>(<code>_</code>)는 현재 PC에서 라벨의 주소까지의 거리를 ROM에 삽입한다.</li><li><strong>Raw Zero Page</strong>(<code>-</code>)는 <a href=#zero-page class=internal>zero-page</a>
+라벨의 주소(byte)를 ROM에 삽입한다.</li><li><strong>Raw Absolute</strong>(<code>=</code>)는 라벨의 주소(short)를 ROM에 삽입한다.</li></ul><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( test.rom )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=l>=label</span><span class=w> </span><span class=nf>@label</span><span class=w>
+</span></span></span></code></pre></div><details><summary>Result & Analyze</summary><div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>$ ./uxnasm test.tal test.rom
+</span></span><span class=line><span class=cl>$ xxd test.rom
+</span></span><span class=line><span class=cl>00000000: 0102                                     ..
+</span></span><span class=line><span class=cl>          ^^^^
+</span></span><span class=line><span class=cl>    (1)---+ 
+</span></span></code></pre></div><ul><li>(1) <code>0x0102</code>: <code>@label</code>의 ROM 주소</li></ul><p>결과에서도 알 수 있듯, <strong>Raw Labeling</strong>은 어셈블리 단계에서 <span class=sc_highlight style=--highlight:var(--primary7)>라벨</span>
+의 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소</span>
+를 삽입하기에, <span class=sc_highlight style=--highlight:var(--primary7)>라벨의 주소(<code>0x0102</code>)</span>
+가 <strong>Litral Labeling</strong>(<span class=sc_highlight style=--highlight:var(--primary7)><code>0x0103</code></span>
+) 보다 하나 앞으로 간 것을 볼 수 있다.</p></details></div></aside><h3 id=wrappings><a href=#wrappings>Wrappings</a></h3><ul><li><p><a href=#comments class=internal><code>( </code>, <code> )</code> 괄호</a>
+는 주석이다.</p></li><li><p><code>[</code>, <code>]</code> 대괄호는 그것을 포함한 내부가 무시되는 <code>( </code>, <code> )</code> 달리, 그 자체가 무시된다. 대괄호는 가독성을 위해 opcode를 묶는 표기로 쓰인다.</p></li><li><p><a href=#anonymous class=internal><code>{</code>, <code>}</code> 중괄호</a>
+는 anonymous, 즉 이름 없는 루틴처럼 쓰인다.</p></li></ul><h3 id=macro><a href=#macro>Macro</a></h3><p><code>%name { }</code>으로 매크로를 만들 수 있다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=nd>%modulo</span><span class=w> </span><span class=cm>( num denum -- res )</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=kr>DIVk</span><span class=w> </span><span class=kr>MUL</span><span class=w> </span><span class=kr>SUB</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nf>@routine</span><span class=w> </span><span class=cm>( -- c* )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=mh>#18</span><span class=w> </span><span class=mh>#03</span><span class=w> </span><span class=nf>modulo</span><span class=w> </span><span class=kr>JMP2r</span><span class=w>
+</span></span></span></code></pre></div><h2 id=opcodes><a href=#opcodes>Opcodes</a></h2><p>Uxntal은 연산자 우선순위가 없고, 그저 연산자가 프로그램된 순서대로 스택에서 실행된다.<br><strong>PC</strong>는 현재 opcode의 다음 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소</span>
+가 되며, 각 opcode 실행 후, 2<sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup>씩 증가한다.<sup id=fnref:2><a href=#fn:2 class=footnote-ref role=doc-noteref>2</a></sup></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#0f</span><span class=w> </span><span class=mh>#06</span><span class=w> </span><span class=mh>#04</span><span class=w> </span><span class=kr>ADD</span><span class=w> </span><span class=kr>MUL</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 96
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><ol><li><code>0x06</code> + <code>0x04</code> = <code>0x0a</code>
+(WST: <code>0f 0a</code>)</li><li><code>0x0f</code> × <code>0x0a</code> = <code>0x96</code>
+(WST: <code>96</code>)</li></ol><h3 id=notation><a href=#notation>Notation</a></h3><p>Uxntal은 아래와 같은 Forth 언어의 표기법을 따른다.</p><p><code>--</code> 앞의 각 아이템을 실행 전 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+의 상태, 뒤의 각 아이템을 실행 후 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+의 상태로 표기한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#12</span><span class=w> </span><span class=mh>#34</span><span class=w> </span><span class=kr>ADD</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 46
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD</span><span class=w> </span><span class=cm>( a b -- c )</span><span class=w>
+</span></span></span></code></pre></div><p><a href=#2-mode class=internal>Shorts를 대상으로 하는 연산</a>
+이라면, 그 아이템 뒤에 <code>*</code>을 붙여서 표기한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#1234</span><span class=w> </span><span class=mh>#abcd</span><span class=w> </span><span class=kr>ADD2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: be 01
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2</span><span class=w> </span><span class=cm>( a* b* -- c* )</span><span class=w>
+</span></span></span></code></pre></div><p><a href=#r-mode class=internal>RST에 영향을 끼치는 연산</a>
+이라면, <code>.</code> 뒤에 그 <span class=sc_highlight style=--highlight:var(--primary1)>RST</span>
+의 상황을 표기한다.</p><div class=sc_columns><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#12</span><span class=w> </span><span class=kr>STH</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 
+</span></span></span><span class=line><span class=cl><span class=cm>RST: 12
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>STH</span><span class=w> </span><span class=cm>( a -- . a)
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( BEFORE RST: 12 )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>STHr</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 12
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>STHr</span><span class=w> </span><span class=cm>( . a -- a )</span><span class=w>
+</span></span></span></code></pre></div></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><details><summary>Stash</summary><p><strong>Stash</strong>(<code>STH</code>)는 <span class=sc_highlight style=--highlight:var(--primary1)>스택(WST)</span>
+의 최상단 <span class=sc_highlight style=--highlight:var(--primary1)>byte</span>
+를 소모하여 <span class=sc_highlight style=--highlight:var(--primary1)>RST</span>
+으로 삽입한다.<br><code>STHr</code>은 <span class=sc_highlight style=--highlight:var(--primary1)>RST</span>
+의 최상단 <span class=sc_highlight style=--highlight:var(--primary1)>byte</span>
+를 소모하여 <span class=sc_highlight style=--highlight:var(--primary1)>WST</span>
+으로 삽입한다.</p></details></div></aside><h3 id=mode><a href=#mode>Mode</a></h3><p>Uxntal에는 3가지 모드가 존재한다.</p><table><thead><tr><th style=text-align:right>Mode</th><th style=text-align:left>Description</th></tr></thead><tbody><tr><td style=text-align:right><strong>Short mode</strong> <code>2</code></td><td style=text-align:left>Short에 연산을 시행</td></tr><tr><td style=text-align:right><strong>Keep mode</strong> <code>k</code></td><td style=text-align:left>연산 대상 값을 보존</td></tr><tr><td style=text-align:right><strong>Return mode</strong> <code>r</code></td><td style=text-align:left>RST에 연산을 시행</td></tr></tbody></table><p><span id=2-mode><strong>Short mode</strong></span>는 byte 대신 short(두 byte)를 소모하여 연산한다.<br>점프와 관련된 opcode<sup id=fnref:3><a href=#fn:3 class=footnote-ref role=doc-noteref>3</a></sup>에서는 absolute 위치를 사용한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#0123</span><span class=w> </span><span class=mh>#abcd</span><span class=w> </span><span class=kr>ADD2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: ac f0
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2</span><span class=w> </span><span class=cm>( a* b* -- c* )</span><span class=w>
+</span></span></span></code></pre></div><p><strong>Keep mode</strong>는 연산 이후 연산에 사용된 값들을 소모하지 않고 보존한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#01</span><span class=w> </span><span class=mh>#23</span><span class=w> </span><span class=kr>ADDk</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 01 23 24
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2</span><span class=w> </span><span class=cm>( a b -- a b c )</span><span class=w>
+</span></span></span></code></pre></div><p><span id=r-mode><strong>Return mode</strong></span>는 WST 대신 RST에서 연산을 시행한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( BEFORE RST: 01 23 )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADDr</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>RST: 24
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADDr</span><span class=w> </span><span class=cm>( . a b -- . c )</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><details><summary>Stash</summary><p><strong>Stash</strong>(<code>STH</code>)는 스택의 최상단 byte를 소모하여 RST으로 삽입한다.<br><code>STHr</code>은 RST의 최상단 byte를 소모하여 WST으로 삽입한다.</p></details></div></aside><p>이러한 mode들은 혼합해 사용할 수 있다. 각 opcode는 총 8가지의 variant를 갖는다.<sup id=fnref:4><a href=#fn:4 class=footnote-ref role=doc-noteref>4</a></sup></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=kr>ADD</span><span class=w>    </span><span class=cm>( a b -- c )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2</span><span class=w>   </span><span class=cm>( a* b* -- c* )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADDk</span><span class=w>   </span><span class=cm>( a b -- a b c )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADDr</span><span class=w>   </span><span class=cm>( . a b -- . c )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2k</span><span class=w>  </span><span class=cm>( a* b* -- a* b* c* )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADDkr</span><span class=w>  </span><span class=cm>( . a b -- . a b c )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2r</span><span class=w>  </span><span class=cm>( . a* b* -- . c* )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>ADD2kr</span><span class=w> </span><span class=cm>( . a* b* -- . a* b* c* )</span><span class=w>
+</span></span></span></code></pre></div><p><span id=opcode-byte>따라서, Uxntal의 opcode는 각 2 bytes를 차지한다.</span></p><table><thead><tr><th colspan=8>OPCODE</th></tr></thead><tbody><tr><td><b>2</b></td><td><b>k</b></td><td><b>r</b></td><td colspan=5><b>opcode id</b></td></tr><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></tbody></table><h3 id=immediate-opcodes><a href=#immediate-opcodes>Immediate Opcodes</a></h3><p>Immediate Opcode는 스택 최상단에서 데이터를 소모하여 연산하지 않고, opcode 이후에 <span class=sc_highlight style=--highlight:var(--primary7)>ROM에 쓰여진 값</span>
+을 <em><strong>즉시</strong></em> 가져와 사용하는 opcode들이다.<br>지정된 방식으로만 작동하기 때문에 immediate opcode에는 mode가 없다.</p><table><thead><tr><th style=text-align:right>Name</th><th style=text-align:center>Opcode</th><th>Syntax</th></tr></thead><tbody><tr><td style=text-align:right><a href=#lit class=internal>Literal</a></td><td style=text-align:center><code>LIT</code></td><td><code>#</code></td></tr><tr><td style=text-align:right><a href=#jmi class=internal>Jump Immediate</a></td><td style=text-align:center><code>JMI</code></td><td><code>!routine</code></td></tr><tr><td style=text-align:right><a href=#jci class=internal>Jump Conditional Immediate</a></td><td style=text-align:center><code>JCI</code></td><td><code>?routine</code></td></tr><tr><td style=text-align:right><a href=#jsi class=internal>Jump Stash Return Immediate</a></td><td style=text-align:center><code>JSI</code></td><td><code>routine</code></td></tr></tbody></table><p><span id=lit><strong>Literal</strong></span>(<code>LIT</code>)은 <code>#</code>를 사용해 다음에 오는 데이터를 스택에 삽입한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#12</span><span class=w> </span><span class=mh>#abcd</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 12 ab cd
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><details><summary>Literal(<code>LIT</code>)</summary><p><strong>Literal</strong>(<code>LIT</code>)은 사실 <code>#</code>이외에도 쓰일 수 있는데, ROM에서 다음에 오는 데이터를 그대로 스택에 삽입하는 opcode이다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=cm>( test.tal )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kr>LIT</span><span class=w> </span><span class=s>&#34;a</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 41
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-txt data-lang=txt><span class=line><span class=cl>$ ./uxnasm test.tal test.rom
+</span></span><span class=line><span class=cl>$ xxd test.rom
+</span></span><span class=line><span class=cl>00000000: 8041                                     .A
+</span></span><span class=line><span class=cl>          ^^~~
+</span></span><span class=line><span class=cl>    (1)---+  +--(2)
+</span></span></code></pre></div><ul><li>(1) <code>0x80</code>: <code>LIT</code>의 opcode, 즉 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+의 다음 <span class=sc_highlight style=--highlight:var(--primary7)>byte(<code>0x41</code>)</span>
+를 스택에 삽입한다.</li><li>(2) <code>0x41</code>: <code>A</code>의 ascii 값</li></ul><blockquote><p><code>LIT2</code>는 물론 <span class=sc_highlight style=--highlight:var(--primary7)>ROM</span>
+에서 두 byte를 소모한다.</p></blockquote></details></div></aside><p><span id=jmi><strong>Jummp Immediate</strong></span>(<code>JMI</code>)는 <code>!</code> 이후 루틴의 이름을 적는 방식으로 루틴으로 점프한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#00</span><span class=w> </span><span class=nf>!routine</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nf>@routine</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 02
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><p>위 코드에서 점프 opcode가 없었다면 결과가 <code>03</code> 이었겠지만, <code>@routine</code> 루틴(의 주소)으로 점프하였기에, 결과는 <code>02</code>이다.</p><p><span id=jci><strong>Jummp Conditional Immediate</strong></span>(<code>JCI</code>)는 <code>?</code> 이후 루틴의 이름을 적는 방식으로 조건적으로 점프한다.<br>연산 시, <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+에서 앞의 byte를 가져와 그 값에 따라 앞의 byte를 가져와 그 값에 따라 루틴으로 점프한다. 즉, 조건 점프는 byte를 <strong>소모</strong>한다.</p><p><code>?</code> 이후 루틴이 올 경우, <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+최상위 byte를 소모하고, <strong><code>0x00</code>이 아니라면 루틴으로 점프</strong>한다. <code>0x00</code>이라면 그대로 진행한다. (공식 문서에서는 <strong>PC</strong>를 2 증가시킨다고도 표현한다.)</p><div class=sc_columns><div><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#00</span><span class=w> </span><span class=nf>?routine</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>@routine</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 03
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><p>최상위 byte가 <code>00</code>이므로 점프 X</p></div><div><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#01</span><span class=w> </span><span class=nf>?routine</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>@routine</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=kr>INC</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 02
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><p>최상위 byte가 <code>01</code>이므로 점프 O</div></p></div><p><span id=anonymous><code>?</code> 이후 <code>{</code>, <code>}</code> 으로 감싸진 부분</span>이 나온다면 <strong>이전과 반대로 <span class=sc_highlight style=--highlight:var(--primary1)>스택</span>
+최상위 byte가 <code>00</code>이라면</strong> 내부를 실행한다.</p><div class=sc_columns><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#10</span><span class=w> </span><span class=mh>#00</span><span class=w> </span><span class=nf>?{</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 11
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#10</span><span class=w> </span><span class=mh>#01</span><span class=w> </span><span class=nf>?{</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 10
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div></div><p>이는 Uxntal에서 <em>헷갈리는 부분</em> 중 하나인데, <code>}</code>을 루틴의 정의라고 생각하고, <code>{</code>을 루틴의 라벨이라고 생각하면 그나마 나을 듯 하다.</p><div class=sc_columns><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#10</span><span class=w> </span><span class=mh>#00</span><span class=w> </span><span class=nf>?{</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span></code></pre></div><p>-></p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#10</span><span class=w> </span><span class=mh>#00</span><span class=w> </span><span class=nf>?end</span><span class=w> </span><span class=kr>INC</span><span class=w> </span><span class=nf>@end</span><span class=w>
+</span></span></span></code></pre></div></div><p><span id=jsi><strong>Jump Stash Return Immediate</strong></span>(<code>JSI</code>)는 간단히 말해 루틴을 해당 위치에서 실행한다.<br><code>JMI</code>와의 차이점은 현재 PC+2의 값을 RST에 삽입하고, 루틴의 위치로 점프한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=ln>1</span><span class=cl><span class=mh>#00</span><span class=w>
+</span></span></span><span class=line><span class=ln>2</span><span class=cl><span class=nf>routine</span><span class=w> 
+</span></span></span><span class=line><span class=ln>3</span><span class=cl><span class=kr>INC</span><span class=w>         
+</span></span></span><span class=line><span class=ln>4</span><span class=cl><span class=nf>@routine</span><span class=w>    
+</span></span></span><span class=line><span class=ln>5</span><span class=cl><span class=cm>( RESULT    
+</span></span></span><span class=line><span class=ln>6</span><span class=cl><span class=cm>WST: 00     
+</span></span></span><span class=line><span class=ln>7</span><span class=cl><span class=cm>RST: 01 05  
+</span></span></span><span class=line><span class=ln>8</span><span class=cl><span class=cm>     ^^^^^ Line 3의 PC
+</span></span></span><span class=line><span class=ln>9</span><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><details><summary>Jump Stash Return</summary><p><strong>Jump Stash Return</strong>(<code>JSR</code>)이라는 다른 opcode도 있는데, 이것은 동적으로 스택 최상위에 있는 주소로 점프함과 동시에 현재 PC+2 값을 RST에 삽입한다.<br>따라서 아래 코드는 <code>JSI</code>의 예시 코드와 정확이 동일한 결과를 만든다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=ln>1</span><span class=cl><span class=mh>#00</span><span class=w>
+</span></span></span><span class=line><span class=ln>2</span><span class=cl><span class=vg>;routine</span><span class=w> </span><span class=kr>JSR</span><span class=w>
+</span></span></span><span class=line><span class=ln>3</span><span class=cl><span class=kr>INC</span><span class=w>         
+</span></span></span><span class=line><span class=ln>4</span><span class=cl><span class=nf>@routine</span><span class=w>    
+</span></span></span><span class=line><span class=ln>5</span><span class=cl><span class=cm>( RESULT    
+</span></span></span><span class=line><span class=ln>6</span><span class=cl><span class=cm>WST: 00     
+</span></span></span><span class=line><span class=ln>7</span><span class=cl><span class=cm>RST: 01 05  
+</span></span></span><span class=line><span class=ln>8</span><span class=cl><span class=cm>     ^^^^^ Line 3의 PC
+</span></span></span><span class=line><span class=ln>9</span><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><p><code>JSI</code>가 존재 함에도 불구하고 <code>JSR</code>이 따로 존재하는 이유는, 루틴을 정해서 점프하는 <code>JSI</code>와 달리, <strong>동적인 루틴/주소로 점프</strong>할 수 있기 때문이다.</p><p><a href=#literal-absolute class=internal>Literal Absolute(<code>;</code>)</a></p></details></div></aside><p>실행된 위치의 <span class=sc_highlight style=--highlight:var(--primary7)>ROM 주소(PC)</span>
+를 저장하기에, 루틴을 실행하고 원래의 위치로 돌아올 수 있다는 점을 이용해 함수 같이 쓰인다. 그리고 돌아오게 만들 수 있기에, 내부 어느 시점에서 쓰인다고 하여 <strong>서브루틴</strong>이라고도 한다.</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-tal data-lang=tal><span class=line><span class=cl><span class=mh>#07</span><span class=w> </span><span class=mh>#04</span><span class=w> </span><span class=nf>modulo</span><span class=w> </span><span class=kr>BRK</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( 이대로 진행하면 그대로 modulo의 opcode를 실행하기 때문에, 그전에 break한다. )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( Forth notation은 코드 내에서 루틴의 sideeffect를 표기할때 주로 쓰인다. )</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nf>@modulo</span><span class=w> </span><span class=cm>( a mod -- res )</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=kr>DIVk</span><span class=w> </span><span class=kr>MUL</span><span class=w> </span><span class=kr>SUB</span><span class=w> </span><span class=kr>JMP2r</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=cm>( RESULT
+</span></span></span><span class=line><span class=cl><span class=cm>WST: 03
+</span></span></span><span class=line><span class=cl><span class=cm>)</span><span class=w>
+</span></span></span></code></pre></div><aside class="callout note"><p class=callout-title>Note</p><div class=callout-content><details><summary>Break</summary><p><strong>Break</strong>(<code>BRK</code>)는 현재 vector의 연산을 종료한다. 이 opcode에는 모드가 없다.</p></details></div></aside><h2 id=further-more><a href=#further-more>Further More&mldr;</a></h2><p>본 글에서는 Uxntal의 기본적 문법과 생태계만을 설명했다. <a href=https://wiki.xxiivv.com/site/uxntal_reference.html target=_blank rel="noopener noreferrer" class=external>다양한 opcode들<svg width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258-.011.002-.071.035-.02.004-.014-.004-.071-.035q-.016-.005-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093q.019.005.029-.008l.004-.014-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02.0 00-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 110 2H5v11h11v-6a1 1 0 112 0v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2zm9-3a1 1 0 011 1v5a1 1 0 11-2 0V6.414l-8.293 8.293a1 1 0 01-1.414-1.414L17.586 5H15a1 1 0 110-2z"/></g></svg></a>
+은 직접 읽어보길 바란다.</p><h2 id=related><a href=#related>Related</a></h2><ul><li><a href=/posts/uxn/uxn/>Uxn/Varvara Ecosystem</a></li></ul><h2 id=references><a href=#references>References</a></h2><ul><li><a href=https://wiki.xxiivv.com/site/uxntal.html target=_blank rel="noopener noreferrer" class=external>https://wiki.xxiivv.com/site/uxntal.html<svg width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258-.011.002-.071.035-.02.004-.014-.004-.071-.035q-.016-.005-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093q.019.005.029-.008l.004-.014-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02.0 00-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 110 2H5v11h11v-6a1 1 0 112 0v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2zm9-3a1 1 0 011 1v5a1 1 0 11-2 0V6.414l-8.293 8.293a1 1 0 01-1.414-1.414L17.586 5H15a1 1 0 110-2z"/></g></svg></a></li><li><a href=https://learnxinyminutes.com/uxntal/ target=_blank rel="noopener noreferrer" class=external>https://learnxinyminutes.com/uxntal/<svg width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258-.011.002-.071.035-.02.004-.014-.004-.071-.035q-.016-.005-.024.005l-.004.01-.017.428.005.02.01.013.104.074.015.004.012-.004.104-.074.012-.016.004-.017-.017-.427q-.004-.016-.017-.018m.265-.113-.013.002-.185.093-.01.01-.003.011.018.43.005.012.008.007.201.093q.019.005.029-.008l.004-.014-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02.0 00-.027.006l-.006.014-.034.614q.001.018.017.024l.015-.002.201-.093.01-.008.004-.011.017-.43-.003-.012-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 110 2H5v11h11v-6a1 1 0 112 0v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2zm9-3a1 1 0 011 1v5a1 1 0 11-2 0V6.414l-8.293 8.293a1 1 0 01-1.414-1.414L17.586 5H15a1 1 0 110-2z"/></g></svg></a></li></ul><div class=footnotes role=doc-endnotes><hr><ol><li id=fn:1><p>2씩 증가하는 이유는 <a href=#opcode-byte class=internal>opcode가 2 bytes를 차지</a>
+하기 때문이다.&#160;<a href=#fnref:1 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:2><p>예외로, <a href=#immediate-opcodes class=internal>immediate opcodes</a>
+는 opcode 직후에 저장된 데이터의 길이만큼 추가된다.&#160;<a href=#fnref:2 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:3><p><code>JMP</code>, <code>JCN</code>, <code>JSR</code>&#160;<a href=#fnref:3 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li><li id=fn:4><p><a href=#immediate-opcodes class=internal>Immediate opcodes</a>
+는 모드를 갖지 않는다.&#160;<a href=#fnref:4 class=footnote-backref role=doc-backlink>&#8617;&#xfe0e;</a></p></li></ol></div></div></main></div><footer><p>&copy;2021-2026 doi, ywbird.</p></footer></body></html>

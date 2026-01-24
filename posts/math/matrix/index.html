@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Matrix 배우기 | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      macros: {
+        "RA": "\\rightarrow"
+      },
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader: {
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>Matrix 배우기</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="0001-01-01T00:00:00&#43;00:00">0001 Jan 1 - 00:00:00</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<p>ANN(Artificial Neural Network)를 배우기 위해 행렬 연산을 배울 필요가 있었다.</p>
+<h2 id="matrix-행렬">
+  <a href="#matrix-%ed%96%89%eb%a0%ac">Matrix, 행렬</a>
+</h2>
+<p>수학에서 행렬은 수를 직사각형 모양으로 배열한것이다.</p>
+<blockquote>
+<p>나는 아래의 방식으로 이해했다.<br>
+스칼라 $\RA$ 벡터 $\RA$ 행렬<br>
+<br>
+$
+ 123456 \RA (1,2,3,4,5,6) \RA
+ \begin{bmatrix}
+ 1 & 2 & 3 \\
+ 4 & 5 & 6 \\
+ \end{bmatrix}
+ $</p>
+</blockquote>
+$$
+A = \begin{bmatrix}
+a_{11} & a_{21} & a_{31} \\
+a_{12} & a_{22} & a_{32} \\
+\end{bmatrix},
+\quad
+A_{1,2} = a_{12}
+$$<h3 id="특이-matrix">
+  <a href="#%ed%8a%b9%ec%9d%b4-matrix">특이 Matrix</a>
+</h3>
+<table><tbody>
+  <tr>
+    <td>Row Matrix</td>
+    <td>Column Matrix</td>
+    <td>Square Matrix</td>
+  </tr>
+  <tr>
+    <td>
+        $$
+        \begin{bmatrix}
+        4 & 5 & 6 \\
+        \end{bmatrix}
+        $$
+    </td>
+    <td>
+        $$
+        \begin{bmatrix}
+        4 \\
+        5 \\
+        6 \\
+        \end{bmatrix}
+        $$
+    </td>
+    <td>
+        $$
+        \begin{bmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9 \\
+        \end{bmatrix}
+        $$
+    </td>
+  </tr>
+</tbody>
+</table>
+<h2 id="연산">
+  <a href="#%ec%97%b0%ec%82%b0">연산</a>
+</h2>
+$$
+A = \begin{bmatrix}
+a_{11} & a_{21} & a_{31} \\
+a_{12} & a_{22} & a_{32} \\
+\end{bmatrix},
+\quad
+B = \begin{bmatrix}
+b_{11} & b_{21} & b_{31} \\
+b_{12} & b_{22} & b_{32} \\
+\end{bmatrix}
+$$<h3 id="덧셈뺄셈">
+  <a href="#%eb%8d%a7%ec%85%88%eb%ba%84%ec%85%88">덧셈/뺄셈</a>
+</h3>
+<p>행렬의 크기가 같아야만 할 수 있다.</p>
+$$
+A\pm B=\begin{bmatrix}
+a_{11}\pm b_{11} & a_{21}\pm b_{21} & a_{31}\pm b_{31} \\
+a_{12}\pm b_{12} & a_{22}\pm b_{22} & a_{32}\pm b_{32} \\
+\end{bmatrix}
+$$<h3 id="실수배">
+  <a href="#%ec%8b%a4%ec%88%98%eb%b0%b0">실수배</a>
+</h3>
+$$
+A = \begin{bmatrix}
+a_{11} & a_{21} & a_{31} \\
+a_{12} & a_{22} & a_{32} \\
+\end{bmatrix},
+\quad
+c\cdot A = \begin{bmatrix}
+c\cdot a_{11} & c\cdot a_{21} & c\cdot a_{31} \\
+c\cdot a_{12} & c\cdot a_{22} & c\cdot a_{32} \\
+\end{bmatrix}
+$$<h3 id="곱셈">
+  <a href="#%ea%b3%b1%ec%85%88">곱셈</a>
+</h3>
+
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

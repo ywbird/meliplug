@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Anti-corner DVD Logo</title>
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+			background-color: black;
+			display: grid;
+			place-items: center;
+			overflow: hidden;
+			height: 100vh;
+		}
+
+		#container {
+			background-color: beige;
+			padding: 4rem;
+			padding-bottom: 3rem;
+			border-radius: 0.4rem;
+		}
+
+		#monitor canvas {
+			border: 1px solid grey;
+		}
+
+		#inputs {
+			padding-top: 2rem;
+			display: flex;
+			justify-content: end;
+			align-items: baseline;
+			gap: 0.7rem;
+		}
+
+		#power-btn {
+			width: 60px;
+			height: 60px;
+			border-radius: 100%;
+			border: 2px solid grey;
+			background-color: beige;
+			box-shadow: 0px 0px 2px 0px #000000 inset;
+			cursor: pointer;
+			transition: 0.4s ease-out;
+
+			&:active {
+				background-color: color-mix(in srgb, beige 50%, grey);
+			}
+		}
+
+		#power-light {
+			width: 5px;
+			height: 5px;
+			border-radius: 100%;
+			background-color: oklch(0.65 0.3 29.62);
+			filter: drop-shadow(0px 0px 9px oklch(0.65 0.3 29.62));
+			animation: on 3s forwards;
+		}
+
+		@keyframes on {
+			from {
+				background-color: oklch(0.65 0.3 29.62);
+				filter: drop-shadow(0px 0px 2px oklch(0.65 0.3 29.62));
+			}
+
+			to {
+				background-color: oklch(0.85 0.36 144.24);
+				filter: drop-shadow(0px 0px 2px oklch(0.85 0.36 144.24));
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container">
+		<div id="monitor"></div>
+		<div id="inputs">
+			<div id="power-light"></div>
+			<button id="power-btn"></button>
+		</div>
+	</div>
+
+	<script src="glfx.js"></script>
+	<script src="dvd.js"></script>
+</body>
+
+</html>

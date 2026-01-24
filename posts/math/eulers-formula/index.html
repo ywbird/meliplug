@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>오일러 공식 | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      macros: {
+        "RA": "\\rightarrow"
+      },
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader: {
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>오일러 공식</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="1970-01-01T09:00:00&#43;09:00">1970 Jan 1 - 09:00:00</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<span style="font-size: 1.5em;">
+$$
+e^{i\theta} = \cos\theta + i\sin\theta
+$$</span>
+<p>수학자 오일러의 이름을 따 오일러 공식<small>Euler&rsquo;s Formula</small>이라 불리는 공식으로, 지수에 복소수가 들어갈 수 있게하는 공식이며, 지수 함수와 삼각 함수 간의 연결점이다.</p>
+<hr>
+<p>내가 이전에 알고있던 지식은 $\sin$, $\cos$, $e^x$의 명확한 정의와 오일러 공식 그 자체 뿐이었고 그 사이의 관계는 그저 그렇구나 하고 받아들이고 있었다.</p>
+$$
+\sin x = \sum^\infty_{n=0}{\frac{(-1)^nx^{2n+1}}{(2n+1)!}}\quad
+\cos x = \sum^\infty_{n=0}{\frac{(-1)^nx^{2n}}{(2n)!}}\quad
+e^x = \sum^\infty_{n=0}{\frac{x^n}{n!}}  
+$$$$
+\ \ \updownarrow\ ?
+$$$$
+e^{i\theta} = \cos\theta + i\sin\theta
+$$<p>최근 고3 미적분 공부를 하며 $\sin$과 $\cos$, $e^x$($=exp(x)$)등을 보며 오일러 공식이 오랜만에 생각났고, 이 함수들의 간의 명확한 관계를 고민하게 됐다.</p>
+$$
+\begin{align}
+e^x &= \sum^\infty_{n=0}{\frac{x^n}{n!}} \\
+    &= 1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \frac{x^5}{5!} + \cdots
+\end{align}
+$$$$
+\begin{align}
+e^{ix} &= \sum^\infty_{n=0}{\frac{(i\cdot x)^n}{n!}} \\
+    &= 1 + \frac{x^1}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} + \frac{x^4}{4!} + \frac{x^5}{5!} + \cdots \\
+    &= \sum^\infty_{n=0}{\frac{(ix)^{2n}}{(2n)!}} + \sum^\infty_{n=0}{\frac{(ix)^{2n+1}}{(2n+1)!}} \\
+    &= \sum^\infty_{n=0}{\frac{(-1)^nx^{2n}}{(2n)!}} + \sum^\infty_{n=0}{\frac{i\cdot(-1)^nx^{2n+1}}{(2n+1)!}} \\
+    &= \cos x + i\sin x
+\end{align}
+$$<p>$f(x)=e^x$에 $ix$를 대입하자, 자연스럽게 $e^{i\theta} = \cos x + i\sin x$를 유도할 수 있었다.</p>
+
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

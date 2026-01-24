@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Jpeg on MeliPlug.info</title>
+    <link>http://localhost:1313/tags/jpeg/</link>
+    <description>Recent content in Jpeg on MeliPlug.info</description>
+    <generator>Hugo -- 0.154.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 Nov 2025 11:23:44 +0900</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/jpeg/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JPEG DCT는 어떻게 작동하는가?</title>
+      <link>http://localhost:1313/posts/math/jpeg-dct/</link>
+      <pubDate>Tue, 18 Nov 2025 11:23:44 +0900</pubDate>
+      <guid>http://localhost:1313/posts/math/jpeg-dct/</guid>
+      <description>이미지 포멧 JPEG은 어떻게 작동할까</description>
+    </item>
+  </channel>
+</rss>

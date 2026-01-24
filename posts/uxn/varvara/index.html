@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Varvara | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>Varvara</h1><div class="post_draft">[ DRAFT ]</div>
+  <div class="tags">
+    <div>Tags:</div>
+    <ul>
+        <li><a href="/tags/assembly/">#Assembly</a></li>
+        <li><a href="/tags/uxn/">#Uxn</a></li>
+    </ul>
+  </div>
+
+
+
+
+Created: <time datetime="0001-01-01T00:00:00&#43;00:00">0001 Jan 1 - 00:00:00</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<div class="quote">
+  <span class="quote_inside">Uxn is to Varvara, what the 6502 is to the Nintendo.</span>
+</div>
+
+<p><strong>Varvara</strong>는 <strong>Uxn</strong>의 시스템이다.</p>
+<aside class="callout important">
+	<p class="callout-title">Important</p>
+	<div class="callout-content"><p>이 글은 Uxntal 및 Uxn의 기본적인 시스템을 이해하고 있다는 가정 하에 작성되었습니다.<br>
+<a href="/posts/uxn/uxntal"    >Uxntal</a>
+</p>
+</div>
+</aside>
+<p>Varvara는 Uxn이 외부 세계와 소통하기 위한 인터페이스이다.</p>
+<p>출력은 zero-page의 주소로 데이터를 보내면 그걸 Varvara가 이용하여 출력하는 방식이다.
+입력은 마찬가지로 zero-page의 주소에서 Varvara가 설정 해놓은 데이터를 가져와서 사용하는 방식이다.</p>
+<p>예를 들어 ascii 문자를 출력하는 것은 다음과 같다.<br>
+Ascii <code>A</code>값 <code>0x41</code>을 주소 <code>0x18</code> 에 작성하는 것이다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="mh">#41</span><span class="w"> </span><span class="mh">#18</span><span class="w"> </span><span class="kr">DEO</span><span class="w"> </span><span class="cm">( &#39;A&#39;의 ascii 값은 65=0x41 )</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">( OUTPUT
+</span></span></span><span class="line"><span class="cl"><span class="cm">A
+</span></span></span><span class="line"><span class="cl"><span class="cm">)</span><span class="w">
+</span></span></span></code></pre></div><p>Zero-page의 주소도 당연하게 라벨을 부여하는 것이 가능하다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="kd">|10</span><span class="w"> </span><span class="nf">@Console/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;read</span><span class="w"> </span><span class="kd">$5</span><span class="w"> </span><span class="nl">&amp;type</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;write</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;error</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="mh">#41</span><span class="w"> </span><span class="vm">.Console/write</span><span class="w"> </span><span class="kr">DEO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">( OUTPUT
+</span></span></span><span class="line"><span class="cl"><span class="cm">A
+</span></span></span><span class="line"><span class="cl"><span class="cm">)</span><span class="w">
+</span></span></span></code></pre></div><h2 id="output">
+  <a href="#output">Output</a>
+</h2>
+<p>앞에서 보았던 것 처럼, 출력을 하기 위해서 특정 zero-page 주소로 데이터를 보내는 방식을 사용했고, <code>DEO</code> opcode를 사용했다.</p>
+<p><strong>Device Output</strong>(<code>DEO</code>)은 스택에서 값을 가져와서 주어진 zero-page의 장치 부분에 작성한다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="kr">DEO</span><span class="w"> </span><span class="cm">( val device8 -- )</span><span class="w">
+</span></span></span></code></pre></div><p>Ascii 값을 hex로 작성하거나, <code>LIT</code>을 이용하는 방법도 있다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="mh">#41</span><span class="w"> </span><span class="mh">#18</span><span class="w"> </span><span class="kr">DEO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kr">LIT</span><span class="w"> </span><span class="s">&#34;A</span><span class="w"> </span><span class="mh">#18</span><span class="w"> </span><span class="kr">DEO</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="cm">( OUTPUT
+</span></span></span><span class="line"><span class="cl"><span class="cm">AA
+</span></span></span><span class="line"><span class="cl"><span class="cm">)</span><span class="w">
+</span></span></span></code></pre></div><p><a href="https://wiki.xxiivv.com/site/uxntal_reference.html#deo"   target="_blank" rel="noopener noreferrer" class="external"  >https://wiki.xxiivv.com/site/uxntal_reference.html#deo<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+</p>
+<aside class="callout note">
+	<p class="callout-title">Note</p>
+	<div class="callout-content"><p>주소 <code>0x18</code>은 zero-page에서 보통 <code>@Console/write</code>로 정의되는 주소로, console에 문자를 출력할때 사용한다.<br>
+<a href="https://wiki.xxiivv.com/site/varvara.html#console"   target="_blank" rel="noopener noreferrer" class="external"  >https://wiki.xxiivv.com/site/varvara.html#console<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+</p>
+</div>
+</aside>
+
+<h2 id="input">
+  <a href="#input">Input</a>
+</h2>
+<p><strong>Device Input</strong>(<code>DEI</code>)은 주어진 zero-page의 장치 부분에서 값을 가져와서 스택에 삽입한다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="kr">DEI</span><span class="w"> </span><span class="cm">( device8 -- val )</span><span class="w">
+</span></span></span></code></pre></div><p>예를 들어 Varvara 화면에서 마우스의 좌표를 아래와 같이 받아올 수 있다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="kd">|90</span><span class="w"> </span><span class="nf">@Mouse/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;x</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;y</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;state</span><span class="w"> </span><span class="kd">$4</span><span class="w"> </span><span class="nl">&amp;scrollx</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;scrolly</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nf">@on-reset</span><span class="w"> </span><span class="cm">( -&gt; )</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="vg">;on-mouse</span><span class="w"> </span><span class="vm">.Mouse/vector</span><span class="w"> </span><span class="kr">DEO2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kr">BRK</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nf">@on-mouse</span><span class="w"> </span><span class="cm">( -&gt; )</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="vm">.Mouse/x</span><span class="w"> </span><span class="kr">DEI2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="vm">.Mouse/y</span><span class="w"> </span><span class="kr">DEI2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kr">POP2</span><span class="w"> </span><span class="kr">POP2</span><span class="w"> </span><span class="kr">BRK</span><span class="w">
+</span></span></span></code></pre></div><aside class="callout note">
+	<p class="callout-title">Note</p>
+	<div class="callout-content"><p><strong>Vector</strong>는 <strong>event listener</strong>의 개념이라 볼 수 있다. Varvara가 마우스 관련 이벤트가 발생했을때, 자동으로 <code>@on-mouse</code> 라벨을 루틴으로 실행하는 것이다.<br>
+하지만 코드 내에서 실행하는 것이 아니고, 코드 내에서는 정의에 그치기에, 각 vector의 말단에 <code>BRK</code>를 두어 진행을 막아야한다.</p>
+</div>
+</aside>
+<h2 id="extend">
+  <a href="#extend">Extend</a>
+</h2>
+<p>그렇기에 아래와 같이 필요한 zero-page 주소들에 미리 라벨링을 하고 사용하는 편이다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tal" data-lang="tal"><span class="line"><span class="cl"><span class="kd">|00</span><span class="w"> </span><span class="nf">@System/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;expansion</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;wst</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;rst</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;metadata</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;r</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;g</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;b</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;debug</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;state</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">|10</span><span class="w"> </span><span class="nf">@Console/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;read</span><span class="w"> </span><span class="kd">$5</span><span class="w"> </span><span class="nl">&amp;type</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;write</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;error</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">|20</span><span class="w"> </span><span class="nf">@Screen/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;width</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;height</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;auto</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;x</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;y</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;addr</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;pixel</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;sprite</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">|80</span><span class="w"> </span><span class="nf">@Controller/vector</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;button</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;key</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">|c0</span><span class="w"> </span><span class="nf">@DateTime</span><span class="w"> </span><span class="nl">&amp;year</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;month</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;day</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;hour</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;minute</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;second</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;dotw</span><span class="w"> </span><span class="kd">$1</span><span class="w"> </span><span class="nl">&amp;doty</span><span class="w"> </span><span class="kd">$2</span><span class="w"> </span><span class="nl">&amp;isdst</span><span class="w"> </span><span class="kd">$1</span><span class="w">
+</span></span></span></code></pre></div>
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

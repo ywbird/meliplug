@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>자동 렌더 - Rust Blog | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>자동 렌더 - Rust Blog</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="2025-03-05T19:59:57&#43;09:00">2025 Mar 5 - 19:59:57</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<h2 id="필요성">
+  <a href="#%ed%95%84%ec%9a%94%ec%84%b1">필요성</a>
+</h2>
+<p>파일이 변경 될때마다 프로그램을 다시 시작하고, 모든 파일을 전부 지웠다가 전부 다시 만드는건 분명 비효율적이다.<br>
+<code>hotwatch</code> crate를 이용해 파일이 변경될 때, 변경된 파일만 다시 렌더하게 해보자.</p>
+<h2 id="만들기">
+  <a href="#%eb%a7%8c%eb%93%a4%ea%b8%b0">만들기</a>
+</h2>
+<p>여태까지는 <code>build_site</code> 함수에서 전 파일을 모두 지우고, 마크다운 파일을 파싱하고, 파일을 생성했다.<br>
+이제는 첫 실행에만 위 동작을 진행하고, 파일 변경을 감지하여 해당 파일만 재생성 할 수 있도록, path를 받아 하나의 글 페이지만 렌더하여 객체로 반환하는 함수로 분리하였다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">parse_post</span><span class="p">(</span><span class="n">file</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span>: <span class="kp">&amp;</span><span class="nc">Options</span><span class="p">,</span><span class="w"> </span><span class="n">content_dir</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">output_dir</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Post</span><span class="p">,</span><span class="w"> </span><span class="n">anyhow</span>::<span class="n">Error</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">raw_markdown</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fs</span>::<span class="n">read_to_string</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// ... parsing markdown file
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">html_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">content_dir</span><span class="p">,</span><span class="w"> </span><span class="n">output_dir</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#34;.md&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;.html&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">html</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Layout</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">title</span>: <span class="kp">&amp;</span><span class="nc">frontmatter</span><span class="p">.</span><span class="n">title</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">date</span>: <span class="kp">&amp;</span><span class="nc">format_date</span><span class="p">(</span><span class="o">&amp;</span><span class="n">frontmatter</span><span class="p">.</span><span class="n">date</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">description</span>: <span class="kp">&amp;</span><span class="nc">frontmatter</span><span class="p">.</span><span class="n">description</span><span class="p">.</span><span class="n">clone</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span>: <span class="kp">&amp;</span><span class="nc">parsed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Post</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">frontmatter</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">content</span>: <span class="nc">html</span><span class="p">.</span><span class="n">render</span><span class="p">().</span><span class="n">unwrap</span><span class="p">(),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">slug</span>: <span class="nc">html_file</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>그리고 파싱된 markdown에서 파일을 생성하는 작업을 for문을 돌려주었다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rs" data-lang="rs"><span class="line"><span class="cl"><span class="k">for</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">&amp;</span><span class="n">markdown_files</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">html_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="n">content_dir</span><span class="p">,</span><span class="w"> </span><span class="n">output_dir</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#34;.md&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;.html&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">post</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parse_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">file</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">content_dir</span><span class="p">,</span><span class="w"> </span><span class="n">output_dir</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">folder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span>::<span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">html_file</span><span class="p">).</span><span class="n">parent</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fs</span>::<span class="n">create_dir_all</span><span class="p">(</span><span class="n">folder</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">fs</span>::<span class="n">write</span><span class="p">(</span><span class="o">&amp;</span><span class="n">html_file</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">post</span><span class="p">.</span><span class="n">content</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div>
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

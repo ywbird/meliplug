@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>tlan</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="fourier-transform-jpeg-dct">Fourier Transform &amp; JPEG
+DCT</h1>
+<p>#math #friday-scholar-speech #para/project #state/done</p>
+<p>TOC:</p>
+<ul>
+<li>Fourier Transform</li>
+<li>Fast Fourier Transform</li>
+<li>JPEG Encoding</li>
+<li>2D Discrete Cosine Transform</li>
+</ul>
+<blockquote>
+<p><a href="https://ywppt.kro.kr/ppt/fourier-jpeg"
+class="uri">https://ywppt.kro.kr/ppt/fourier-jpeg</a></p>
+</blockquote>
+<h2 id="fourier-transformation">Fourier Transformation</h2>
+<p>푸리에 변환이란 시간이나 공간에 대한 함수를 시간이나 공간 주파수
+성분으로 분석하는 것을 말한다.</p>
+<p>함수 <span class="math inline">\(x(t)\)</span>가 복소수 범위에서
+정의되어 있고 르베그 적분이 가능할 때, 이 함수의 푸리에 변환 <span
+class="math inline">\(X(\xi)\)</span>는 다음과 같이 정의된다. <span
+class="math display">\[
+\begin{align}
+X(\xi) &amp;= \int^{\infty}_{-\infty}{x(t)e^{-2\pi i \xi t}}dt \\
+       &amp;= \int^{\infty}_{-\infty}{x(t)(\cos(-2\pi \xi t)+i
+\sin(-2\pi \xi t))}dt \\
+\end{align}
+\]</span></p>
+<h2 id="fast-fourier-tranform">Fast Fourier Tranform</h2>
+<p>DFT(이산 푸리에 변환 Discrete Fourier Transform)은 이산적(불연속적)
+입력 신호에 대한 푸리에 변환으로, 디지털 신호 분석에 주로
+사용된다.<br />
+FFT(고속 푸리에 변환)은 DFT를 빠르게 계산하는 알고리즘이다. 불연속적
+값에 대한 푸리에 변환이므로, 적분이 아닌 합을 이용한다.</p>
+<p><span class="math display">\[
+\begin{align}
+X_k &amp;=\sum^{n-1}_{m=0}{x_me^{-2\pi ikm/n}} \\
+    &amp;=\sum^{n-1}_{m=0}{x_m(\cos(-2\pi km/n) + i\sin(-2\pi km/n))} \\
+    &amp;k = 0, ... , n-1 .
+\end{align}
+\]</span></p>
+<h2 id="jpeg-encoding">JPEG Encoding</h2>
+<h3 id="color-space-transform">Color space transform</h3>
+<p>색 공간 변환 단계에서는 일반적으로 RGBA 인 비트맵 이미지 색공간을
+YC<sub>b</sub>C<sub>r</sub>으로 변환한다.</p>
+<p>YC<sub>b</sub>C<sub>r</sub>는 수학적으로 동일하지만 사용 목적이 다른
+즉, 아날로그 기기를 위한 포멧인 YP<sub>b</sub>P<sub>r</sub>의 디지털
+버전 포멧이다.</p>
+<p>우선 YP<sub>b</sub>P<sub>r</sub>으로 변환한 뒤,
+YC<sub>b</sub>C<sub>r</sub>로 보정해주는 과정을 거치면 된다.</p>
+<p><span class="math display">\[
+\begin{align}
+Y&#39; &amp;= K_R \cdot R&#39; + K_G \cdot G&#39; + K_B \cdot B&#39; \\
+P_B &amp;= \frac{1}{2} \cdot \frac{B&#39;-Y&#39;}{1-K_B} \\
+P_R &amp;= \frac{1}{2} \cdot \frac{R&#39;-Y&#39;}{1-K_R}
+\end{align}
+\]</span> (이때 <span class="math inline">\(K_R, K_G, K_B\)</span>는
+모두 합하여 <span class="math inline">\(1\)</span>이 되는
+상수들이다.)</p>
+<p>계산된 YP<sub>b</sub>P<sub>r</sub>값을 16~235의 범위로
+재조정된다.</p>
+<h3 id="downsampling">Downsampling</h3>
+<p>인간이 색을 인식하는 방법에 명도가 가장 중요하고, 색채는 명도에 비해
+중요하지 않기 때문에, YC<sub>b</sub>C<sub>r</sub>로 인해 명도가 분리된
+상황에서 색채를 나타내는 값을 뭉개버리는 방식이다. YUV라고 불린다.</p>
+<p>JPEG에서는 보통 4:2:0 이라 불리는 4x4 구역에서 각 2x2 구역을 좌상단
+색으로 뭉개는 방식을 사용한다.</p>
+<h3 id="blockspliting">Blockspliting</h3>
+<p>DCT가 짧은 범위 내에서 작동하도록 이미지를 8x8 크기의 블럭들로 나누는
+단계이다.</p>
+<h3 id="discrete-cosine-transform">Discrete cosine transform</h3>
+<p>푸리에 변환이 복소평면에서 원의 무게중심을 적분하는 방식이었지만,
+JPEG 테이블처럼 짝함수(우함수)를 구할 것이 확실한 상황에서 짝함수만을
+얻기 위해 홀함수인 Sine을 무시하고, Cosine만을 얻기 위해 이산연산을
+한다.</p>
+<p><span class="math display">\[
+\begin{align}
+X_k &amp;=\sum^{N-1}_{n=0}{x_n(\cos(-2\pi kn/N) + i\sin(-2\pi kn/N))} \\
+    &amp;k = 0, ... , N-1 .
+\end{align}
+\]</span></p>
+<p><span class="math display">\[
+\downarrow \\
+\]</span></p>
+<p><span class="math display">\[
+X_k = \sum^{N-1}_{n=0}{x_n \cos\left[\frac{(2n+1)k\pi}{2N}\right]},\quad
+k=0,...N-1
+\]</span></p>
+<p>위 이산 코사인 변환을 2차원으로 적용하면 아래와 같다.</p>
+<p><span class="math display">\[
+G_{u,v} =
+\frac14\alpha(u)\alpha(v)\sum^7_{x=0}\sum^7_{y=0}g_{x,y}\cos\left[\frac{(2x+1)u\pi}{2\times8}\right]\cos\left[\frac{(2y+1)v\pi}{2\times8}\right]
+\]</span></p>
+<ul>
+<li><span class="math inline">\(u\)</span>: 수평 DCT, <span
+class="math inline">\(0\leq u&lt;8,\,u\in\mathbb{Z}\)</span></li>
+<li><span class="math inline">\(v\)</span>: 수직 DCT, <span
+class="math inline">\(0\leq v&lt;8,\,v\in\mathbb{Z}\)</span></li>
+<li>정규화를 위한 상수: <span class="math inline">\(\alpha(i) =
+\begin{cases}
+\frac{1}{\sqrt{2}}, \quad &amp;(i=0)\\
+1, \quad &amp;(i&gt;1)
+\end{cases}\)</span></li>
+<li><span class="math inline">\(g_{x,y}\)</span>: <span
+class="math inline">\((x,y)\)</span>에서 픽셀 값</li>
+<li><span class="math inline">\(G_{u,v}\)</span>: <span
+class="math inline">\((u,v)\)</span>에서 DCT 계수 값</li>
+</ul>
+<h3 id="quantization">Quantization</h3>
+<p>인간의 시각은 넓은 영역에서의 미세한 밝기 차이는 구별할 수 있지만,
+고주파의 밝기 변화를 감지하는데 둔하다.</p>
+<p>아래 양자화 계수로 DCT 계수를 나누어 반올림하면 그에 맞춰 작은 값들은
+0에 가까운 값을 사용하게 되어 적은 용량을 차지하게 된다.</p>
+<p><span class="math display">\[
+Q = \begin{bmatrix}
+&amp;16 &amp;11 &amp;10 &amp;16 &amp;24 &amp;40 &amp;51 &amp;61 \\
+&amp;12 &amp;12 &amp;14 &amp;19 &amp;26 &amp;58 &amp;60 &amp;55 \\
+&amp;14 &amp;13 &amp;16 &amp;24 &amp;40 &amp;57 &amp;69 &amp;56 \\
+&amp;14 &amp;17 &amp;22 &amp;29 &amp;51 &amp;87 &amp;80 &amp;62 \\
+&amp;18 &amp;22 &amp;37 &amp;56 &amp;68 &amp;109 &amp;103 &amp;77 \\
+&amp;24 &amp;35 &amp;55 &amp;64 &amp;81 &amp;104 &amp;113 &amp;92 \\
+&amp;49 &amp;64 &amp;78 &amp;87 &amp;103 &amp;121 &amp;120 &amp;101 \\
+&amp;72 &amp;92 &amp;95 &amp;98 &amp;112 &amp;100 &amp;103 &amp;99 \\
+\end{bmatrix}
+\]</span></p>
+<h3 id="entropy-coding">Entropy coding</h3>
+<p>Quantization(양자화)의 결과, DCT 계수들은 좌상단에서 우하단으로
+내려갈수록 작아지는 형태가 된다.</p>
+<p>압축의 핵심은 반복되는 데이터를 제거(생략)하는 것인데, 위의 형태를
+알고, 좌상단에서 우상단으로 지그재그로 내려가면서 배열하면 0에 가까운
+값들이 뭉치게 되어 압축에 용이해진다.</p>
+<h2 id="related">Related</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Riemann_sum"
+class="uri">https://en.wikipedia.org/wiki/Riemann_sum</a></li>
+<li><a href="https://ko.wikipedia.org/wiki/리만_합"
+class="uri">https://ko.wikipedia.org/wiki/리만_합</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fourier_transform"
+class="uri">https://en.wikipedia.org/wiki/Fourier_transform</a></li>
+<li><a href="https://ko.wikipedia.org/wiki/푸리에_변환"
+class="uri">https://ko.wikipedia.org/wiki/푸리에_변환</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fast_Fourier_transform"
+class="uri">https://en.wikipedia.org/wiki/Fast_Fourier_transform</a></li>
+<li><a href="https://ko.wikipedia.org/wiki/고속_푸리에_변환"
+class="uri">https://ko.wikipedia.org/wiki/고속_푸리에_변환</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Discrete_Fourier_transform"
+class="uri">https://en.wikipedia.org/wiki/Discrete_Fourier_transform</a></li>
+<li><a href="https://ko.wikipedia.org/wiki/이산_푸리에_변환"
+class="uri">https://ko.wikipedia.org/wiki/이산_푸리에_변환</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Discrete_cosine_transform"
+class="uri">https://en.wikipedia.org/wiki/Discrete_cosine_transform</a></li>
+<li><a href="https://en.wikipedia.org/wiki/JPEG"
+class="uri">https://en.wikipedia.org/wiki/JPEG</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Y′UV"
+class="uri">https://en.wikipedia.org/wiki/Y′UV</a></li>
+<li><a href="https://namu.wiki/w/YUV"
+class="uri">https://namu.wiki/w/YUV</a></li>
+</ul>
+</body>
+</html>

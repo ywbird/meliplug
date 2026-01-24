@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Laser Shooter 개선하기 | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>Laser Shooter 개선하기</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="2025-10-25T13:52:48&#43;09:00">2025 Oct 25 - 13:52:48</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<p>동아리 프로젝트로 레이저 슈팅 프로젝트를 맡게 되었다.</p>
+<p>레이저 슈팅의 작동 방식은 레이저건으로 과녁을 쏘았을 때, 그 빨간 점을 감지하여 점수를 계산하는 방식.</p>
+<p>OpenCV로 먼저 <a href="https://en.wikipedia.org/wiki/ARTag"   target="_blank" rel="noopener noreferrer" class="external"  >아루코 마커<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+를 인식하여 과녁을 직사각형 형태로 변형한 뒤, 감지하는 방식이다.</p>
+<p>기본 작동하는 코드는 동아리 부장이 작성해서 주어졌지만, 몇가지 개선점을 찾아서 고치게 됐다.</p>
+<h2 id="레이저-포인트-감지-방식-변경">
+  <a href="#%eb%a0%88%ec%9d%b4%ec%a0%80-%ed%8f%ac%ec%9d%b8%ed%8a%b8-%ea%b0%90%ec%a7%80-%eb%b0%a9%ec%8b%9d-%eb%b3%80%ea%b2%bd">레이저 포인트 감지 방식 변경</a>
+</h2>
+<h3 id="기존-방식">
+  <a href="#%ea%b8%b0%ec%a1%b4-%eb%b0%a9%ec%8b%9d">기존 방식</a>
+</h3>
+<ol>
+<li>이미지 색상을 HSV로 처리</li>
+<li>빨간 범위 내에 들어오는 점들을 필터링</li>
+<li>남은 부분에서 외곽선을 추출</li>
+<li>외곽선 내부 넓이가 일정 이상이면 점으로 판단</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="line"><span class="cl"><span class="c1"># 레이저 포인트 검출 (빨강 + 밝은 점)</span>
+</span></span><span class="line"><span class="cl"><span class="n">hsv</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">warped</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2HSV</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lower_red1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">upper_red1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">lower_red2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">160</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">150</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">upper_red2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">179</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">lower_red1</span><span class="p">,</span> <span class="n">upper_red1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">lower_red2</span><span class="p">,</span> <span class="n">upper_red2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">lower_bright</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">200</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">upper_bright</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">179</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">255</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask3</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">inRange</span><span class="p">(</span><span class="n">hsv</span><span class="p">,</span> <span class="n">lower_bright</span><span class="p">,</span> <span class="n">upper_bright</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">bitwise_or</span><span class="p">(</span><span class="n">mask1</span><span class="p">,</span> <span class="n">mask2</span><span class="p">),</span> <span class="n">mask3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">mask</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">medianBlur</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="변경점">
+  <a href="#%eb%b3%80%ea%b2%bd%ec%a0%90">변경점</a>
+</h3>
+<p>기존 빨강색을 추출하는 방식은 주변 환경에 따라 인지가 달라질 수 있기 때문에, 개선점으로 이미지를 YCbCr으로 처리하는 방식을 사용하기로 했다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># BGR → YCrCb 변환 (YCbCr과 동일)</span>
+</span></span><span class="line"><span class="cl"><span class="n">ycrcb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">warped</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2YCrCb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 채널 분리</span>
+</span></span><span class="line"><span class="cl"><span class="n">Y</span><span class="p">,</span> <span class="n">Cr</span><span class="p">,</span> <span class="n">Cb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ycrcb</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 이진 이미지</span>
+</span></span><span class="line"><span class="cl"><span class="n">_</span><span class="p">,</span> <span class="n">binary</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">Cr</span><span class="p">,</span> <span class="n">WHITE_THRESHOLD</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+</span></span></code></pre></div>
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

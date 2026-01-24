@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>ANN 구현하기 - 1. NEAT 구현하기 | MeliPlug.info</title>
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/code.css">
+
+
+<script src="/js/main.js"></script>
+
+<script src="/js/dev.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+</head>
+
+<body>
+	<header>
+		
+<img src="/logo-1.svg" alt="" id="logo">
+<div class="menu-bar">
+	
+  <nav>
+    <ul>
+    <li>
+      <a href="/">[Home]</a>
+    </li>
+    <li>
+      <a href="/ideas/">[Ideas]</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">[Posts]</a>
+    </li>
+    <li>
+      <a href="/projects/">[Projects]</a>
+    </li>
+    </ul>
+  </nav>
+
+	<div class="menu-buttons">
+		<span role="button" id="color-btn"></span>
+		<span role="button" id="theme-btn"></span>
+	</div>
+</div>
+
+	</header>
+	<div id="main">
+		<aside id="left-aside">
+      
+		</aside>
+		<aside id="right-aside">
+      
+<div id="toc-anchor"></div>
+
+		</aside>
+		<main>
+			
+<h1>ANN 구현하기 - 1. NEAT 구현하기</h1><div class="post_draft">[ DRAFT ]</div>
+
+
+
+
+Created: <time datetime="0001-01-01T00:00:00&#43;00:00">0001 Jan 1 - 00:00:00</time>
+<br>
+
+
+
+
+
+
+<hr>
+
+<div id="content">
+<h2 id="ann-방식-고르기">
+  <a href="#ann-%eb%b0%a9%ec%8b%9d-%ea%b3%a0%eb%a5%b4%ea%b8%b0">ANN 방식 고르기</a>
+</h2>
+<p>ANN(Artificial Neural Network)에도 여러 방식이 있다.<br>
+<a href="https://en.wikipedia.org/wiki/Types_of_artificial_neural_networks"   target="_blank" rel="noopener noreferrer" class="external"  >WIKIPEDIA - Types of artificial neural networks<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+</p>
+<p>그중 사용할 것은 NEAT(<strong>N</strong>euro<strong>E</strong>volution of <strong>A</strong>ugmented <strong>T</strong>opologies)</p>
+<p>NEAT는 다음 세 단계를 거친다.</p>
+<h3 id="평가">
+  <a href="#%ed%8f%89%ea%b0%80">평가</a>
+</h3>
+<p>전 단계에서 만들어진 ANN을 사용해 시뮬레이션을 실행하고 결과를 평가한다.</p>
+<h3 id="선택">
+  <a href="#%ec%84%a0%ed%83%9d">선택</a>
+</h3>
+<p>평가 결과중 상위 20%-30%를 제외하고 제거한다.</p>
+<h3 id="변형">
+  <a href="#%eb%b3%80%ed%98%95">변형</a>
+</h3>
+<p>다음 세가지 변형 중 하나를 실행한다.</p>
+<ul>
+<li>연결 변화<br>
+존재하는 연결 중 하나의 weight를 변화시킨다.</li>
+<li>연결 추가<br>
+새로 연결을 추가한다.</li>
+<li>노드 추가<br>
+존재하는 연결 중 하나를 나눠서 사이에 노드를 삽입한다.</li>
+</ul>
+<h2 id="구현">
+  <a href="#%ea%b5%ac%ed%98%84">구현</a>
+</h2>
+<p>연결, 노드, neat개체를 정의한다.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">NodeKind</span><span class="w"> </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Input</span><span class="w"> </span><span class="nx">NodeKind</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Output</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Hidden</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Bias</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Conn</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">From</span><span class="w">   </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">To</span><span class="w">     </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Weight</span><span class="w"> </span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Node</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Idx</span><span class="w">   </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Kind</span><span class="w">  </span><span class="nx">NodeKind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Value</span><span class="w"> </span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">NeatEntity</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Nodes</span><span class="w"> </span><span class="p">[]</span><span class="nx">Node</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">Conns</span><span class="w"> </span><span class="p">[]</span><span class="nx">Conn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">ins</span><span class="w">   </span><span class="p">[]</span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">outs</span><span class="w">  </span><span class="p">[]</span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">input</span><span class="w"> </span><span class="p">[]</span><span class="kt">float64</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h3 id="노드-정렬---kahns-algorithm">
+  <a href="#%eb%85%b8%eb%93%9c-%ec%a0%95%eb%a0%ac---kahns-algorithm">노드 정렬 - Kahn&rsquo;s algorithm</a>
+</h3>
+<p>노드의 값를 계산할때, 이미 계산되지 않은 노드를 참조하면 안되기 때문에, 들어오는 연결이 없는 노드를 우선으로 정렬해야한다.</p>
+<p>Topological Sorting을 이용해 노드를 정렬한다.<br>
+<a href="https://en.wikipedia.org/wiki/Topological_sorting"   target="_blank" rel="noopener noreferrer" class="external"  >WIKIPEDIA - Topological sorting<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/></g></svg></a>
+</p>
+<pre>
+<i>L</i> ← Empty list that will contain the sorted elements
+<i>S</i> ← Set of all nodes with no incoming edge
+
+<b>while</b> <i>S</i> <b>is not</b> empty <b>do</b>
+    remove a node <i>n</i> from <i>S</i>
+    add <i>n</i> to <i>L</i>
+    <b>for each</b> node <i>m</i> with an edge <i>e</i> from <i>n</i> to <i>m</i> <b>do</b>
+        remove edge <i>e</i> from the <i>graph</i>
+        <b>if</b> <i>m</i> has no other incoming edges <b>then</b>
+            insert <i>m</i> into <i>S</i>
+
+<b>if</b> <i>graph</i> has edges <b>then</b>
+    <b>return</b> error   (graph has at least one cycle)
+<b>else</b> 
+    <b>return</b> <i>L</i>   (a topologically sorted order)
+</pre>
+
+</div>
+
+
+		</main>
+	</div>
+	<footer>
+		<p>&copy;2021-2026 doi, ywbird.</p>
+
+	</footer>
+</body>
+
+</html>

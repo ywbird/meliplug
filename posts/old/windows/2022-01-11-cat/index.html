@@ -1,0 +1,27 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width"><title>리눅스 cat 명령어 구현하기 | MeliPlug.info</title><link rel=stylesheet href=/css/main.min.55d3673b3a28abf955f15aa79cf0b705411a0db04e2c485293f1e83896d02692.css integrity="sha256-VdNnOzooq/lV8VqnnPC3BUEaDbBOLEhSk/HoOJbQJpI=" crossorigin=anonymous><link rel=stylesheet href=/css/code.min.29bfd3b9f622c1a0c8f584f6791fa51fc9fd6808577e6ca258969c1aac25c8cc.css integrity="sha256-Kb/TufYiwaDI9YT2eR+lH8n9aAhXfmyiWJacGqwlyMw=" crossorigin=anonymous><script src=/js/main.60b2d451228917c6833af597c59d5dbb7d06ba49d1510e6fddb2dd850dd14179.js integrity="sha256-YLLUUSKJF8aDOvWXxZ1du30GuknRUQ5v3bLdhQ3RQXk=" crossorigin=anonymous></script></head><body><header><img src=/logo-1.svg alt id=logo><div class=menu-bar><nav><ul><li><a href=/>[Home]</a></li><li><a href=/ideas/>[Ideas]</a></li><li><a aria-current=true class=ancestor href=/posts/>[Posts]</a></li><li><a href=/projects/>[Projects]</a></li></ul></nav><div class=menu-buttons><span role=button id=color-btn></span>
+<span role=button id=theme-btn></span></div></div></header><div id=main><aside id=left-aside></aside><aside id=right-aside><div id=toc-anchor></div></aside><main><h1>리눅스 cat 명령어 구현하기</h1><div class=post_archived><span class=post_archived_label>[ ARCHIVED ]</span><ul class=post_archived_description><li>더 이상 관심사가 아닌 경우</li><li>현재와 다른 내용인 경우</li><li>현재 관리되고 있지 않은 경우</li></ul></div><div class=tags><div>Tags:</div><ul><li><a href=/tags/windows/>#Windows</a></li></ul></div>Created: <time datetime=2022-01-11T00:00:00+00:00>2022 Jan 11 - 00:00:00</time><br><hr><div id=content><h1 id=cat-명령어란><a href=#cat-%eb%aa%85%eb%a0%b9%ec%96%b4%eb%9e%80>😻cat 명령어란?</a></h1><p><code>cat</code> 명령어는 linux에서 지원하는 명령어이며, 명령어의 인자로 파일의 이름을 받아서 출력하는 명령어 입니다.</p><p>{% include code title=&lsquo;hello.txt&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Hello, World!
+</span></span></code></pre></div><p>{% include code title=&lsquo;banana.txt&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Banana is yam.
+</span></span></code></pre></div><pre tabindex=0><code>$ cat hello.txt banana.txt
+Hello, World!
+Banana is yam.
+</code></pre><h1 id=type-명령어의-문제점><a href=#type-%eb%aa%85%eb%a0%b9%ec%96%b4%ec%9d%98-%eb%ac%b8%ec%a0%9c%ec%a0%90>🙀type 명령어의 문제점</a></h1><p>윈도우에는 기본적으로 <code>type</code>라는 명령어가 있습니다.
+<code>type</code>는 <code>cat</code>과 비슷하지만 <code>cat</code>은 파일이 여러개라도 항상 파일의 내용만 출력하는 반면 <code>type</code>는 인자가 2개 이상이면 파일의 이름도 같이 출력돼서 문제가 있습니다.</p><p>{% include code title=&lsquo;hello.txt&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Hello, World!
+</span></span></code></pre></div><p>{% include code title=&lsquo;banana.txt&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>Banana is yam.
+</span></span></code></pre></div><pre tabindex=0><code>&gt; type hello.txt banana.txt
+
+hello.txt
+
+
+Hello, World!
+
+banana.txt
+
+
+Banana is yam.
+</code></pre><p>이렇게 출력하죠</p><h1 id=해결법><a href=#%ed%95%b4%ea%b2%b0%eb%b2%95>👍해결법</a></h1><p>먼저 <code>doskey</code>명령어를 이용해서 만들어보겠습니다.</p><p><code>batch</code>언어만을 이용하려고 했지만 인자가 여러개가 되면 리스트 객체를 이용해야 하고 <code>C/C++</code>언어를 이용하기는 VS를 깔기 귀찮아서 <code>Python</code>으로 구현했습니다 ㅎㅎ</p><h2 id=코드><a href=#%ec%bd%94%eb%93%9c>🔎코드</a></h2><p>코드는 <strong>너무</strong> 짧아요 ㅎ</p><p>{% include code title=&lsquo;cat.py&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>sys</span><span class=o>.</span><span class=n>argv</span><span class=p>[</span><span class=mi>1</span><span class=p>:]:</span>
+</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=nb>open</span><span class=p>(</span><span class=n>i</span><span class=p>)</span><span class=o>.</span><span class=n>read</span><span class=p>(),</span><span class=n>end</span><span class=o>=</span><span class=s2>&#34;&#34;</span><span class=p>)</span>
+</span></span></code></pre></div><p><code>sys</code>모듈로 인자를 받고 <code>for</code>문을 이용해서 출력하는 방식입니다.</p><h2 id=적용><a href=#%ec%a0%81%ec%9a%a9>🕶적용</a></h2><p>일종의 명령어이기 때문에 <code>system32</code>에 위치시키겠습니다.</p><p><code>%windir%\system32\</code>에 들어가 준 후 코드 파일(<code>cat.py</code>)를 이동 또는 복사합니다.</p><p><code>init.cmd</code>에 다음 줄을 추가해 주세요.</p><p>🎈<code>init.cmd</code>쓰는법은 아래 링크에!
+🏷<a href=/windows/cmd-start>Cmd 자동실행 파일 만들기</a>
+{:.notice.notice&ndash;info}</p><p>{% include code title=&lsquo;init.cmd&rsquo; %}</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-batch data-lang=batch><span class=line><span class=cl>doskey cat=<span class=nv>%windir%</span>\system32\cat.py $*
+</span></span></code></pre></div><h1 id=마무리><a href=#%eb%a7%88%eb%ac%b4%eb%a6%ac>🎞마무리</a></h1><p>이상으로 <strong>{{ page.title }}</strong> 포스팅을 마치겠습니다.</p></div></main></div><footer><p>&copy;2021-2026 doi, ywbird.</p></footer></body></html>

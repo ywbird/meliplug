@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Assembly on MeliPlug.info</title><link>https://meliplug.info/tags/assembly/</link><description>Recent content in Assembly on MeliPlug.info</description><generator>Hugo -- 0.154.2</generator><language>en-us</language><lastBuildDate>Tue, 09 Dec 2025 22:55:34 +0900</lastBuildDate><atom:link href="https://meliplug.info/tags/assembly/rss.xml" rel="self" type="application/rss+xml"/><item><title>Uxntal</title><link>https://meliplug.info/posts/uxn/uxntal/</link><pubDate>Tue, 09 Dec 2025 22:55:34 +0900</pubDate><guid>https://meliplug.info/posts/uxn/uxntal/</guid><description>&lt;div class="quote"&gt;
+&lt;span class="quote_inside"&gt;A programming language for the Uxn virtual machine.&lt;/span&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Uxntal&lt;/strong&gt;은 &lt;strong&gt;Uxn&lt;/strong&gt;의 언어이다.&lt;/p&gt;
+&lt;p&gt;Uxntal은 Uxn CPU 위에서 돌아가는 &lt;span class="sc_highlight" style="--highlight: var(--primary7);"&gt;ROM&lt;/span&gt;
+으로 컴파일 되기 위한 Assembly 언어이다.&lt;/p&gt;
+&lt;aside class="callout note"&gt;
+&lt;p class="callout-title"&gt;Note&lt;/p&gt;
+&lt;div class="callout-content"&gt;&lt;p&gt;Uxntal은 여느 프로그래밍 언어와 마찬가지로 상호의존적으로 엮여진 구조이기에, 순서대로 배우기는 어렵지만, 최대한 독립적인 개념부터 정리했다.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/aside&gt;
+&lt;h2 id="read-only-memory-rom"&gt;
+&lt;a href="#read-only-memory-rom"&gt;&lt;span class="sc_highlight" style="--highlight: var(--primary7);"&gt;Read Only Memory (ROM)&lt;/span&gt;&lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;&lt;span class="sc_highlight" style="--highlight: var(--primary7);"&gt;ROM&lt;/span&gt;
+은 Uxntal로부터 어셈블된다. 이름이 &lt;strong&gt;ROM&lt;/strong&gt;(&lt;strong&gt;R&lt;/strong&gt;ead &lt;strong&gt;O&lt;/strong&gt;nly &lt;strong&gt;M&lt;/strong&gt;emory)이지만, Uxn에 로드되는 순간, &lt;strong&gt;&lt;code&gt;STA&lt;/code&gt; 등을 이용해 수정될 수 있다&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Uxntal의 &lt;a href="#opcodes" class="internal" &gt;opcode&lt;/a&gt;
+를 포함한 대부분의 데이터는 그대로 byte로 변환된다.&lt;/p&gt;</description></item></channel></rss>
