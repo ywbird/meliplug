@@ -897,6 +897,7 @@ mjx-container[display] {
     border-top: none !important;
     width: max-content;
     margin: 0;
+    padding: 10px;
   }
 }
 @media (width <= 1400px ) {
