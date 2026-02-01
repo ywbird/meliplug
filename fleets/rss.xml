@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Fleets on MeliPlug.info</title><link>https://meliplug.info/fleets/</link><description>Recent content in Fleets on MeliPlug.info</description><generator>Hugo -- 0.154.2</generator><language>en-us</language><lastBuildDate>Sun, 25 Jan 2026 16:55:26 +0000</lastBuildDate><atom:link href="https://meliplug.info/fleets/rss.xml" rel="self" type="application/rss+xml"/><item><title>SDF</title><link>https://meliplug.info/fleets/1465027298867544287/</link><pubDate>Sun, 25 Jan 2026 16:55:26 +0000</pubDate><guid>https://meliplug.info/fleets/1465027298867544287/</guid><description>&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Fleets on MeliPlug.info</title><link>https://meliplug.info/fleets/</link><description>Recent content in Fleets on MeliPlug.info</description><generator>Hugo -- 0.154.2</generator><language>en-us</language><lastBuildDate>Fri, 30 Jan 2026 17:45:10 +0000</lastBuildDate><atom:link href="https://meliplug.info/fleets/rss.xml" rel="self" type="application/rss+xml"/><item><title>{justify,align}-{content,items}</title><link>https://meliplug.info/fleets/1466851753239515258/</link><pubDate>Fri, 30 Jan 2026 17:45:10 +0000</pubDate><guid>https://meliplug.info/fleets/1466851753239515258/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;@doi&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://cdn.discordapp.com/attachments/1466851753239515258/1466851753805877318/image.png?ex=698039e6&amp;amp;is=697ee866&amp;amp;hm=4ff386e31d75131e91cd7a957eb48deedf33f4d49a7d82667275ecb36ed65574&amp;amp;" alt="None (if your seeing this raw text, your network might be blocking discord server)"&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</description></item><item><title>JSXGraph</title><link>https://meliplug.info/fleets/1466760554889744600/</link><pubDate>Fri, 30 Jan 2026 11:42:47 +0000</pubDate><guid>https://meliplug.info/fleets/1466760554889744600/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;@doi&lt;/strong&gt;&lt;br&gt;
+&lt;a href="https://viz.meliplug.info/gen" target="_blank" rel="noopener noreferrer" class="external" &gt;https://viz.meliplug.info/gen&lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"&gt;&lt;g fill="none"&gt;&lt;path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/&gt;&lt;path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;div class="fleet-embed"&gt;
+&lt;div class="embed-inner"&gt;
+&lt;div class="embed-text"&gt;
+&lt;div class="embed-title"&gt;&lt;a href="https://viz.meliplug.info/gen"&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;div class="embed-description"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;</description></item><item><title>SDF</title><link>https://meliplug.info/fleets/1465027298867544287/</link><pubDate>Sun, 25 Jan 2026 16:55:26 +0000</pubDate><guid>https://meliplug.info/fleets/1465027298867544287/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;@doi&lt;/strong&gt;&lt;br&gt;
 Signed Distance Function&lt;/p&gt;
 &lt;p&gt;===&lt;br&gt;
@@ -129,7 +144,7 @@ P = 사진&lt;/p&gt;
 &lt;p&gt;ln P = 1/P&lt;/p&gt;
 &lt;p&gt;P ln P = 1&lt;/p&gt;
 &lt;p&gt;정의에 부합.&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://cdn.discordapp.com/attachments/1464229640972402848/1464229641337442355/IMG_3494.png?ex=6978aa1e&amp;amp;is=6977589e&amp;amp;hm=ad9a1ddfe237a69a3ef3d7b5c40eb705a34da9c45d436935aa653e816e9bfd18&amp;amp;" alt="None (if your seeing this raw text, your network might be blocking discord server)"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://cdn.discordapp.com/attachments/1464229640972402848/1464229641337442355/IMG_3494.png?ex=6980931e&amp;amp;is=697f419e&amp;amp;hm=2b0f177f30e46eba637f57dd26ef15ba803d02bec670e183f452fbfdb240cb6d&amp;amp;" alt="None (if your seeing this raw text, your network might be blocking discord server)"&gt;&lt;/p&gt;
 &lt;/blockquote&gt;</description></item><item><title>zk in hugo?</title><link>https://meliplug.info/fleets/1463993081815760896/</link><pubDate>Thu, 22 Jan 2026 20:25:50 +0000</pubDate><guid>https://meliplug.info/fleets/1463993081815760896/</guid><description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;@doi&lt;/strong&gt;&lt;br&gt;
 &lt;a href="https://zk-org.github.io/zk/" target="_blank" rel="noopener noreferrer" class="external" &gt;zk-org&lt;svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"&gt;&lt;g fill="none"&gt;&lt;path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/&gt;&lt;path fill="currentColor" d="M11 6a1 1 0 1 1 0 2H5v11h11v-6a1 1 0 1 1 2 0v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm9-3a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0V6.414l-8.293 8.293a1 1 0 0 1-1.414-1.414L17.586 5H15a1 1 0 1 1 0-2Z"/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;/a&gt;
@@ -169,7 +184,7 @@ $&lt;/p&gt;
 &lt;p&gt;$
 \cos x = \sum^\infty_{n=0}{\frac{(-1)^nx^{2n}}{(2n)!}}
 $&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://cdn.discordapp.com/attachments/1455888770296451113/1455888770640646321/ql_94f954ad24885c61dae5eec35456685f_l3.png?ex=6978a494&amp;amp;is=69775314&amp;amp;hm=b7b692198dfe6ffdd31cd21ff93a1985820209d85b0d2b9ae5fb10e390917575&amp;amp;" alt="None (if your seeing this raw text, your network might be blocking discord server)"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://cdn.discordapp.com/attachments/1455888770296451113/1455888770640646321/ql_94f954ad24885c61dae5eec35456685f_l3.png?ex=69808d94&amp;amp;is=697f3c14&amp;amp;hm=abc31fd4094b1de54626fcfb67e0dbcb2441188fb52a0e748d3f8b3e126f8d95&amp;amp;" alt="None (if your seeing this raw text, your network might be blocking discord server)"&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;@doi&lt;/strong&gt;&lt;br&gt;
