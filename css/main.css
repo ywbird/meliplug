@@ -423,7 +423,7 @@ main {
 
     transition: 80ms ease-in-out;
 
-    &:hover {
+    &:hover:not(.nodeco) {
       background-color: color-mix(in srgb, var(--primary6) 50%, transparent 50%);
       border-bottom-width: 2px;
     }
@@ -458,6 +458,13 @@ main {
       }
     }
 
+    &.nodeco {
+      text-decoration: none;
+      border-bottom: 0;
+      /* &:hover { */
+      /*   border-bottom: 0 !important; */
+      /* } */
+    }
   }
 
   .footnotes ol {
